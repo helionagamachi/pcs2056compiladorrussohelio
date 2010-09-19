@@ -1,0 +1,14 @@
+// The comments will be like Java , and c 
+/* this form will also be valid
+a Lot of comments
+
+a Lot of comments
+*
+a Lot of comments
+a Lot of comments
+a Lot of comments
+a Lot of comments
+a Lot of comments/
+a Lot of comments
+
+*/

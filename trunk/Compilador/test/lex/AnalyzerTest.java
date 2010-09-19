@@ -40,7 +40,7 @@ public class AnalyzerTest {
 
     @Test
     public void testSomeMethod() {
-        URL testFile = this.getClass().getResource("/test");
+        URL testFile = this.getClass().getResource("/lex/testSource");
         Analyzer a = new Analyzer(testFile.getFile());
     }
 
