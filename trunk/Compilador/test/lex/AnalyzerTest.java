@@ -5,13 +5,13 @@
 
 package lex;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
-import org.junit.After;
 import org.junit.AfterClass;
-import org.junit.Assume;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  *
@@ -19,29 +19,40 @@ import org.junit.Test;
  */
 public class AnalyzerTest {
 
+    private static Analyzer analyzer;
+
+
     public AnalyzerTest() {
     }
 
     @BeforeClass
     public static void setUpClass() throws Exception {
+        analyzer = Analyzer.getInstance();
     }
 
     @AfterClass
     public static void tearDownClass() throws Exception {
     }
 
-    @Before
-    public void setUp() {
-    }
-
-    @After
-    public void tearDown() {
-    }
-
+    /**
+     * Tests if the analyzer is a single ton object, it will be requested by
+     * diferents componnents, it should always be the same object to work.
+     */
     @Test
-    public void testSomeMethod() {
-        URL testFile = this.getClass().getResource("/lex/testSource");
-        Analyzer a = new Analyzer(testFile.getFile());
+    public void testSingleTon() {
+        Analyzer secondInstance = Analyzer.getInstance();
+        assertSame("The singleton pattern is not working...", analyzer, secondInstance);
     }
+    @Test
+    public void testLoadFile() throws FileNotFoundException, IOException{
+        URL sourceFile = AnalyzerTest.class.getResource("/lex/emptySource");
+        analyzer.setFile(sourceFile.getFile());
+        Token nullToken = analyzer.getNextToken();
+        assertNull(nullToken);
+        
+    }
+
+
+
 
 }
