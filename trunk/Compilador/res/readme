@@ -1,0 +1,6 @@
+Files that are in this folder can be found by this way in any class:
+this.getClass().getResource("/readme");
+this method will return null if nothing is found, in case that a file is found
+it will return a URL object, to get the file path, use this method:
+testFile.getFile()
+This seems to be a good way to get files for test, or config
