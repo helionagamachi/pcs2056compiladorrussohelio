@@ -16,8 +16,6 @@ public abstract class Automata {
     protected State currentState = State.INITIAL;
     
 
-    String symbols[]={"+", "-", ";", ""};
-
     /**
      * The automaton recieves the characterer, if it can still 
      * process another char returns true, if it is on the final state or

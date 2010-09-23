@@ -19,6 +19,7 @@ public enum  State {
     //States for String,
     STRING_CONTENT, STRING_FINAL(true),
     //For reserved words and identifiers...
+    POSSIBLE_RESERVED_WORD, POSSIBLE_OPERATOR, RESERVED_WORD(true), IDENTIFIER(true)
     ;
     
     private boolean finalState;
