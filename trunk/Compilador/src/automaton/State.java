@@ -5,54 +5,31 @@
 
 package automaton;
 
-import java.util.HashMap;
-import org.apache.log4j.Logger;
-import lex.Token;
-
 /**
  *
  * @author Helio
  */
-public class State {
-
-    private static Logger LOGGER = Logger.getLogger(State.class);
-
-    private HashMap<Character,State> transitions;
+public enum  State {
+    //Default states for every automata.
+    INITIAL,  ERROR,
+    //States for the comment automata.
+    COMMENT_START, COMMENT_LINE , COMMENT_BLOCK , COMMENT_BLOCK_END,
+    //States for number automata,
+    INTEGER(true), FLOAT(true), FLOAT_STARTED_BY_DOT,
+    //States for String,
+    STRING_CONTENT, STRING_FINAL(true),
+    //For reserved words and identifiers...
+    ;
+    
     private boolean finalState;
-    private Token token;
-    // for debugging
-    private String name;
-
-    public State (boolean isFinal , Token token , String name){
-        this.finalState = isFinal;
-        this.token = token;
-        this.name = name;
-        this.transitions = new HashMap<Character, State>();
+    private State(){
+        this.finalState = false;
+    }
+    private State(boolean finalState){
+        this.finalState = finalState;
     }
 
-    public State nextState(Character c){
-        LOGGER.debug("On state " + this.name);
-        if(this.transitions.containsKey(c)){
-            return this.transitions.get(c);
-        }else{
-            return this;
-        }
-    }
-
-    public void setTransition(Character c, State nextState){
-        LOGGER.debug("State " + this.name + " recieves transition, char "  + c + " to " + nextState.getName());
-        this.transitions.put(c, nextState);
-    }
-
-    public boolean isFinal(){
+    public boolean isFinalState(){
         return this.finalState;
-    }
-
-    public Token getToken(){
-        return this.token;
-    }
-
-    protected String getName(){
-        return this.name;
     }
 }

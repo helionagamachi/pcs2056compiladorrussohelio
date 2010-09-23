@@ -6,7 +6,6 @@ public class Token {
     private int value;
 
     public Token(TokenType type, int value) {
-        super();
         this.type = type;
         this.value = value;
     }

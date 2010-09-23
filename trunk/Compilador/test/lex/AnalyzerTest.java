@@ -45,11 +45,12 @@ public class AnalyzerTest {
     }
     @Test
     public void testLoadFile() throws FileNotFoundException, IOException{
+        //An empty file is loaded
         URL sourceFile = AnalyzerTest.class.getResource("/lex/emptySource");
         analyzer.setFile(sourceFile.getFile());
+        // No token at all to me...
         Token nullToken = analyzer.getNextToken();
         assertNull(nullToken);
-        
     }
 
 
