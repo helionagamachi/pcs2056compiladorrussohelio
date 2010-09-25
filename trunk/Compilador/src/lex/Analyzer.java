@@ -40,10 +40,10 @@ public class Analyzer {
     }
 
     public Token getNextToken(){
+        Token result;
+        result = null;
         if(this.now==-1){
-            LOGGER.info("end of the file");
-            //End of file, or should return other stuff?
-            return null;
+            
         }
         
 

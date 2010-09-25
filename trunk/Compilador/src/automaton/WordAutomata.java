@@ -29,8 +29,7 @@ public class WordAutomata extends Automata {
         "while",
         "for",
         "int",
-        "float"
-    };
+        "float",};
     private final String[] operators = {
         "+",
         "-",
@@ -51,11 +50,13 @@ public class WordAutomata extends Automata {
 
     @Override
     public boolean processChar(char a) {
+
         boolean result = false;
         switch (this.currentState) {
             case INITIAL:
                 checkPossibleReserved(a);
                 if (this.possibleReserved.length == 0) {
+                    // no possible reserved, word, it is an identifier.
                     if (charIsOnArray(a, letters)) {
                         //The first char on a identifier must be a letter
                         this.currentState = State.IDENTIFIER;
@@ -67,7 +68,7 @@ public class WordAutomata extends Automata {
                         //likely to be an operator
                         this.currentState = State.POSSIBLE_OPERATOR;
                     } else {
-                    //has a chance to be a reserved word
+                        //has a chance to be a reserved word
                         this.currentState = State.POSSIBLE_RESERVED_WORD;
                     }
                     result = true;
@@ -82,21 +83,58 @@ public class WordAutomata extends Automata {
                 }
                 break;
             case POSSIBLE_RESERVED_WORD:
+                LOGGER.debug("On the possible reserved word state");
                 if (isInitialOperator(a) || charIsOnArray(a, whiteSpaceChars)) {
-                    //very likely that it is the end.
-                    //do not consume the char.
+                    //very likely that it is the end...
+//                    if (this.possibleReserved.length > 0) {
+                    int index = -1, count = 0;
+                    while (count < this.possibleReserved.length) {
+                        if (this.name.equals(this.possibleReserved[count])) {
+                            index = count;
+                            break;
+                        }
+                        count++;
+                    }
+                    if (index != -1) {
+                        // Found a reserverd word!
+                        this.currentState = State.RESERVED_WORD;
+                    } else {
+                        // could be an identifier with like
+                        // whil , right after it a white space or possible operator
+                        this.currentState = State.IDENTIFIER;
+                    }
+//                    }
+
                 } else {
                     checkPossibleReserved(a);
                     if (this.possibleReserved.length == 0) {
                         // no possible reserved word, it is a identifier like
-                        //ifNoOneLikeThisStuff
+                        //ifNot
                         this.currentState = State.IDENTIFIER;
-                        result = true;
-                        this.name += a;
+                    }
+                    result = true;
+                    this.name += a;
+                }
+                break;
+            case POSSIBLE_OPERATOR:
+                if (this.possibleReserved.length == 1) {
+                    // don't even want to check, just make it return, analyzer
+                    // should grab the token
+                    this.currentState = State.RESERVED_WORD;
+                } else {
+                    checkPossibleReserved(a);
+                    //it reduced the possibilities to zero!
+                    if (this.possibleReserved.length == 0) {
+                        LOGGER.error("Word Automata in error State!");
+                        this.currentState = State.ERROR;
                     } else {
-                        //
+                        this.name += a;
+                        result = true;
                     }
                 }
+                break;
+            case RESERVED_WORD:
+                //doesn't consume the char
                 break;
 
         }
@@ -132,8 +170,9 @@ public class WordAutomata extends Automata {
 
     //checks for possible reserverd words that can matche the char
     private void checkPossibleReserved(char check) {
-        LOGGER.debug("Checking possible reserverd");
+        LOGGER.debug("Checking possible reserved words");
         if (this.possibleReserved.length == 0) {
+            // <editor-fold defaultstate="collapsed" desc="Checking for possible ones.">
             LOGGER.debug("Should be the first check this one");
             // its is likely to be the first time to be run.
             int possibleQuantity = 0;
@@ -147,8 +186,12 @@ public class WordAutomata extends Automata {
                     possibleQuantity++;
                 }
             }
+            LOGGER.debug("The possible quantity of reserved words is :" + possibleQuantity);
             if (possibleQuantity > 0) {
                 this.possibleReserved = new String[possibleQuantity];
+            } else {
+                LOGGER.debug("Ended the search for reserved words");
+                return;
             }
             int done = 0;
             for (int count = 0; count < this.reservedWords.length; count++) {
@@ -163,10 +206,45 @@ public class WordAutomata extends Automata {
                     done++;
                 }
             }
+// </editor-fold>
         } else {
+            // The possible reserved word array has at least one element.
+            // I have the string so far collected.
+            // This new char will be on wich index ?
+            // Compare with the char on this index on each candidate.
             LOGGER.debug("Not the first check for reserved words");
+            //a temp array, it eventually will substitute the current array
+            String[] temp = new String[this.possibleReserved.length];
+            //The length of the stored string indicates where to look
+            int index2Compare = this.name.length();
+            int found = 0;
+            for (int count = 0; count < this.possibleReserved.length; count++) {
+                if (this.possibleReserved[count].length() > index2Compare) {
+                    //Avoiding index outbounds exception
+                    if (check == this.possibleReserved[count].charAt(index2Compare)) {
+                        //copies to the temp array.
+                        temp[found] = this.possibleReserved[count];
+                        found++;
+                    }
+
+                }
+
+            }
+            if (found < this.possibleReserved.length) {
+                // a new array is necessary.
+                String[] temp2 = new String[found];
+                int count = 0;
+                while (count < found) {
+                    temp2[count] = temp[count];
+                    count++;
+                }
+                temp = temp2.clone();
+            }
+
+            this.possibleReserved = temp;
 
         }
+        LOGGER.debug("Ended the search for reserved words");
 
     }
 
@@ -184,8 +262,13 @@ public class WordAutomata extends Automata {
                 result = true;
                 break;
             }
+            count++;
         }
         return result;
+    }
+
+    protected String getName() {
+        return this.name;
     }
 
     /**
