@@ -10,7 +10,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.logging.Level;
 import static utils.ArraysUtils.whiteSpaceChars;
 import static utils.ArraysUtils.charIsOnArray;
 
@@ -100,7 +99,8 @@ public class Analyzer {
         if(automataState.isFinalState()){
             result = this.currentAutomata.getToken();
         }
-            resetAutomatas();
+        // New automata will be used from here...
+        resetAutomatas();
         if (result == null){
             result = getNextToken();
         }
@@ -163,7 +163,6 @@ public class Analyzer {
      * For testing only, resets the instance
      */
     protected void resetAnalyzer()  {
-        instance = null;
         instance = new Analyzer();
     }
 

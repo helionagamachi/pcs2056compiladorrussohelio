@@ -10,6 +10,49 @@ package utils;
  */
 public class ArraysUtils {
 
+
+    /**
+     * Gets the number corresponding to the given reservedWord
+     * @param reserverWord
+     * @return -1 if the word given is not listed in the operators
+     * or reserved words array
+     */
+    public static int getReservedWordIndex(String reservedWord){
+        int count = 0;
+        while(count < operators.length){
+            //searches in the operators array.
+            if(reservedWord.equals(operators[count])){
+                return count;
+            }
+            count++;
+        }
+        while(count < operators.length + reservedWords.length){
+            // searches in the reserve words 
+            if(reservedWord.equals(reservedWords[count - operators.length])){
+                return count;
+            }
+            count++;
+        }
+        return -1;
+    }
+
+    /**
+     * Returns the reserved word, given it`s index
+     * @param index the index of the reserved word
+     * @return the reserved word, empty String if the index doesn't match a
+     * reserved word.
+     */
+    public static String getReservedWordByIndex(int index){
+        if(index < operators.length){
+            return operators[index];
+        }
+        if(index < operators.length + reservedWords.length){
+            return reservedWords[index - operators.length];
+        }
+
+        return "";
+    }
+
     /**
      * All reserved words that does not takes at least letter
      */
