@@ -5,9 +5,9 @@
 
 package lex;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -34,26 +34,46 @@ public class AnalyzerTest {
     public static void tearDownClass() throws Exception {
     }
 
+    @After
+    public void tearDown() throws IOException{
+        analyzer.resetAnalyzer();
+    }
+
     /**
      * Tests if the analyzer is a single ton object, it will be requested by
-     * diferents componnents, it should always be the same object to work.
+     * different components, it should always be the same object to work.
      */
     @Test
     public void testSingleTon() {
         Analyzer secondInstance = Analyzer.getInstance();
+        secondInstance.resetAnalyzer();
         assertSame("The singleton pattern is not working...", analyzer, secondInstance);
     }
+    
     @Test
-    public void testLoadFile() throws FileNotFoundException, IOException{
+    public void testEmptyLoadFile(){
         //An empty file is loaded
         URL sourceFile = AnalyzerTest.class.getResource("/lex/emptySource");
         analyzer.setFile(sourceFile.getFile());
-        // No token at all to me...
-        Token nullToken = analyzer.getNextToken();
-        assertNull(nullToken);
+        // the EOF token
+        Token endOfFileToken = analyzer.getNextToken();
+        assertEquals(TokenType.EOF , endOfFileToken.getType());
+        
     }
+    @Test
+    public void testCommentAndNumber(){
+        //The URL source file of this test
+        analyzer = Analyzer.getInstance();
 
-
+        URL sourceFile = AnalyzerTest.class.getResource("/lex/numberCommentSource");
+        analyzer.setFile(sourceFile.getFile());
+        Token Test = analyzer.getNextToken();
+        System.out.println(Test);
+        Test = analyzer.getNextToken();
+        System.out.println(Test);
+        Test = analyzer.getNextToken();
+        System.out.println(Test);
+    }
 
 
 }

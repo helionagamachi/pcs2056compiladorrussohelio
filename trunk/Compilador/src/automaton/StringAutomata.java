@@ -45,7 +45,10 @@ public class StringAutomata extends Automata {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    //for debug 
+    /**
+     * For debugging
+     * @return the string that was mounted until now
+     */
     public String getContent(){
         return this.content;
     }
