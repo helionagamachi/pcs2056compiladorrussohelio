@@ -6,6 +6,11 @@ package automaton;
 
 import lex.Token;
 import org.apache.log4j.Logger;
+import static utils.ArraysUtils.letters;
+import static utils.ArraysUtils.operators;
+import static utils.ArraysUtils.reservedWords;
+import static utils.ArraysUtils.whiteSpaceChars;
+import static utils.ArraysUtils.charIsOnArray;
 
 /**
  * Automata to find reserved words and identifiers,
@@ -15,31 +20,7 @@ import org.apache.log4j.Logger;
 public class WordAutomata extends Automata {
 
     private static Logger LOGGER = Logger.getLogger(WordAutomata.class);
-    private final char[] letters = {
-        'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o',
-        'p', 'q', 'r', 's', 't', 'u', 'v', 'x', 'w', 'y', 'z',
-        'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O',
-        'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'X', 'W', 'Y', 'Z',};
-    private final char[] whiteSpaceChars = {
-        ' ', '\t', '\n'
-    };
     private String name;
-    private final String[] reservedWords = {
-        "if",
-        "while",
-        "for",
-        "int",
-        "float",};
-    private final String[] operators = {
-        "+",
-        "-",
-        "++",
-        ")",
-        "(",
-        "[",
-        "]",
-        "=",
-        "+=",};
     private String possibleReserved[];
 
     public WordAutomata() {
@@ -153,20 +134,7 @@ public class WordAutomata extends Automata {
         this.possibleReserved = new String[0];
     }
 
-    //checks if a character is present in a array of characters
-    protected boolean charIsOnArray(char check, char[] charArray) {
-        boolean result = false;
-        int total = charArray.length;
-        int count = 0;
-        while (count < total) {
-            if (check == charArray[count]) {
-                result = true;
-                break;
-            }
-            count++;
-        }
-        return result;
-    }
+
 
     //checks for possible reserverd words that can matche the char
     private void checkPossibleReserved(char check) {
@@ -176,13 +144,13 @@ public class WordAutomata extends Automata {
             LOGGER.debug("Should be the first check this one");
             // its is likely to be the first time to be run.
             int possibleQuantity = 0;
-            for (int count = 0; count < this.reservedWords.length; count++) {
-                if (check == this.reservedWords[count].charAt(0)) {
+            for (int count = 0; count < reservedWords.length; count++) {
+                if (check == reservedWords[count].charAt(0)) {
                     possibleQuantity++;
                 }
             }
-            for (int count = 0; count < this.operators.length; count++) {
-                if (check == this.operators[count].charAt(0)) {
+            for (int count = 0; count < operators.length; count++) {
+                if (check == operators[count].charAt(0)) {
                     possibleQuantity++;
                 }
             }
@@ -194,15 +162,15 @@ public class WordAutomata extends Automata {
                 return;
             }
             int done = 0;
-            for (int count = 0; count < this.reservedWords.length; count++) {
-                if (check == this.reservedWords[count].charAt(0)) {
-                    this.possibleReserved[done] = this.reservedWords[count];
+            for (int count = 0; count < reservedWords.length; count++) {
+                if (check == reservedWords[count].charAt(0)) {
+                    this.possibleReserved[done] = reservedWords[count];
                     done++;
                 }
             }
-            for (int count = 0; count < this.operators.length; count++) {
-                if (check == this.operators[count].charAt(0)) {
-                    this.possibleReserved[done] = this.operators[count];
+            for (int count = 0; count < operators.length; count++) {
+                if (check == operators[count].charAt(0)) {
+                    this.possibleReserved[done] = operators[count];
                     done++;
                 }
             }
@@ -256,9 +224,9 @@ public class WordAutomata extends Automata {
     protected boolean isInitialOperator(char check) {
         boolean result = false;
         int count = 0;
-        int total = this.operators.length;
+        int total = operators.length;
         while (count < total) {
-            if (check == this.operators[count].charAt(0)) {
+            if (check == operators[count].charAt(0)) {
                 result = true;
                 break;
             }
@@ -267,6 +235,10 @@ public class WordAutomata extends Automata {
         return result;
     }
 
+    /**
+     * For testing
+     * @return the kept name
+     */
     protected String getName() {
         return this.name;
     }

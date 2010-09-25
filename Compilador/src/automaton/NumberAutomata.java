@@ -5,6 +5,7 @@
 package automaton;
 
 import lex.Token;
+import lex.TokenType;
 
 /**
  * Automata to deal with the numbers, float and integers
@@ -68,8 +69,9 @@ public class NumberAutomata extends Automata {
 
     @Override
     public Token getToken() {
-        //TODO: return the token!
-        return null;
+        //The MVN will not get a Float , so the result will be the integer part
+        Token result = new Token(TokenType.INT, this.integerNumber);
+        return result;
 
     }
 

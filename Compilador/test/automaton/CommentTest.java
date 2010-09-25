@@ -5,7 +5,6 @@
 
 package automaton;
 
-import java.net.URL;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
