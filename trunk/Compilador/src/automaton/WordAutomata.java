@@ -5,12 +5,14 @@
 package automaton;
 
 import lex.Token;
+import lex.TokenType;
 import org.apache.log4j.Logger;
 import static utils.ArraysUtils.letters;
 import static utils.ArraysUtils.operators;
 import static utils.ArraysUtils.reservedWords;
 import static utils.ArraysUtils.whiteSpaceChars;
 import static utils.ArraysUtils.charIsOnArray;
+import static utils.ArraysUtils.getReservedWordIndex;
 
 /**
  * Automata to find reserved words and identifiers,
@@ -124,7 +126,15 @@ public class WordAutomata extends Automata {
 
     @Override
     public Token getToken() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        switch(this.currentState){
+            case RESERVED_WORD:
+                return new Token(TokenType.RESERVED_WORD, getReservedWordIndex(name));
+            case IDENTIFIER:
+                // Some one knows the value...
+                return new Token(TokenType.IDENTIFIER, 0);
+        }
+
+        return null;
     }
 
     @Override
