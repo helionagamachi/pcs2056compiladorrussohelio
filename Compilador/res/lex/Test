@@ -14,3 +14,8 @@ int fatorial(int numero){
         return fatorial(numero - 1);
 }
 }
+
+
+int div(){ //Será que acertei agora?
+return a / 2  ; 
+}

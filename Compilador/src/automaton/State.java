@@ -13,7 +13,7 @@ public enum  State {
     //Default states for every automata.
     INITIAL,  ERROR,
     //States for the comment automata.
-    COMMENT_START, COMMENT_LINE , COMMENT_BLOCK , COMMENT_BLOCK_END,
+    COMMENT_START, COMMENT_LINE , COMMENT_BLOCK , COMMENT_BLOCK_END, COMMENT_END(true),
     //States for number automata,
     INTEGER(true), FLOAT(true), FLOAT_STARTED_BY_DOT,
     //States for String,
