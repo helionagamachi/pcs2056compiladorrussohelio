@@ -15,6 +15,7 @@ import static utils.ArraysUtils.charIsOnArray;
 
 
 import org.apache.log4j.Logger;
+import utils.SymbolTable;
 
 /**
  * Class that represents the lexical analyzer
@@ -32,8 +33,9 @@ public class Analyzer {
     private NumberAutomata numberAutomata;
     private StringAutomata stringAutomata;
     private Automata currentAutomata;
+    private automataSelection possibleAutomatas[];
     //Look ahead of 1?
-    private int now, next;
+    private int now, line;
 
     /**
      * Sets the file to be used by the Analyzer
@@ -51,17 +53,24 @@ public class Analyzer {
         readNextChar();
     }
 
-    public Token getNextToken() {
-        LOGGER.debug("Automata selected " + this.selectedAutomata.name());
+    /**
+     * Gets the next token on from the source file
+     * @return the token, if reaches the end of the file, token of the type EOF
+     * will be given
+     */
+    public Token getNextToken(SymbolTable table) {
+//        LOGGER.debug("Automata selected " + this.selectedAutomata.name());
         Token result;
         result = null;
         while (charIsOnArray((char) now, whiteSpaceChars)) {
-            LOGGER.debug("Killing white spaces");
+//            LOGGER.debug("Killing white spaces");
             readNextChar();
         }
         if (now == -1) {
             LOGGER.info("End of the file, returning the End of file token");
-            return  new Token(TokenType.EOF, 0);
+            Token eof = new Token(TokenType.EOF, 0);
+            eof.setLine(line);
+            return  eof;
         }
         switch (this.selectedAutomata) {
             case NONE:
@@ -75,7 +84,7 @@ public class Analyzer {
                     this.selectedAutomata = automataSelection.WORD;
                 }
                 readNextChar();
-                return getNextToken();
+                return getNextToken(table);
             case COMMENT:
                 this.currentAutomata = this.commentAutomata;
                 break;
@@ -88,6 +97,9 @@ public class Analyzer {
             case WORD:
                 this.currentAutomata = this.wordAutomata;
                 break;
+            case MORE_THAN_ONE:
+                //Will have a special method?
+                break;
         }
         //advances the state machine...
         while (this.currentAutomata.processChar((char) now)) {
@@ -98,11 +110,20 @@ public class Analyzer {
         State automataState = this.currentAutomata.getState();
         if(automataState.isFinalState()){
             result = this.currentAutomata.getToken();
+            if(table != null){
+                if(automataState == State.IDENTIFIER){
+                    int index;
+                    index = table.addLine(this.wordAutomata.getIdentifier());
+                    result.setValue(index);
+                }
+            }
         }
-        // New automata will be used from here...
+        // Automata need to be reseted
         resetAutomatas();
         if (result == null){
-            result = getNextToken();
+            result = getNextToken(table);
+        }else{
+            result.setLine(this.line);
         }
 
         return result;
@@ -121,7 +142,10 @@ public class Analyzer {
     private void readNextChar() {
         try {
             now = this.fileSource.read();
-            LOGGER.debug("Read the char : " + now);
+            if(now == '\n'){
+                this.line ++;
+            }
+//            LOGGER.debug("Read the char : " + now);
         } catch (IOException ex) {
             LOGGER.error("IO exception while reading the source file" + ex.getMessage());
             now = -1;
@@ -137,6 +161,8 @@ public class Analyzer {
         this.wordAutomata = new WordAutomata();
         this.currentAutomata = null;
         this.fileSource = null;
+        this.line = 1;
+        this.possibleAutomatas = new automataSelection[0];
     }
 
     private void resetAutomatas() {
@@ -166,8 +192,21 @@ public class Analyzer {
         instance = new Analyzer();
     }
 
-    protected enum automataSelection {
+    /**
+     * Adds to the list of the possible automatas.
+     * @param possibleOne
+     */
+    protected void addNewPossibleAutomata(automataSelection possibleOne){
+        int size = this.possibleAutomatas.length + 1;
+        automataSelection newPossibleArray[] = new automataSelection[size];
+        for(int index = 0 ; index < this.possibleAutomatas.length ; index ++){
+            newPossibleArray[index] = this.possibleAutomatas[index];
+        }
+        newPossibleArray[size-1] = possibleOne;
+        this.possibleAutomatas = newPossibleArray;
+    }
 
-        COMMENT, NUMBER, STRING, WORD, NONE
+    protected enum automataSelection {
+        COMMENT, NUMBER, STRING, WORD, NONE , MORE_THAN_ONE
     }
 }

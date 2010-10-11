@@ -133,7 +133,6 @@ public class WordAutomata extends Automata {
                 // Some one knows the value...
                 return new Token(TokenType.IDENTIFIER, 0);
         }
-
         return null;
     }
 
@@ -155,6 +154,7 @@ public class WordAutomata extends Automata {
             // its is likely to be the first time to be run.
             int possibleQuantity = 0;
             for (int count = 0; count < reservedWords.length; count++) {
+                LOGGER.debug("Checking on the reserver word");
                 if (check == reservedWords[count].charAt(0)) {
                     possibleQuantity++;
                 }
@@ -168,7 +168,6 @@ public class WordAutomata extends Automata {
             if (possibleQuantity > 0) {
                 this.possibleReserved = new String[possibleQuantity];
             } else {
-                LOGGER.debug("Ended the search for reserved words");
                 return;
             }
             int done = 0;
@@ -222,7 +221,6 @@ public class WordAutomata extends Automata {
             this.possibleReserved = temp;
 
         }
-        LOGGER.debug("Ended the search for reserved words");
 
     }
 
@@ -246,10 +244,10 @@ public class WordAutomata extends Automata {
     }
 
     /**
-     * For testing
-     * @return the kept name
+     * Returns the name kept on the machine state
+     * it is to be used by lexical to use this to retrieve identifiers/symbols
      */
-    protected String getName() {
+    public String getIdentifier() {
         return this.name;
     }
 
