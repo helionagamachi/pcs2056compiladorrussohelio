@@ -1,0 +1,257 @@
+\providecommand{\abntreprintinfo}[1]{%
+ \citeonline{#1}}
+\setlength{\labelsep}{0pt}\begin{thebibliography}{}
+\providecommand{\abntrefinfo}[3]{}
+\providecommand{\abntbstabout}[1]{}
+\abntbstabout{1.40 }
+
+\bibitem[ 2010]{ffmpeg2010about}
+\abntrefinfo{nada}{NADA}{2010}
+{RUSSELL Dyer. Acesso em : 6 de abril de 2010.
+Dispon{\'\i}vel em: $<$http://ffmpeg.org/about.html$>$.}
+
+\bibitem[About Java Technology 2010]{java2010about}
+\abntrefinfo{About\ldots}{ABOUT\ldots}{2010}
+{ABOUT Java Technology. Acesso em : 3 de abril de 2010.
+Http://www.sun.com/java/about/.
+Dispon{\'\i}vel em: $<$http://www.sun.com/java/about/$>$.}
+
+\bibitem[Allen et al. 2010]{allen2010crossdevelopment}
+\abntrefinfo{Allen et al.}{ALLEN et al.}{2010}
+{ALLEN, C.; ALLEN, S.; GRAUPERA, V.; LUNDRIGAN, L. \emph{Pro Smartphone
+  Cross-Platform Development: IPhone, Blackberry, Windows Mobile and Android
+  Development and Distribution}. [S.l.]: Apress, 2010.
+ISBN 9781430228684.}
+
+\bibitem[Apache.org 2010]{apache2010sobre}
+\abntrefinfo{Apache.org}{APACHE.ORG}{2010}
+{APACHE.ORG. \emph{About the Apache {HTTP} Server Project - The Apache {HTTP}
+  Server Project}. Acesso em : 12 de fevereiro de 2010.
+Dispon{\'\i}vel em: $<$http://httpd.apache.org/ABOUT_APACHE.html$>$.}
+
+\bibitem[Babcock 1998]{babcock1998crossplatform}
+\abntrefinfo{Babcock}{BABCOCK}{1998}
+{BABCOCK, M. The importance of the {GUI} in cross platform development.
+Linux Journal, v.~49, maio 1998.
+ISSN 1075-3583.
+Dispon{\'\i}vel em: $<$http://www.linuxjournal.com/article/2723$>$.}
+
+\bibitem[Beighley e Morryson 2009]{beighley2009phpmysql}
+\abntrefinfo{Beighley e Morryson}{BEIGHLEY; MORRYSON}{2009}
+{BEIGHLEY, L.; MORRYSON, M. \emph{Head first {PHP} \& {MySQL}}. Gravenstein
+  Highway North, Sebastopol, CA: {O'Reilly}, 2009.
+ISBN 9780596006303.}
+
+\bibitem[Bishop e Horspool 2006]{bishop2006crossplatform}
+\abntrefinfo{Bishop e Horspool}{BISHOP; HORSPOOL}{2006}
+{BISHOP, J.; HORSPOOL, N. {Cross-Platform} development: Software that lasts.
+\emph{Computer}, IEEE Computer Society Press, v.~39, n.~10, p. 26--35, 2006.
+ISSN 0018-9162.
+Dispon{\'\i}vel em:
+  $<$http://ieeexplore.ieee.org/lpdocs/epic03/wrapper.htm?arnumber=1707631$>$.}
+
+\bibitem[Castagnetto et al. 1999]{castagnetto1999php}
+\abntrefinfo{Castagnetto et al.}{CASTAGNETTO et al.}{1999}
+{CASTAGNETTO, J.; RAWAT, H.; SCHUMANN, S.; SCOLLO, C.; VELIATH, D.
+  \emph{Professional {PHP} programming}. Birmingham: Wrox Press, 1999.
+ISBN 1-861002-96-3.}
+
+\bibitem[Dehinbo 2005]{dehinbo2005performance}
+\abntrefinfo{Dehinbo}{DEHINBO}{2005}
+{DEHINBO, J. The performance of web-based 2-tier middleware systems.
+\emph{Issues in Informing Science and Information Technology}, v.~2, p.
+  757--769, 2005.
+Dispon{\'\i}vel em: $<$http://2005papers.iisit.org/I59f23Dehi.pdf$>$.}
+
+\bibitem[Dyer 2008]{dyer2008mysql}
+\abntrefinfo{Dyer}{DYER}{2008}
+{DYER, R. \emph{{MySQL} in a nutshell}. 2nd ed.. ed. Sebastopol {CA}:
+  {O'Reilly}, 2008.
+ISBN 9780596514334.}
+
+\bibitem[Eddy e Eddy 2009]{eddy2009android}
+\abntrefinfo{Eddy e Eddy}{EDDY; EDDY}{2009}
+{EDDY, J.; EDDY, P.~D. \emph{Google on the Go: Using an Android-Powered Mobile
+  Phone}. [S.l.]: Que Publishing, 2009.
+ISBN 9780768690262.}
+
+\bibitem[Fonoage 2010]{fonoage2009crossplatform}
+\abntrefinfo{Fonoage}{FONOAGE}{2010}
+{FONOAGE, M. \emph{Mihai Fonoage's Blog: Cross-Platform Mobile Development}.
+  Acesso em : 11 de fevereiro de 2010.
+Dispon{\'\i}vel em:
+  $<$http://www.mihaifonoage.blogspot.com/2009/12/cross-platform-mobile-development.html$>$.}
+
+\bibitem[Freire e Pereira 2008]{freire2008general}
+\abntrefinfo{Freire e Pereira}{FREIRE; PEREIRA}{2008}
+{FREIRE, M.; PEREIRA, M. \emph{Encyclopedia of Internet Technologies and
+  Applications}. Hershey: InformatIon ScIence Reference, 2008.
+ISBN 9781591409946.}
+
+\bibitem[Gerner et al. 2006]{gerner2006lamp}
+\abntrefinfo{Gerner et al.}{GERNER et al.}{2006}
+{GERNER, J.; NARAMORE, E.; OWENS, M.~L.; WARDEN, M. \emph{Professional {LAMP}:
+  Linux, Apache, {MySQL,} and {PHP} Web development}. Indianapolis {IN}: Wiley
+  Publishing, 2006.
+ISBN 9780764597237.}
+
+\bibitem[Gross 2006]{gross2006ajax}
+\abntrefinfo{Gross}{GROSS}{2006}
+{GROSS, C. \emph{Ajax patterns and best practices}. Berkeley {CA}: Apress,
+  2006.
+ISBN 9781590596166.}
+
+\bibitem[Hanson e Tacy 2007]{hanson2007gwt}
+\abntrefinfo{Hanson e Tacy}{HANSON; TACY}{2007}
+{HANSON, R.; TACY, A. \emph{{GWT} in action: Easy Ajax with the Google Web
+  toolkit}. [S.l.]: Manning, 2007.
+ISBN 9781933988238.}
+
+\bibitem[Haseman 2008]{haseman2008android}
+\abntrefinfo{Haseman}{HASEMAN}{2008}
+{HASEMAN, C. \emph{Android essentials}. Berkeley, {CA} {:;New} York, {NY} ::
+  Apress, 2008.
+ISBN 9781430210634.}
+
+\bibitem[Hudson 2005]{hudson2005php}
+\abntrefinfo{Hudson}{HUDSON}{2005}
+{HUDSON, P. \emph{{PHP} in a nutshell}. 1st ed.. ed. Sebastopol Calif.:
+  {O'Reilly}, 2005.
+ISBN 9780596100674.}
+
+\bibitem[Kassinen et al. 2010]{kassinen2010crossplatform}
+\abntrefinfo{Kassinen et al.}{KASSINEN et al.}{2010}
+{KASSINEN, O.; HARJULA, E.; KOSKELA, T.; YLIANTTILA, M. Guidelines for the
+  implementation of cross-platform mobile middleware.
+\emph{International Journal of Software Engineering and Its Applications},
+  {SERSC}: Science & Engineering Research Support soCiety, v.~4, n.~3, p.
+  43--58, 2010.
+ISSN 0018-9162.
+Dispon{\'\i}vel em:
+  $<$http://www.sersc.org/journals/IJSEIA/vol4\_no3\_2010/5.pdf$>$.}
+
+\bibitem[Laurie e Laurie 2003]{laurie2003apache}
+\abntrefinfo{Laurie e Laurie}{LAURIE; LAURIE}{2003}
+{LAURIE, B.; LAURIE, P. \emph{Apache: The Definitive Guide}. 3rd ed.. ed.
+  Sebastopol {CA}: {O'Reilly}, 2003.
+ISBN 9780596002039.}
+
+\bibitem[Lee e Ware 2003]{lee2003lamp}
+\abntrefinfo{Lee e Ware}{LEE; WARE}{2003}
+{LEE, J.; WARE, B. \emph{Open source Web development with {LAMP}: using Linux,
+  Apache, {MySQL,} Perl, and {PHP}}. Boston: {Addison-Wesley}, 2003.
+ISBN 9780201770612.}
+
+\bibitem[Lerdorf 2006]{lerdorf2006php}
+\abntrefinfo{Lerdorf}{LERDORF}{2006}
+{LERDORF, R. \emph{Programming {PHP}}. 2nd ed.. ed. Sebastopol Calif.:
+  {O'Reilly}, 2006.
+ISBN 9780596006815.}
+
+\bibitem[{McLaughlin} 2001]{mclaughlin2001java}
+\abntrefinfo{{McLaughlin}}{{McLaughlin}}{2001}
+{{McLaughlin}, B. \emph{Java \& {XML}}. 2nd ed.. ed. Beijing {;;Cambridge}
+  {[Mass.]}: {O'Reilly}, 2001.
+ISBN 9780596001971.}
+
+\bibitem[Monday 2003]{monday2003java}
+\abntrefinfo{Monday}{MONDAY}{2003}
+{MONDAY, P.~B. \emph{Web services patterns: Java edition}. Berkeley Calif.
+  {;London}: Apress, 2003.
+ISBN 9781590590843.}
+
+\bibitem[Negrino e Smith 2007]{negrino2007ajax}
+\abntrefinfo{Negrino e Smith}{NEGRINO; SMITH}{2007}
+{NEGRINO, T.; SMITH, D. \emph{{JavaScript} and Ajax for the Web}. 6th ed.. ed.
+  Berkeley Calif.: Peachpit Press, 2007.
+ISBN 9780321430328.}
+
+\bibitem[Netcraft 2010]{netcraft2010php}
+\abntrefinfo{Netcraft}{NETCRAFT}{2010}
+{NETCRAFT. \emph{August 2010 Web Server Survey {\textbar} Netcraft}. Acesso em
+  : 12 de fevereiro de 2010.
+Http://news.netcraft.com/archives/2010/08/11/august-2010-web-server-survey-4.html.
+Dispon{\'\i}vel em:
+  $<$http://news.netcraft.com/archives/2010/08/11/august-2010-web-server-survey-4.html$>$.}
+
+\bibitem[Niemeyer e Knudsen 2005]{niemeyer2005java}
+\abntrefinfo{Niemeyer e Knudsen}{NIEMEYER; KNUDSEN}{2005}
+{NIEMEYER, P.; KNUDSEN, J. \emph{Learning Java}. 3rd ed.. ed. Sebastopol {CA}:
+  {O'Reilly}, 2005.
+ISBN 9780596008734.}
+
+\bibitem[Omicini et al. 2001]{omicini2001scripting}
+\abntrefinfo{Omicini et al.}{OMICINI et al.}{2001}
+{OMICINI, A.; ZAMBONELLI, F.; KLUSCH, M.; TOLKSDORF, R. \emph{Coordination of
+  Internet agents: models, technologies, and applications}. Berlin {;;New}
+  York: Springer, 2001. 153--175~p.
+ISBN 3-540-41613-7.}
+
+\bibitem[{PEAR} - {PHP} Extension and Application Repository
+  2010]{pear2010home}
+\abntrefinfo{{PEAR}\ldots}{{PEAR}\ldots}{2010}
+{{PEAR} - {PHP} Extension and Application Repository. Acesso em : 12 de
+  fevereiro de 2010.
+Http://pear.php.net/.
+Dispon{\'\i}vel em: $<$http://pear.php.net/$>$.}
+
+\bibitem[PHP.net 2010]{php2010historia}
+\abntrefinfo{PHP.net}{PHP.NET}{2010a}
+{PHP.NET. \emph{{PHP:} A Hist—ria do {PHP?} - Manual}. Acesso em : 11 de
+  fevereiro de 2010.
+Dispon{\'\i}vel em: $<$http://www.php.net/manual/pt_BR/history.php.php$>$.}
+
+\bibitem[PHP.net 2010]{php2010oquee}
+\abntrefinfo{PHP.net}{PHP.NET}{2010b}
+{PHP.NET. \emph{{PHP:} O que Ž {PHP?} - Manual}. Acesso em : 11 de fevereiro de
+  2010.
+Dispon{\'\i}vel em: $<$http://www.php.net/manual/pt_BR/intro-whatis.php$>$.}
+
+\bibitem[Reese et al. 2002]{reese2002mysql}
+\abntrefinfo{Reese et al.}{REESE et al.}{2002}
+{REESE, G.; JARGER, R.~J.; KING, T.; WILLIAMS, H.~E. \emph{Managing and using
+  {MySQL}}. 2nd ed.. ed. Sebastopol {CA} {;;Farnham}: {O'Reilly}, 2002.
+ISBN 9780596002114.}
+
+\bibitem[Salehi 2006]{salehi2006imagemagick}
+\abntrefinfo{Salehi}{SALEHI}{2006}
+{SALEHI, S. \emph{{ImageMagick} Tricks: Web Image Effects {from the} Command
+  Line {and} {PHP}}. Birmingham: Packt Publishing, 2006.
+ISBN 9781904811862.}
+
+\bibitem[Seffah 2004]{seffah2004crossplatform}
+\abntrefinfo{Seffah}{SEFFAH}{2004}
+{SEFFAH, A. \emph{Multiple user interfaces : cross-platform applications and
+  context-aware interfaces}. Hoboken {NJ}: J. Wiley, 2004.
+ISBN 9780470854440.}
+
+\bibitem[Smart 2006]{smart2006crossplatform}
+\abntrefinfo{Smart}{SMART}{2006}
+{SMART, J. \emph{Cross-platform {GUI} programming with {wxWidgets}}. Upper
+  Saddle River {NJ}: Prentice Hall {PTR}, 2006.
+ISBN 9780131473812.}
+
+\bibitem[Torvalds e Diamond 2001]{torvalds2001linux}
+\abntrefinfo{Torvalds e Diamond}{TORVALDS; DIAMOND}{2001}
+{TORVALDS, L.; DIAMOND, D. \emph{Just for fun : the story of an accidental
+  revolutionary}. 1st ed.. ed. New York {NY}: {HarperBusiness}, 2001.
+ISBN 9780066620725.}
+
+\bibitem[Ullman 2009]{ullman2009php}
+\abntrefinfo{Ullman}{ULLMAN}{2009}
+{ULLMAN, L. \emph{{PHP} for the Web: Visual QuickStart Guide}. 3rd. ed.
+  Berkeley, {CA} :: Peachpit Press,, 2009.
+ISBN 9780321515551.}
+
+\bibitem[Wikipedia 2010]{ffmpeg2010wikipedia}
+\abntrefinfo{Wikipedia}{WIKIPEDIA}{2010}
+{WIKIPEDIA, t. f.~e. Acesso em : 3 de abril de 2010.
+Dispon{\'\i}vel em: $<$http://en.wikipedia.org/wiki/FFmpeg$>$.}
+
+\bibitem[Zukowski 2006]{zukowski2006java}
+\abntrefinfo{Zukowski}{ZUKOWSKI}{2006}
+{ZUKOWSKI, J. \emph{Java 6 platform revealed}. Berkeley {CA} {;New} York {NY}:
+  Apress, 2006.
+ISBN 9781590596609.}
+
+\end{thebibliography}

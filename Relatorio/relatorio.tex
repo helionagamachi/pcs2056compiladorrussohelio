@@ -1,0 +1,61 @@
+\documentclass[%ruledheader, % cabeçalho com nome da seção e linha
+               noindentfirst, % não identar primeiro par. da seção
+               normaltoc, % tira o p. no início das páginas do sumário
+               normalfigtabnum, % numeração de figuras dependente do capítulo
+               %sumarioincompleto,
+               %naousarHyperref, % não usa o HyperRef
+               %naousarRefABNT, % não carrega o pacore de referências da ABNT
+               % twoside,
+               %times, % usa fontes tipo windows (times new roman, arial, \ldots)
+               anapnormal, % palavra anexo não aparece em maiúsculo
+               % dvipdfm, %essa merda não deixava PNG funcionar!
+               anapcustomindent % não indenta o restante do título do anexo
+							]{abnt-meu}
+\usepackage[latin1]{inputenc}
+\usepackage{helvet} \renewcommand{\familydefault}{\sfdefault}
+\usepackage{ae}
+\usepackage{poli} % personalização da ABNT para a Poli
+\usepackage{graphicx} % para poder inserir imagens PNG, JPG e GIG
+\usepackage{verbatim}
+\usepackage{moreverb}
+\usepackage[show]{ed} % para adicionar notas de edição - retirar da versão final (usar o comando \ednote{})
+\def\verbatimtabsize{2\relax}
+
+\usepackage{color}
+\usepackage{listings} % para códigos fonte
+\renewcommand{\lstlistingname}{Código}
+\lstset{
+	inputencoding=latin1,
+	commentstyle=\it,
+	stringstyle=\bf,
+	belowcaptionskip=5pt,
+	numbers=left,
+	stepnumber=1,
+	firstnumber=1,
+	numberstyle=\tiny,
+	extendedchars=true,
+	breaklines=true,
+	frame=tb,
+	basicstyle=\footnotesize,
+	stringstyle=\ttfamily,
+	showstringspaces=false,
+	mathescape,
+	tabsize=1
+}
+\begin{document}
+\titulo{PCS2046 - LINGUAGENS E COMPILADORES \\ Relatório XXX}
+\autoresPoli{EDUARDO RUSSO}{HÉLIO KAZUO NAGAMACHI}{\ }{\ }{\ }                                                                                                                                 
+\local{Professor: Ricardo Rocha} \data{outubro/2010}
+\capa
+\setcounter{page}{1}
+
+\tableofcontents
+\chapter{Introdução}
+	\input{01-introducao}
+%
+% Referências
+%
+\nocite{*}
+\bibliographystyle{abnt-alf} % estilo da ABNT
+\bibliography{bibliografia} % arquivo bibtex
+\end{document}
