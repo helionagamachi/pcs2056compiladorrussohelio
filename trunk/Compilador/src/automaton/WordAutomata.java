@@ -24,6 +24,7 @@ public class WordAutomata extends Automata {
     private static Logger LOGGER = Logger.getLogger(WordAutomata.class);
     private String name;
     private String possibleReserved[];
+    private boolean possibleComment;
 
     public WordAutomata() {
         this.name = "";
@@ -33,7 +34,7 @@ public class WordAutomata extends Automata {
 
     @Override
     public boolean processChar(char a) {
-
+        LOGGER.debug("Called the word Automata with the char " + a);
         boolean result = false;
         switch (this.currentState) {
             case INITIAL:
@@ -50,9 +51,13 @@ public class WordAutomata extends Automata {
                     if (isInitialOperator(a)) {
                         //likely to be an operator
                         this.currentState = State.POSSIBLE_OPERATOR;
+                        if(a == '/'){
+                            this.possibleComment = true;
+                        }
                     } else {
                         //has a chance to be a reserved word
                         this.currentState = State.POSSIBLE_RESERVED_WORD;
+                        
                     }
                     result = true;
                     this.name += a;
@@ -66,7 +71,7 @@ public class WordAutomata extends Automata {
                 }
                 break;
             case POSSIBLE_RESERVED_WORD:
-                LOGGER.debug("On the possible reserved word state");
+//                LOGGER.debug("On the possible reserved word state");
                 if (isInitialOperator(a) || charIsOnArray(a, whiteSpaceChars)) {
                     //very likely that it is the end...
 //                    if (this.possibleReserved.length > 0) {
@@ -83,7 +88,7 @@ public class WordAutomata extends Automata {
                         this.currentState = State.RESERVED_WORD;
                     } else {
                         // could be an identifier with like
-                        // whil , right after it a white space or possible operator
+                        // while , right after it a white space or possible operator
                         this.currentState = State.IDENTIFIER;
                     }
 //                    }
@@ -103,6 +108,12 @@ public class WordAutomata extends Automata {
                 if (this.possibleReserved.length == 1) {
                     // don't even want to check, just make it return, analyzer
                     // should grab the token
+                    if(this.possibleComment){
+                        if(a == '/' || a == '*'){
+                            this.currentState = State.ERROR;
+                            break;
+                        }
+                    }
                     this.currentState = State.RESERVED_WORD;
                 } else {
                     checkPossibleReserved(a);
@@ -147,14 +158,14 @@ public class WordAutomata extends Automata {
 
     //checks for possible reserverd words that can matche the char
     private void checkPossibleReserved(char check) {
-        LOGGER.debug("Checking possible reserved words");
+//        LOGGER.debug("Checking possible reserved words");
         if (this.possibleReserved.length == 0) {
             // <editor-fold defaultstate="collapsed" desc="Checking for possible ones.">
-            LOGGER.debug("Should be the first check this one");
+//            LOGGER.debug("Should be the first check this one");
             // its is likely to be the first time to be run.
             int possibleQuantity = 0;
             for (int count = 0; count < reservedWords.length; count++) {
-                LOGGER.debug("Checking on the reserver word");
+//                LOGGER.debug("Checking on the reserved word");
                 if (check == reservedWords[count].charAt(0)) {
                     possibleQuantity++;
                 }
@@ -164,7 +175,7 @@ public class WordAutomata extends Automata {
                     possibleQuantity++;
                 }
             }
-            LOGGER.debug("The possible quantity of reserved words is :" + possibleQuantity);
+//            LOGGER.debug("The possible quantity of reserved words is :" + possibleQuantity);
             if (possibleQuantity > 0) {
                 this.possibleReserved = new String[possibleQuantity];
             } else {
@@ -189,7 +200,7 @@ public class WordAutomata extends Automata {
             // I have the string so far collected.
             // This new char will be on wich index ?
             // Compare with the char on this index on each candidate.
-            LOGGER.debug("Not the first check for reserved words");
+//            LOGGER.debug("Not the first check for reserved words");
             //a temp array, it eventually will substitute the current array
             String[] temp = new String[this.possibleReserved.length];
             //The length of the stored string indicates where to look
@@ -254,7 +265,7 @@ public class WordAutomata extends Automata {
     /**
      * Checks if the given character is a number
      * @param a the character to check
-     * @return true if it is a number, false eitherwise
+     * @return true if it is a number, false otherwise
      */
     private boolean isNumber(char a) {
         return a == '0' || a == '1' || a == '2' || a == '3' || a == '4'

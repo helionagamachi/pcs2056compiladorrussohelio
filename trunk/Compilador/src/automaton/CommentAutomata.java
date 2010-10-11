@@ -36,8 +36,8 @@ public class CommentAutomata extends Automata {
                 break;
             case COMMENT_LINE:
                 if (a == '\n') {
-                    //end of the comment line, return to the initial state, will return false
-                    this.currentState = State.INITIAL;
+                    //end of the comment line
+                    this.currentState = State.COMMENT_END;
                 }else{
                     // go on processing.
                     result = true;
@@ -53,7 +53,7 @@ public class CommentAutomata extends Automata {
             case COMMENT_BLOCK_END:
                 if (a == '/') {
                     // The comment block will really end
-                    this.currentState = State.INITIAL;
+                    this.currentState = State.COMMENT_END;
                 } else {
                     // Block not ended
                     result = true;

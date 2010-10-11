@@ -50,6 +50,7 @@ public class WordTest {
     public void testComment(){
         assertTrue("Should accept / , but if given /* should not.", wordAutomata.processChar('/'));
         assertFalse("Should accept / , but if given /* should not.", wordAutomata.processChar('*'));
+        assertFalse("Should not be on a final state ", wordAutomata.getState().isFinalState());
     }
 
     @Test

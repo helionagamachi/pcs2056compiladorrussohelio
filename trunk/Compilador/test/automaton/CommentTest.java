@@ -62,7 +62,8 @@ public class CommentTest {
         assertTrue("Should accept any char on the line, except the new line", cm.processChar('w'));
         assertTrue("Should accept any char on the line, except the new line", cm.processChar('q'));
         assertFalse("The comment should end with a unix new line char", cm.processChar('\n'));
-        assertEquals("Should be on the initial State", State.INITIAL , cm.getState());
+        assertEquals("Should be on the final State", State.COMMENT_END , cm.getState());
+        cm.resetAutomata();
         assertFalse("Should be at the start, giving something different of /", cm.processChar('a'));
         assertTrue("Should accept the initial / ", cm.processChar('/'));
         assertTrue("Should accept the *", cm.processChar('*'));
@@ -84,7 +85,7 @@ public class CommentTest {
         assertTrue("Should accept any chars , but the sequence */",cm.processChar('*'));
         assertNull("Should never return a token", cm.getToken());
         assertFalse("Should accept any chars , but the sequence */",cm.processChar('/'));
-        assertEquals("Should be at the initial state" , State.INITIAL , cm.getState());
+        assertEquals("Should be at the final state" , State.COMMENT_END , cm.getState());
         assertNull("Should never return a token", cm.getToken());
 
 

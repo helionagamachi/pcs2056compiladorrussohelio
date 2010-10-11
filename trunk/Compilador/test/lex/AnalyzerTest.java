@@ -5,7 +5,6 @@
 
 package lex;
 
-import com.sun.java_cup.internal.runtime.Symbol;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
