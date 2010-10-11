@@ -48,7 +48,8 @@ public class WordTest {
 
     @Test
     public void testComment(){
-        assertFalse("Should not accept a open of comment as first char", wordAutomata.processChar('/'));
+        assertTrue("Should accept / , but if given /* should not.", wordAutomata.processChar('/'));
+        assertFalse("Should accept / , but if given /* should not.", wordAutomata.processChar('*'));
     }
 
     @Test
@@ -62,7 +63,7 @@ public class WordTest {
         assertTrue(wordAutomata.processChar('e'));
         assertFalse(wordAutomata.processChar('('));
         assertEquals(wordAutomata.getState(), State.RESERVED_WORD);
-        assertEquals("while", wordAutomata.getName());
+        assertEquals("while", wordAutomata.getIdentifier());
     }
 
     @Test
@@ -77,7 +78,7 @@ public class WordTest {
         assertTrue(wordAutomata.processChar('+'));
         assertTrue(wordAutomata.processChar('+'));
         assertFalse(wordAutomata.processChar(' '));
-        assertEquals("++", wordAutomata.getName());
+        assertEquals("++", wordAutomata.getIdentifier());
     }
 
     @Test
@@ -85,6 +86,6 @@ public class WordTest {
         assertTrue(wordAutomata.processChar('+'));
         assertTrue(wordAutomata.processChar('='));
         assertFalse(wordAutomata.processChar(' '));
-        assertEquals("+=", wordAutomata.getName());
+        assertEquals("+=", wordAutomata.getIdentifier());
     }
 }

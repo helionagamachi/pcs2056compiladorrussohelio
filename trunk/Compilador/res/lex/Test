@@ -1,0 +1,16 @@
+/** Isso é um teste...
+
+
+Comentários devem ser ignorados...
+
+
+*/
+
+
+int fatorial(int numero){
+    if(numero == 0){
+        return 1;
+        }else{
+        return fatorial(numero - 1);
+}
+}

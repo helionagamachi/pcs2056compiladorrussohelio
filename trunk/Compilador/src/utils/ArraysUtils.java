@@ -11,6 +11,9 @@ package utils;
 public class ArraysUtils {
 
 
+
+    
+
     /**
      * Gets the number corresponding to the given reservedWord
      * @param reserverWord
@@ -60,13 +63,19 @@ public class ArraysUtils {
         "+",
         "-",
         "++",
-        ")",
+        "/",
         "(",
+        ")",
         "[",
         "]",
         "=",
         "+=",
         ";",
+        "==",
+        "||",
+        "&&",
+        "{",
+        "}",
     };
 
     public static final String[] reservedWords = {
@@ -74,14 +83,16 @@ public class ArraysUtils {
         "while",
         "for",
         "int",
-        "float",
+        "void",
         "else",
+        "return",
     };
 
     public static final char[] whiteSpaceChars = {
         ' ', '\t', '\n' , '\r',
     };
 
+    
 
     public static final char[] letters = {
         'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o',

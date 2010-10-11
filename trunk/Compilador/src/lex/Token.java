@@ -8,6 +8,7 @@ public class Token {
 
     private TokenType type;
     private int value;
+    private int line;
 
     /**
      * Creates a new token
@@ -42,6 +43,16 @@ public class Token {
     public void setValue(int value) {
         this.value = value;
     }
+
+    public int getLine() {
+        return line;
+    }
+
+    public void setLine(int line) {
+        this.line = line;
+    }
+
+    
 
 
     @Override

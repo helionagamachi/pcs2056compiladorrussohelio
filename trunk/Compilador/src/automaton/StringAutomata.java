@@ -31,6 +31,7 @@ public class StringAutomata extends Automata {
             case STRING_CONTENT:
                 if (a == '"') {
                     this.currentState = State.STRING_FINAL;
+                    // TODO : Treat scape chars.
                 } else {
                     content += a;
                     result = true;

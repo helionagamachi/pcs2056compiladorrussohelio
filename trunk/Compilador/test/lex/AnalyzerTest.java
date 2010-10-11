@@ -5,12 +5,17 @@
 
 package lex;
 
+import com.sun.java_cup.internal.runtime.Symbol;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.logging.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import utils.Others;
+import utils.SymbolTable;
 import static org.junit.Assert.*;
 
 /**
@@ -56,7 +61,7 @@ public class AnalyzerTest {
         URL sourceFile = AnalyzerTest.class.getResource("/lex/emptySource");
         analyzer.setFile(sourceFile.getFile());
         // the EOF token
-        Token endOfFileToken = analyzer.getNextToken();
+        Token endOfFileToken = analyzer.getNextToken(null);
         assertEquals(TokenType.EOF , endOfFileToken.getType());
         
     }
@@ -67,13 +72,40 @@ public class AnalyzerTest {
 
         URL sourceFile = AnalyzerTest.class.getResource("/lex/numberCommentSource");
         analyzer.setFile(sourceFile.getFile());
-        Token Test = analyzer.getNextToken();
+        Token Test = analyzer.getNextToken(null);
         System.out.println(Test);
-        Test = analyzer.getNextToken();
+        Test = analyzer.getNextToken(null);
         System.out.println(Test);
-        Test = analyzer.getNextToken();
+        Test = analyzer.getNextToken(null);
         System.out.println(Test);
     }
 
+    @Test
+    public void complexTest(){
+
+        SymbolTable table = new SymbolTable();
+        analyzer.resetAnalyzer();
+        URL source = AnalyzerTest.class.getResource("/lex/Test");
+        analyzer.setFile(source.getFile());
+        
+        System.out.println("-------------------------------");
+        System.out.println();
+
+        ArrayList<Token> tokens = new ArrayList<Token>();
+        Token token = analyzer.getNextToken(table);
+        while(token.getType() != TokenType.EOF){
+            tokens.add(token);
+            token = analyzer.getNextToken(table);
+        }
+        tokens.add(token);
+        for(Token temp : tokens){
+            Others.printToken(temp , table);
+        }
+        System.out.println();
+        System.out.println("-------------------------------");
+        
+    }
+
+    
 
 }

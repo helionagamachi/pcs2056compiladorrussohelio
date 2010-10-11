@@ -38,8 +38,22 @@ public class ArrayUtilTest {
 
     @Test
     public void Conversion() {
-        int index;
-        index = ArraysUtils.getReservedWordIndex("if");
-        assertEquals("if", ArraysUtils.getReservedWordByIndex(index));
+        TestConversion("+");
+        TestConversion("if");
+        TestConversion("++");
+        TestConversion("+=");
+        TestConversion(";");
+        TestConversion("while");
+        TestConversion("else");
+        TestConversion("void");
     }
+
+    public void TestConversion(String word){
+        int index;
+        index = ArraysUtils.getReservedWordIndex(word);
+        assertEquals(word, ArraysUtils.getReservedWordByIndex(index));
+
+    }
+
+    
 }
