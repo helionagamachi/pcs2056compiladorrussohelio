@@ -9,6 +9,7 @@
 \usepackage{fullpage}
 \usepackage{indentfirst}
 \usepackage{moreverb}
+\newcommand{\LinhaHorizontal}{\rule{\linewidth}{0.5mm}}
 \usepackage[show]{ed} % para adicionar notas de edição - retirar da versão final (usar o comando \ednote{})
 \def\verbatimtabsize{2\relax}
 
@@ -33,38 +34,35 @@
 	mathescape,
 	tabsize=1
 }
-\title{PCS2046 - LINGUAGENS E COMPILADORES \\ Relatório XXX}
-\author{Eduardo Russo N$^{\circ}$USP 5693883\\Hélio Kazuo Nagamachi N$^{\circ}$USP 569}
-\date {Dezembro de 2010}
 \begin{document}
-\maketitle
-\tableofcontents
-\newpage
-
-%
-% Capítulos
-%
-\tableofcontents
-\section{Introdução}
-	\input{10-introducao}
-\section{Definição da linguagem de alto nível}
-	\input{20-definicao_da_linguagem}
-\section{Analise léxica}
-	\input{30-analise_lexica}
-\section{Analise sintática}
-	\input{40-analise_sintatica}
-\section{Definição do ambiente de execução}
-	\input{50-definicao_do_ambiente}
-\section{Estrutura de dados e algoritmos do compilador}
-	\input{60-estrutura_de_dados}
-\section{Semântica dinâmica}
-	\input{70-semantica_dinamica}
-\section{Integração das rotinas semânticas}
- 	\input{80-integracao}
-%
-% Referências
-%
-\nocite{*}
-\bibliographystyle{abnt-alf} % estilo da ABNT
-\bibliography{bibliografia} % arquivo bibtex
+	% Título
+	\input{00-titulo}
+	% Sumário
+	\tableofcontents
+	\newpage
+	
+	%
+	% Capítulos
+	%
+	\section{Introdução}
+		\input{10-introducao}
+	\section{Definição da linguagem de alto nível}
+		\input{20-definicao_da_linguagem}
+	\section{Analise léxica}
+		\input{30-analise_lexica}
+	\section{Analise sintática}
+		\input{40-analise_sintatica}
+	\section{Definição do ambiente de execução}
+		\input{50-definicao_do_ambiente}
+	\section{Estrutura de dados e algoritmos do compilador}
+		\input{60-estrutura_de_dados}
+	\section{Semântica dinâmica}
+		\input{70-semantica_dinamica}
+	\section{Integração das rotinas semânticas}
+	 	\input{80-integracao}
+	
+	% Referências
+	\nocite{*} % mostrar todos, não só os citados
+	\bibliographystyle{abnt-alf} % estilo da ABNT
+	\bibliography{bibliografia} % arquivo bibtex
 \end{document}
