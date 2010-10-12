@@ -12,8 +12,19 @@
 \newcommand{\LinhaHorizontal}{\rule{\linewidth}{0.5mm}}
 \usepackage[show]{ed} % para adicionar notas de edição - retirar da versão final (usar o comando \ednote{})
 \def\verbatimtabsize{2\relax}
-
 \usepackage{color}
+	\definecolor{contentsLinks}{RGB}{0, 0, 100}
+\usepackage[breaklinks]{hyperref}
+\hypersetup{
+    pdfnewwindow=true,      % links in new window
+    colorlinks=true,       % false: boxed links; true: colored links
+    linkcolor=contentsLinks,          % color of internal links
+    citecolor=green,        % color of links to bibliography
+    filecolor=magenta,      % color of file links
+    urlcolor=cyan           % color of external links
+}
+
+
 \usepackage{listings} % para códigos fonte
 \renewcommand{\lstlistingname}{Código}
 \lstset{
@@ -44,6 +55,8 @@
 	%
 	% Capítulos
 	%
+	Oi? \href{http://uol.com.br}{UOL}
+	
 	\section{Introdução}
 		\input{10-introducao}
 	\section{Definição da linguagem de alto nível}
@@ -63,6 +76,7 @@
 	
 	% Referências
 	\nocite{*} % mostrar todos, não só os citados
-	\bibliographystyle{abnt-alf} % estilo da ABNT
+	\bibliographystyle{apalike} % estilo da ABNT
 	\bibliography{bibliografia} % arquivo bibtex
+	\addcontentsline{toc}{section}{Referências}
 \end{document}
