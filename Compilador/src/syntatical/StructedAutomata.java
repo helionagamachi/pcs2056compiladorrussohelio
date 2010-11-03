@@ -10,8 +10,9 @@ package syntatical;
  * @author helionagamachi
  */
 public class StructedAutomata {
+
     
-    
+
 
 
 }

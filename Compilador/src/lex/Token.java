@@ -52,8 +52,19 @@ public class Token {
         this.line = line;
     }
 
-    
-
+    @Override
+    public boolean equals(Object o) {
+        if(! (o instanceof Token)){
+            return false;
+        }else{
+            boolean sameType;
+            boolean sameValue;
+            Token obj = (Token)o;
+            sameType = this.type == obj.type;
+            sameValue = this.value == obj.value;
+            return sameType && sameValue;
+        }
+    }
 
     @Override
     public String toString(){
