@@ -7,6 +7,7 @@ package syntatical;
 
 import lex.Token;
 import org.apache.log4j.Logger;
+import utils.CompilerException;
 
 
 /**
@@ -24,6 +25,8 @@ public class FiniteAutomata {
     private Transition[] transitions;
     private int automataNumber;
     private int currentState;
+    //This will hold the transition that should be available when applicable
+    private Transition transition;
     private static Logger LOGGER = Logger.getLogger(FiniteAutomata.class);
 
     /**
@@ -35,7 +38,7 @@ public class FiniteAutomata {
         this.automataNumber = automataNumber;
         this.transitions = new Transition[transitionsAmount];
         this.states = new boolean[stateAmount];
-        LOGGER.debug("New Automata created, has " + states + " states and " + transitions + " transitions");
+        LOGGER.debug("New Automata created, has " + stateAmount + " states and " + transitionsAmount + " transitions");
     }
 
     /**
@@ -70,15 +73,42 @@ public class FiniteAutomata {
     }
 
 
-    public Transition.Type transit(Token token) throws compilerExcetion{
+    public TransitionType transit(Token token) throws CompilerException{
         //TODO:Varrer o vetor de transições, buscando um que tenha o estado corrente
+        LOGGER.debug("Looking for a transition, on Automata " + automataNumber);
+        LOGGER.debug("Current state :" + currentState);
+        
+        int transitionIndex  = 0 ;
+        while(transitionIndex < transitions.length){
+            Transition candidate = transitions[transitionIndex];
+            if(candidate.getStateNumber() == this.currentState){
+                //Normal or Call to another?
+                if(candidate.getType() == TransitionType.NORMAL){
+                    if(candidate.getToken().equals(token)){
+                        LOGGER.debug("Found a normal transition");
+                        currentState = candidate.getNextState();
+                        LOGGER.debug("now on state" + currentState);
+                        return TransitionType.NORMAL;
+                    }
+                    //Nothing to do here...
+                    //Look for the next one.
+                }else{
+                    //The candidate to the transition should be set here.
+                    this.transition = candidate;
+                    return TransitionType.CALL_TO_ANOTHER_AUTOMATA;
+                }
+            }
+            transitionIndex ++;
+        }
+
+        
         //TODO:Verificar se o tipo de transição é normal
         //TODO:se for, mudar o current state
         //TODO:se não, retornar que o tipo é chamada para outro...
         //Disponibilizar a transição...
+        CompilerException e = new CompilerException("No transition available");
+        throw e;
         
-
-        return Transition.Type.NORMAL;
     }
 
 
@@ -90,14 +120,27 @@ public class FiniteAutomata {
         this.transitions = transitions;
     }
 
+    /**
+     * 
+     * @return returns the number of the automata
+     */
     public int getAutomataNumber() {
         return automataNumber;
     }
 
+    /**
+     *
+     * @return return the number of the current state
+     */
     public int getCurrentState() {
         return currentState;
     }
 
+    /**
+     * Sets the current State of the automata, to be used by the structed
+     * automata, when a automata returns, or when a automata is called
+     * @param currentState the number to the new current state.
+     */
     public void setCurrentState(int currentState) {
         this.currentState = currentState;
     }
@@ -110,8 +153,5 @@ public class FiniteAutomata {
     }
 
 
-    public class compilerExcetion extends Exception{
-        
-    }
 
 }
