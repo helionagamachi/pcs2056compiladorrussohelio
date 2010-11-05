@@ -18,7 +18,7 @@ public class Transition {
     private int nextState;
     private int otherAutomataNumber;
     private Token token;
-    private Type type;
+    private TransitionType type;
 
     /**
      * This constructor is destined to a transition that will consume a token
@@ -32,7 +32,7 @@ public class Transition {
         this.stateNumber = stateNumber;
         this.nextState = nextState;
         this.token = token;
-        this.type = Type.NORMAL;
+        this.type = TransitionType.NORMAL;
     }
 
     /**
@@ -48,19 +48,11 @@ public class Transition {
         this.stateNumber = stateNumber;
         this.nextState = nextState;
         this.otherAutomataNumber = otherAutomataNumber;
-        this.type = Type.CALL_TO_ANOTHER_AUTOMATA;
+        this.type = TransitionType.CALL_TO_ANOTHER_AUTOMATA;
         this.token = null;
     }
 
     
-    /**
-     * To indicate if the transition will be a normal one
-     * or it will result on a call to another automata
-     */
-    public enum Type{
-        NORMAL, CALL_TO_ANOTHER_AUTOMATA;
-    }
-
     public int getAutomataNumber() {
         return automataNumber;
     }
@@ -81,7 +73,7 @@ public class Transition {
         return token;
     }
 
-    public Type getType() {
+    public TransitionType getType() {
         return type;
     }
 

@@ -53,6 +53,7 @@ public class Token {
     }
 
     @Override
+    //TODO: Create a function to compare the tokens to a level if they are compatible!
     public boolean equals(Object o) {
         if(! (o instanceof Token)){
             return false;
