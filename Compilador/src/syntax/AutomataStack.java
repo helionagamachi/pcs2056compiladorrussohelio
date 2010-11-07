@@ -47,7 +47,7 @@ public class AutomataStack {
         top = null;
     }
 
-    public AutomataStack getInstance(){
+    public static AutomataStack getInstance(){
        LOGGER.debug("AutomataStack instance required");
        if(instance == null){
            instance = new AutomataStack();

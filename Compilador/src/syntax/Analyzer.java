@@ -6,9 +6,13 @@
 package syntax;
 
 /**
- *
+ * This class takes cares on analyzing
+ * a code file syntax.
+ * 
  * @author helionagamachi
  */
-public class Main {
+public class Analyzer {
 
+
+    //TODO : CODE GENERATION....
 }

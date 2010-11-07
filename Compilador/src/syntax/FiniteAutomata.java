@@ -4,18 +4,17 @@ import lex.Token;
 import org.apache.log4j.Logger;
 import utils.CompilerException;
 
-
 /**
  * Class to be used on the Finite Automata of the structed automata.
  * @author helionagamachi
  */
 public class FiniteAutomata {
+
     /**
      * Basically all i need to know about a state it is if is a final state
      * and it's number, which will be the position on the array, the boolean says
      * if it is a final state or not.
      */
-
     private boolean[] states;
     private Transition[] transitions;
     private int automataNumber;
@@ -29,7 +28,7 @@ public class FiniteAutomata {
      * @param stateAmount how many states will be needed to the automata?
      * @param automataNumber the identification number of this finite automata.
      */
-    public FiniteAutomata(int stateAmount, int transitionsAmount,int automataNumber) {
+    public FiniteAutomata(int stateAmount, int transitionsAmount, int automataNumber) {
         this.automataNumber = automataNumber;
         this.transitions = new Transition[transitionsAmount];
         this.states = new boolean[stateAmount];
@@ -43,21 +42,21 @@ public class FiniteAutomata {
      * final states for this automata, note that it should be
      * an ordered array in order to work
      */
-    public void initStates(int[] finalStates){
+    public void initStates(int[] finalStates) {
         LOGGER.debug("initStates called");
         this.currentState = 0;
         int done = 0;
-        int finalStatesIndex =0 ;
+        int finalStatesIndex = 0;
         boolean hasFinalStates;
         hasFinalStates = finalStates.length > 0;
-        while(done < this.states.length){
+        while (done < this.states.length) {
             boolean newState = false;
-            if(hasFinalStates){
-                if(finalStates[finalStatesIndex] == done){
-                    LOGGER.debug("state number " + done  + " is a final state");
+            if (hasFinalStates) {
+                if (finalStates[finalStatesIndex] == done) {
+                    LOGGER.debug("state number " + done + " is a final state");
                     newState = true;
                     finalStatesIndex = finalStatesIndex + 1;
-                    if(finalStatesIndex == finalStates.length){
+                    if (finalStatesIndex == finalStates.length) {
                         hasFinalStates = false;
                     }
                 }
@@ -67,51 +66,54 @@ public class FiniteAutomata {
         }
     }
 
-
-    public TransitionType transit(Token token) throws CompilerException{
-        //TODO:Varrer o vetor de transições, buscando um que tenha o estado corrente
+    public TransitionType transit(Token token) throws CompilerException {
         LOGGER.debug("Looking for a transition, on Automata " + automataNumber);
         LOGGER.debug("Current state :" + currentState);
-        
-        int transitionIndex  = 0 ;
-        while(transitionIndex < transitions.length){
+        int transitionIndex = 0;
+        while (transitionIndex < transitions.length) {
             Transition candidate = transitions[transitionIndex];
-            if(candidate.getStateNumber() == this.currentState){
+            if (candidate.getStateNumber() == this.currentState) {
                 //Normal or Call to another?
-                if(candidate.getType() == TransitionType.NORMAL){
-                    if(candidate.getToken().equals(token)){
-                        LOGGER.debug("Found a normal transition");
-                        currentState = candidate.getNextState();
-                        LOGGER.debug("now on state" + currentState);
-                        return TransitionType.NORMAL;
-                    }
-                    //Nothing to do here...
-                    //Look for the next one.
-                }else{
-                    //The candidate to the transition should be set here.
-                    this.transition = candidate;
-                    return TransitionType.CALL_TO_ANOTHER_AUTOMATA;
+                switch (candidate.getType()) {
+                    case NORMAL:
+                        if (candidate.getToken().equals(token)) {
+                            LOGGER.debug("Found a normal transition");
+                            currentState = candidate.getNextState();
+                            LOGGER.debug("now on state" + currentState);
+                            return TransitionType.NORMAL;
+                        }
+                    case CALL_TO_ANOTHER_AUTOMATA:
+                        this.transition = candidate;
+                        return TransitionType.CALL_TO_ANOTHER_AUTOMATA;
                 }
             }
-            transitionIndex ++;
+            transitionIndex++;
+        }
+        //Already checked for every possibility, so it's time to check
+        //if it is in a final state, so it should return.
+        if(states[currentState]){
+            return TransitionType.GO_BACK;
         }
 
-        
-        //TODO:Verificar se o tipo de transição é normal
-        //TODO:se for, mudar o current state
-        //TODO:se não, retornar que o tipo é chamada para outro...
-        //Disponibilizar a transição...
         CompilerException e = new CompilerException("No transition available");
         throw e;
-        
+
     }
 
+    /**
+     * Returns the transition set on the transition attribute
+     * should be used when a call to another automata is encountered.
+     * @return
+     */
+    public Transition getTransition() {
+        return this.transition;
+    }
 
     /**
      * Sets the array of transitions on the finite Automata.
      * @param transitions the transitions array to be set
      */
-    public void setTransitions(Transition[] transitions){
+    public void setTransitions(Transition[] transitions) {
         this.transitions = transitions;
     }
 
@@ -143,10 +145,7 @@ public class FiniteAutomata {
     /**
      * @return the automata is on a final state or note.
      */
-    public boolean onFinalState(){
+    public boolean onFinalState() {
         return this.states[this.currentState];
     }
-
-
-
 }

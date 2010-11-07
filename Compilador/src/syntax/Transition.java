@@ -16,7 +16,7 @@ public class Transition {
     private int automataNumber;
     private int stateNumber;
     private int nextState;
-    private int otherAutomataNumber;
+    private int nextAutomataNumber;
     private Token token;
     private TransitionType type;
 
@@ -47,7 +47,7 @@ public class Transition {
         this.automataNumber = automataNumber;
         this.stateNumber = stateNumber;
         this.nextState = nextState;
-        this.otherAutomataNumber = otherAutomataNumber;
+        this.nextAutomataNumber = otherAutomataNumber;
         this.type = TransitionType.CALL_TO_ANOTHER_AUTOMATA;
         this.token = null;
     }
@@ -61,8 +61,8 @@ public class Transition {
         return nextState;
     }
 
-    public int getOtherAutomataNumber() {
-        return otherAutomataNumber;
+    public int getNextAutomataNumber() {
+        return nextAutomataNumber;
     }
 
     public int getStateNumber() {
