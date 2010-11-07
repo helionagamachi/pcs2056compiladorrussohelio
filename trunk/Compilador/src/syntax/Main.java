@@ -3,12 +3,12 @@
  * and open the template in the editor.
  */
 
-package syntatical;
+package syntax;
 
 /**
  *
  * @author helionagamachi
  */
-public class AutomataStack {
+public class Main {
 
 }

@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package syntatical;
+package syntax;
 
 /**
  * To indicate if the transition will be a normal one
