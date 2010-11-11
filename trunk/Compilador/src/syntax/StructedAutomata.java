@@ -4,8 +4,6 @@
  */
 package syntax;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import lex.Token;
 import utils.CompilerException;
 

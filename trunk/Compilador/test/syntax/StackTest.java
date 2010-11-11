@@ -2,26 +2,27 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package syntax;
 
-import syntax.FiniteAutomata;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import utils.CompilerException;
 import static org.junit.Assert.*;
 
 /**
  *
  * @author helionagamachi
  */
-public class FiniteAutomataTest {
+public class StackTest {
 
-    public FiniteAutomataTest() {
+
+    
+
+    public StackTest() {
     }
-    FiniteAutomata auto1;
 
     @BeforeClass
     public static void setUpClass() throws Exception {
@@ -39,16 +40,10 @@ public class FiniteAutomataTest {
     public void tearDown() {
     }
 
-    @Test
-    public void ExceptionTesting() {
-        FiniteAutomata auto = new FiniteAutomata(5, 0, 0);
-        int finalStates[] = {1, 2};
-        auto.initStates(finalStates);
-        
-        try {
-            auto.transit(null);
-            fail("Should have got an exception");
-        } catch (CompilerException e) {
-        }
-    }
+    // TODO add test methods here.
+    // The methods must be annotated with annotation @Test. For example:
+    //
+    // @Test
+    // public void hello() {}
+
 }

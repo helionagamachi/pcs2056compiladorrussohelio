@@ -22,11 +22,11 @@ public class FileUtils {
      */
     public static String readLine(InputStream file) {
         String result = "";
-        char e;
-        e = (char) read(file);
+        int e;
+        e =  read(file);
         while(e != '\n' && e != -1){
-            result = result + e;
-            e = (char) read(file);
+            result = result + (char) e;
+            e = read(file);
         }
         return result;
     }
