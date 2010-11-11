@@ -23,7 +23,7 @@ import static org.junit.Assert.*;
 public class AnalyzerInternalTesting {
 
     private static Analyzer analyzer ;
-
+    
     public AnalyzerInternalTesting() {
     }
 

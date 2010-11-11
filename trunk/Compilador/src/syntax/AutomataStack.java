@@ -42,11 +42,18 @@ public class AutomataStack {
         return top.getNextElement();
     }
 
+    /**
+     * Private constructor, for the single ton pattern
+     */
     private AutomataStack() {
         LOGGER.debug("AutomataStack instance created");
         top = null;
     }
 
+    /**
+     * Here we get the instance of the stack.
+     * @return the stack of the instance.
+     */
     public static AutomataStack getInstance(){
        LOGGER.debug("AutomataStack instance required");
        if(instance == null){
