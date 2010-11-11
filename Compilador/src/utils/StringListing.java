@@ -9,12 +9,12 @@ package utils;
  * Implements a List to hold strings.
  * @author helionagamachi
  */
-public class StringList {
+public class StringListing {
 
     private Element firstElement;
     private Element lastElement;
     private int amount;
-    public StringList() {
+    public StringListing() {
         this.amount = 0;
     }
 
@@ -28,10 +28,11 @@ public class StringList {
         String[] result = new String[this.amount];
         int index = 0;
         Element element;
-        element = firstElement;
+        element = this.firstElement;
         while(index < amount){
             result[index] = element.getString();
             element = element.getNext();
+            index ++;
         }
         return result;
     }

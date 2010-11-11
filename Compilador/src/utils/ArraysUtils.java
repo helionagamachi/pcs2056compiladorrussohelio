@@ -86,6 +86,7 @@ public class ArraysUtils {
         "void",
         "else",
         "return",
+        "continue",
     };
 
     public static final char[] whiteSpaceChars = {

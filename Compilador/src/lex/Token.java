@@ -52,15 +52,29 @@ public class Token {
         this.line = line;
     }
 
+    public boolean compatible(Token other) {
+        TokenType instanceType = this.type;
+        switch (instanceType) {
+            case RESERVED_WORD:
+                return this.equals(other);
+            case IDENTIFIER:
+                return other.getType() == TokenType.IDENTIFIER;
+            case INT:
+                return other.getType() == TokenType.INT;
+            default:
+                return false;
+
+        }
+    }
+
     @Override
-    //TODO: Create a function to compare the tokens to a level if they are compatible!
     public boolean equals(Object o) {
-        if(! (o instanceof Token)){
+        if (!(o instanceof Token)) {
             return false;
-        }else{
+        } else {
             boolean sameType;
             boolean sameValue;
-            Token obj = (Token)o;
+            Token obj = (Token) o;
             sameType = this.type == obj.type;
             sameValue = this.value == obj.value;
             return sameType && sameValue;
@@ -68,7 +82,7 @@ public class Token {
     }
 
     @Override
-    public String toString(){
-        return this.type.name() + " " + this.value ;
+    public String toString() {
+        return this.type.name() + " " + this.value;
     }
 }
