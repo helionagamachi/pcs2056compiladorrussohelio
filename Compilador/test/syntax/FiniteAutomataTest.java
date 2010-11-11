@@ -44,6 +44,7 @@ public class FiniteAutomataTest {
         FiniteAutomata auto = new FiniteAutomata(5, 0, 0);
         int finalStates[] = {4};
         auto.initStates(finalStates);
+        
         try {
             auto.transit(null);
             fail("Should have got an exception");

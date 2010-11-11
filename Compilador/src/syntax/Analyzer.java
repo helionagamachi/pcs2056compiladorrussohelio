@@ -13,6 +13,7 @@ package syntax;
  */
 public class Analyzer {
 
+    private lex.Analyzer lexical;
 
     //TODO : CODE GENERATION....
 }

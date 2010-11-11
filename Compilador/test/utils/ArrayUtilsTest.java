@@ -15,9 +15,9 @@ import static org.junit.Assert.*;
  *
  * @author helionagamachi
  */
-public class ArrayUtilTest {
+public class ArrayUtilsTest {
 
-    public ArrayUtilTest() {
+    public ArrayUtilsTest() {
     }
 
     @BeforeClass
@@ -52,7 +52,6 @@ public class ArrayUtilTest {
         int index;
         index = ArraysUtils.getReservedWordIndex(word);
         assertEquals(word, ArraysUtils.getReservedWordByIndex(index));
-
     }
 
     
