@@ -144,12 +144,12 @@ public class Parser {
 
         to = getInteger(temp);
         Transition result;
-        
+        System.out.println(transition);
         if (transition.charAt(0) == '"') {
             Token token;
-            if (transition.equals("number")) {
+            if (transition.equals("\"number\"")) {
                 token = new Token(TokenType.INT, 0);
-            }else if(transition.equals("identificador")){
+            }else if(transition.equals("\"identificador\"")){
                 token = new Token(TokenType.IDENTIFIER, -1);
             }
             else {

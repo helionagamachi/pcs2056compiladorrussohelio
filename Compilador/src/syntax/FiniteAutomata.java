@@ -76,13 +76,14 @@ public class FiniteAutomata {
                 //Normal or Call to another?
                 switch (candidate.getType()) {
                     case NORMAL:
-                        if (candidate.getToken().equals(token)) {
+                        if (candidate.getToken().compatible(token)) {
                             LOGGER.debug("Found a normal transition");
                             currentState = candidate.getNextState();
                             LOGGER.debug("now on state" + currentState);
                             return TransitionType.NORMAL;
                         }
                     case CALL_TO_ANOTHER_AUTOMATA:
+                        LOGGER.debug("The automata should call another one");
                         this.transition = candidate;
                         return TransitionType.CALL_TO_ANOTHER_AUTOMATA;
                 }
@@ -92,6 +93,7 @@ public class FiniteAutomata {
         //Already checked for every possibility, so it's time to check
         //if it is in a final state, so it should return.
         if(states[currentState]){
+            LOGGER.debug("The automata should return");
             return TransitionType.GO_BACK;
         }
 
