@@ -75,12 +75,23 @@ public class ParserTest {
     @Test
     public void TransitionTest(){
         Transition transition;
-        transition = parser.parseTransition("(3, identificador) -> 2");
+        transition = parser.parseTransition("(3, \"identificador\") -> 2");
         assertEquals(0,transition.getAutomataNumber());
         assertEquals(2,transition.getNextState());
-        assertEquals(1,transition.getNextAutomataNumber());
+        assertEquals(3,transition.getStateNumber());
+        assertEquals(TransitionType.NORMAL,transition.getType());
+
+
+        transition = parser.parseTransition("(3, another_machine) -> 2");
+        assertEquals(0,transition.getAutomataNumber());
+        assertEquals(2,transition.getNextState());
+        assertEquals(1, transition.getNextAutomataNumber());
         assertEquals(3,transition.getStateNumber());
         assertEquals(TransitionType.CALL_TO_ANOTHER_AUTOMATA,transition.getType());
+        
+
+
+
 
         Token token;
         transition = parser.parseTransition("(5, \"+\") -> 7");
@@ -111,13 +122,10 @@ public class ParserTest {
         type = auto.transit(continueToken);
         assertEquals(TransitionType.NORMAL, type);
         assertEquals(1, auto.getCurrentState());
+        //Should raise an exception here....
         type = auto.transit(continueToken);
-        assertEquals(TransitionType.CALL_TO_ANOTHER_AUTOMATA, type);
-        Transition trans = auto.getTransition();
-        assertEquals(2, trans.getNextState());
-        assertEquals(1, trans.getStateNumber());
-        assertEquals(0, trans.getAutomataNumber());
-        assertEquals(1, trans.getNextAutomataNumber());
+        assertEquals(TransitionType.GO_BACK, type);
+        
     }
 
     

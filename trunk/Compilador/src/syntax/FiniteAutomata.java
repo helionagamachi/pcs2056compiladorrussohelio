@@ -82,10 +82,12 @@ public class FiniteAutomata {
                             LOGGER.debug("now on state" + currentState);
                             return TransitionType.NORMAL;
                         }
+                        break;
                     case CALL_TO_ANOTHER_AUTOMATA:
                         LOGGER.debug("The automata should call another one");
                         this.transition = candidate;
                         return TransitionType.CALL_TO_ANOTHER_AUTOMATA;
+                        
                 }
             }
             transitionIndex++;

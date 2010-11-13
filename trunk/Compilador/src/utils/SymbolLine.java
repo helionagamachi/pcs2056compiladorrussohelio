@@ -11,16 +11,16 @@ package utils;
  */
 public class SymbolLine {
     private int id;
-    private String Symbol;
+    private String symbol;
     private SymbolLine nextLine;
 
     public SymbolLine(int id, String Symbol) {
         this.id = id;
-        this.Symbol = Symbol;
+        this.symbol = Symbol;
     }
 
     public String getSymbol() {
-        return Symbol;
+        return symbol;
     }
 
     public int getId() {

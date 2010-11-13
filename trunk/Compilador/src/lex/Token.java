@@ -56,7 +56,11 @@ public class Token {
         TokenType instanceType = this.type;
         switch (instanceType) {
             case RESERVED_WORD:
-                return this.equals(other);
+                boolean sameType;
+                boolean sameWord;
+                sameType = other.type == TokenType.RESERVED_WORD;
+                sameWord = this.value == other.value;
+                return sameType && sameWord;
             case IDENTIFIER:
                 return other.getType() == TokenType.IDENTIFIER;
             case INT:
@@ -74,15 +78,17 @@ public class Token {
         } else {
             boolean sameType;
             boolean sameValue;
+            boolean sameLine;
             Token obj = (Token) o;
             sameType = this.type == obj.type;
             sameValue = this.value == obj.value;
-            return sameType && sameValue;
+            sameLine = this.line == obj.line;
+            return sameType && sameValue && sameLine;
         }
     }
 
     @Override
     public String toString() {
-        return this.type.name() + " " + this.value;
+        return this.type.name() + " " + this.value + " on line " + this.line;
     }
 }

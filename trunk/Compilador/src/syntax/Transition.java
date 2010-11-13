@@ -77,4 +77,17 @@ public class Transition {
         return type;
     }
 
+    @Override
+    public String toString(){
+        String result= "Transition Type : ";
+        result = result + type.name();
+        result = result + " from state: " + stateNumber;
+        if(type ==  TransitionType.CALL_TO_ANOTHER_AUTOMATA){
+            result = result + " nextAutomata: " + nextAutomataNumber + " nextState: " + nextState;
+        }else{
+            result = result + " nextState: " + nextState + " token: " + token;
+        }
+        return result;
+    }
+
 }
