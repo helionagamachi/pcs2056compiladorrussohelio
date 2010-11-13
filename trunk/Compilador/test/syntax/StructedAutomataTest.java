@@ -6,11 +6,15 @@
 package syntax;
 
 import java.io.File;
+import lex.Token;
+import lex.TokenType;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import utils.ArrayUtilsTest;
+import utils.ArraysUtils;
 import static org.junit.Assert.*;
 
 /**
@@ -39,11 +43,24 @@ public class StructedAutomataTest {
     }
 
 
-    
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
+    @Test
+    public void test(){
+        String[] filesPath = new String[2];
+        filesPath[0] = StructedAutomataTest.class.getResource("/syntax/config/test/lol").getFile();
+        filesPath[1] = StructedAutomataTest.class.getResource("/syntax/config/test/lol2").getFile();
 
+        StructedAutomata automata;
+        automata = new StructedAutomata(2);
+        automata.init(filesPath);
+
+        Token idToken = new Token(TokenType.IDENTIFIER, -1);
+        Token plus = new Token(TokenType.RESERVED_WORD, ArraysUtils.getReservedWordIndex("+"));
+
+        assertTrue(automata.nextStep(plus));
+        assertTrue(automata.nextStep(idToken));
+        assertTrue(automata.accepted());
+        
+    }
+
+    
 }

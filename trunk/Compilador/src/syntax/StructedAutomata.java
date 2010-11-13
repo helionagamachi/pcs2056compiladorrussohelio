@@ -4,7 +4,9 @@
  */
 package syntax;
 
+import java.io.File;
 import lex.Token;
+import syntax.config.Parser;
 import utils.CompilerException;
 
 /**
@@ -20,7 +22,7 @@ public class StructedAutomata {
     public StructedAutomata(int automataAmount) {
         stack = AutomataStack.getInstance();
         automatas = new FiniteAutomata[automataAmount];
-        setAutomataAndState(0, 0);
+
     }
 
     /**
@@ -77,11 +79,26 @@ public class StructedAutomata {
         automatas[currentAutomata].setCurrentState(state);
     }
 
+
+    
     /**
      * This method should read all the config files for the automatas and
      * create them.
+     * @param files the array containing the path to the automatas' config
+     * files.
      */
-    public void init() {
-        //TODO: a parser to get the config of the automatas...
+    public void init(String[] files) {
+        File configFile;
+        int index = 0;
+        Parser parser;
+        FiniteAutomata automata;
+        while(index < files.length){
+            configFile = new File(files[index]);
+            parser = new Parser(configFile);
+            automata = parser.parse();
+            this.automatas[automata.getAutomataNumber()] = automata;
+            index ++;
+        }
+        setAutomataAndState(0, 0);
     }
 }
