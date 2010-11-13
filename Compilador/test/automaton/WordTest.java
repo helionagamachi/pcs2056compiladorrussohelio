@@ -89,4 +89,16 @@ public class WordTest {
         assertFalse(wordAutomata.processChar(' '));
         assertEquals("+=", wordAutomata.getIdentifier());
     }
+
+    @Test
+    public void testIdentifier(){
+        assertTrue(wordAutomata.processChar('n'));
+        assertTrue(wordAutomata.processChar('u'));
+        assertTrue(wordAutomata.processChar('m'));
+        assertTrue(wordAutomata.processChar('e'));
+        assertTrue(wordAutomata.processChar('r'));
+        assertTrue(wordAutomata.processChar('o'));
+        assertFalse(wordAutomata.processChar(' '));
+        assertEquals("numero", wordAutomata.getIdentifier());
+    }
 }

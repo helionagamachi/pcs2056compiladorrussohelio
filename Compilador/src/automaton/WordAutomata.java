@@ -34,7 +34,7 @@ public class WordAutomata extends Automata {
 
     @Override
     public boolean processChar(char a) {
-        LOGGER.debug("Called the word Automata with the char " + a);
+//        LOGGER.debug("Called the word Automata with the char " + a);
         boolean result = false;
         switch (this.currentState) {
             case INITIAL:

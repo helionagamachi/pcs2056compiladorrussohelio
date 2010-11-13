@@ -98,7 +98,7 @@ public class Analyzer {
             canContinue = false;
             boolean noFinalStateAutomata = true;
             //loops the array of possible Automatas.
-            LOGGER.debug("working with " + possibleAutomatas.length + " possible Automata");
+//            LOGGER.debug("working with " + possibleAutomatas.length + " possible Automata");
             while (index < possibleAutomatas.length && noFinalStateAutomata) {
                 analyzedAutomata = possibleAutomatas[index];
                 if (analyzedAutomata.processChar((char) now)) {
@@ -166,7 +166,7 @@ public class Analyzer {
     private void readNextChar() {
         try {
             now = this.fileSource.read();
-            LOGGER.debug("Read the char " + (char) now);
+//            LOGGER.debug("Read the char " + (char) now);
             if (now == '\n') {
                 this.line++;
             }
@@ -204,7 +204,7 @@ public class Analyzer {
      * @return The instance of the Lexical Analyzer
      */
     public static Analyzer getInstance() {
-        LOGGER.debug("Analyzer instance required");
+        LOGGER.debug("Lexical Analyzer instance required");
         if (instance == null) {
             instance = new Analyzer();
         }

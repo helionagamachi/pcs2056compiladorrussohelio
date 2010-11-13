@@ -51,15 +51,15 @@ public class SymbolTableTest {
         table.addLine("3");
         table.addLine("3");
         table.addLine("4");
-        SymbolLine line = table.getLine(1);
+        SymbolLine line = table.getLine(0);
         assertNotNull(line);
-        System.out.println(line.getSymbol());
+        assertEquals("1", line.getSymbol());
         line = line.getNextLine();
-        System.out.println(line.getSymbol());
+        assertEquals("2", line.getSymbol());
         line = line.getNextLine();
-        System.out.println(line.getSymbol());
+        assertEquals("3", line.getSymbol());
         line = line.getNextLine();
-        System.out.println(line.getSymbol());
+        assertEquals("4", line.getSymbol());
         line = line.getNextLine();
         assertNull(line);
     }
@@ -70,7 +70,7 @@ public class SymbolTableTest {
         table.addLine("2");
         table.addLine("3");
         assertNull(table.getLine(4));
-        assertEquals(table.getLine(3).getSymbol(), "3");
+        assertEquals(table.getLine(2).getSymbol(), "3");
     }
     
 
@@ -85,16 +85,19 @@ public class SymbolTableTest {
         index = table.addLine("fatorial");
         index = table.addLine("fatorial");
         index = table.addLine("fatorial");
+        assertEquals(0, index);
+        index = table.addLine("inteiro");
         assertEquals(1, index);
         index = table.addLine("inteiro");
         index = table.addLine("inteiro");
         index = table.addLine("inteiro");
-        index = table.addLine("inteiro");
-        index = table.addLine("inteiro");
-        index = table.addLine("inteiro");
+        assertEquals(1, index);
+        index = table.addLine("numero");
+        assertEquals(2, index);
+        index = table.addLine("numero");
         assertEquals(2, index);
         index = table.addLine("fatorial");
-        assertEquals(1, index);
+        assertEquals(0, index);
     }
 
 

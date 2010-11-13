@@ -144,7 +144,6 @@ public class Parser {
 
         to = getInteger(temp);
         Transition result;
-        System.out.println(transition);
         if (transition.charAt(0) == '"') {
             Token token;
             if (transition.equals("\"number\"")) {
@@ -170,7 +169,7 @@ public class Parser {
             addString(transition);
             result = new Transition(namesList.getId(source.getName()), from, to, namesList.getId(transition));
         }
-        
+        LOGGER.debug("got this transition \n" + result);
         return result;
     }
 
@@ -201,6 +200,7 @@ public class Parser {
      */
     private void addString(String string) {
         if (namesList.getId(string) == -1) {
+            LOGGER.debug("Adding a string on the list, "+ string);
             namesList.addString(string);
         }
     }
