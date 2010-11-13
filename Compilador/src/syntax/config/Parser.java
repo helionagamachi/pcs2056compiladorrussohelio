@@ -59,6 +59,7 @@ public class Parser {
             Transition[] transitions = transList.getArray();
             FiniteAutomata automata = new FiniteAutomata(statesAmount, transitions.length, namesList.getId(source.getName()));
             automata.initStates(finalStates);
+            automata.setTransitions(transitions);
             return automata;
 
         } catch (FileNotFoundException ex) {
@@ -148,7 +149,7 @@ public class Parser {
             Token token;
             if (transition.equals("number")) {
                 token = new Token(TokenType.INT, 0);
-            }else if(transition.equals("identifier")){
+            }else if(transition.equals("identificador")){
                 token = new Token(TokenType.IDENTIFIER, -1);
             }
             else {
