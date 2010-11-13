@@ -14,9 +14,11 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import syntax.FiniteAutomata;
 import syntax.TransitionType;
 import utils.ArraysUtils;
 import static org.junit.Assert.*;
+import utils.CompilerException;
 
 /**
  *
@@ -24,9 +26,10 @@ import static org.junit.Assert.*;
  */
 public class ParserTest {
 
-    private static Parser parser = new Parser(new File(ParserTest.class.getResource("/syntax/config/desvio").getFile()));
+    private static Parser parser;
 
     public ParserTest() {
+        parser = new Parser(new File(ParserTest.class.getResource("/syntax/config/desvio").getFile()));
       
     }
 
@@ -100,10 +103,22 @@ public class ParserTest {
     }
 
     @Test
-    public void parseTest(){
-        parser.parse();
+    public void parseTest() throws CompilerException{
+        FiniteAutomata auto = parser.parse();
+        assertEquals(0, auto.getCurrentState());
+        Token continueToken = new Token(TokenType.RESERVED_WORD, ArraysUtils.getReservedWordIndex("continue"));
+        TransitionType type ;
+        type = auto.transit(continueToken);
+        assertEquals(TransitionType.NORMAL, type);
+        assertEquals(1, auto.getCurrentState());
+        type = auto.transit(continueToken);
+        assertEquals(TransitionType.CALL_TO_ANOTHER_AUTOMATA, type);
+        Transition trans = auto.getTransition();
+        assertEquals(2, trans.getNextState());
+        assertEquals(1, trans.getStateNumber());
+        assertEquals(0, trans.getAutomataNumber());
+        assertEquals(1, trans.getNextAutomataNumber());
     }
-
 
     
 }

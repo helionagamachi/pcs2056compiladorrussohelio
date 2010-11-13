@@ -39,8 +39,7 @@ public class StructedAutomata {
                 case CALL_TO_ANOTHER_AUTOMATA:
                     Transition transition = automatas[currentAutomata].getTransition();
                     int nextState = transition.getNextState();
-                    AutomataStackElement element = new AutomataStackElement(currentAutomata, nextState);
-                    stack.push(element);
+                    stack.push(currentAutomata, nextState);
                     setAutomataAndState(transition.getNextAutomataNumber(), 0);
                     //The token hasn't been used yet!
                     return nextStep(token);
@@ -48,8 +47,8 @@ public class StructedAutomata {
                     if (stack.isEmpty()) {
                         return false;
                     }
-                    element = stack.pop();
-                    setAutomataAndState(element.getAutomataNumber(), element.getStateNumber());
+                    int[] result =  stack.pop();
+                    setAutomataAndState(result[0], result[1]);
                     return nextStep(token);
                 default:
                     return false;
