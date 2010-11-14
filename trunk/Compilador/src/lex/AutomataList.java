@@ -5,7 +5,6 @@
 package lex;
 
 import automaton.Automata;
-import org.apache.log4j.Logger;
 
 
 /**
