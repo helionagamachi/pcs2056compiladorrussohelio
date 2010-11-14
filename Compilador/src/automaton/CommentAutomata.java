@@ -75,5 +75,14 @@ public class CommentAutomata extends Automata {
     public Token getToken() {
         return null;
     }
+
+    @Override
+    public String toString() {
+        return "Comment Automata, on State " + currentState;
+    }
+
+
+
+
 }
 

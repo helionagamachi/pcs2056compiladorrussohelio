@@ -21,7 +21,7 @@ public abstract class Automata {
      * process another char returns true, if it is on the final state or
      * reached an error state, returns false.
      * @param a the character to be consumed
-     * @return true if it can continue to receive more chars, or false it it
+     * @return true if it can continue to receive more chars, or false if it
      * is in the final state or an error state.
      */
     public abstract boolean processChar(char a);
@@ -48,5 +48,10 @@ public abstract class Automata {
      * @return the token
      */
     public abstract Token getToken();
+
+
+    
+    @Override
+    public abstract String toString();
 
 }

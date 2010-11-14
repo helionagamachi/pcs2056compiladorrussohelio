@@ -27,11 +27,7 @@ public class Analyzer {
     private static Analyzer instance;
     private static Logger LOGGER = Logger.getLogger(Analyzer.class);
     private InputStream fileSource;
-    private CommentAutomata commentAutomata;
-    private WordAutomata wordAutomata;
-    private NumberAutomata numberAutomata;
-    private StringAutomata stringAutomata;
-    protected Automata possibleAutomatas[];
+    private AutomataList automatas;
     //Look ahead of 1?
     private int now, line;
 
@@ -70,79 +66,46 @@ public class Analyzer {
             eof.setLine(line);
             return eof;
         }
-        if (this.possibleAutomatas.length == 0) {
-            //Gathers the possible automatas.
-            if (this.commentAutomata.processChar((char) now)) {
-                addAutomata2List(commentAutomata);
-            }
-            if (this.stringAutomata.processChar((char) now)) {
-                addAutomata2List(stringAutomata);
-            }
-            if (this.numberAutomata.processChar((char) now)) {
-                addAutomata2List(numberAutomata);
-            }
-            if (this.wordAutomata.processChar((char) now)) {
-                addAutomata2List(wordAutomata);
-            }
-//            readNextChar();
-//            return getNextToken(table);
-        }
-        //It is ok to advance on the processing.
-        boolean canContinue = true;
 
-        Automata analyzedAutomata = null;
+        boolean canContinue;
+        //It is ok to advance on the processing.
+        canContinue = automatas.process((char) now);
+        Automata finalAutomata = null;
         while (canContinue) {
             readNextChar();
-            int index = 0;
-            boolean toBeRemoved[] = new boolean[possibleAutomatas.length];
-            canContinue = false;
-            boolean noFinalStateAutomata = true;
-            //loops the array of possible Automatas.
-//            LOGGER.debug("working with " + possibleAutomatas.length + " possible Automata");
-            while (index < possibleAutomatas.length && noFinalStateAutomata) {
-                analyzedAutomata = possibleAutomatas[index];
-                if (analyzedAutomata.processChar((char) now)) {
-                    canContinue = true;
-                    toBeRemoved[index] = false;
-                } else {
-                    State state = analyzedAutomata.getState();
-                    if (state.isFinalState()) {
-                        // can stop.
-                        noFinalStateAutomata = false;
-                        canContinue = false;
-                    } else {
-                        toBeRemoved[index] = true;
-                    }
-                }
-                index++;
-            }
-            if (canContinue) {
-                removeAutomatas(toBeRemoved);
-            }
+            canContinue = automatas.process((char) now);
+
         }
-        if (analyzedAutomata != null) {
-            State automataState = analyzedAutomata.getState();
-            if (automataState.isFinalState()) {
-                
-                result = analyzedAutomata.getToken();
-                if(result==null){
-                    LOGGER.debug("null result, read another char..");
-                    readNextChar();
-                }
-                if (table != null) {
-                    if (automataState == State.IDENTIFIER) {
-                        int index;
-                        index = table.addLine(this.wordAutomata.getIdentifier());
-                        result.setValue(index);
-                    }
+        finalAutomata = automatas.getFinalAutomata();
+
+
+        State automataState = finalAutomata.getState();
+        if (automataState.isFinalState()) {
+            //checking the state of the last automata.
+            result = finalAutomata.getToken();
+            if (result == null) {
+                //no token, error, or comment block
+                LOGGER.debug("null result, read another char..");
+                readNextChar();
+            }
+            if (table != null) {
+                //if I have the table to put a symbol..
+                if (automataState == State.IDENTIFIER) {
+                    //I have a symbol to put on the symbol table.
+                    int index;
+                    index = table.addLine(((WordAutomata) finalAutomata).getIdentifier());
+                    result.setValue(index);
                 }
             }
         }
-        // Automata need to be reseted
-        resetAutomatas();
+
+        // Automatas need to be reseted
+        automatas.resetAutomatas();
         if (result == null) {
+            //more likely an error, or a comment block.
             result = getNextToken(table);
         } else {
+            //sets the line on the token
             if (now == '\n') {
                 result.setLine(line - 1);
             } else {
@@ -157,6 +120,7 @@ public class Analyzer {
      * Single ton pattern.
      */
     private Analyzer() {
+        this.automatas = new AutomataList();
         this.init();
     }
 
@@ -166,11 +130,9 @@ public class Analyzer {
     private void readNextChar() {
         try {
             now = this.fileSource.read();
-//            LOGGER.debug("Read the char " + (char) now);
             if (now == '\n') {
                 this.line++;
             }
-//            LOGGER.debug("Read the char : " + now);
         } catch (IOException ex) {
             LOGGER.error("IO exception while reading the source file" + ex.getMessage());
             now = -1;
@@ -179,24 +141,16 @@ public class Analyzer {
     }
 
     private void init() {
-//        this.selectedAutomata = automataSelection.NONE;
-        this.commentAutomata = new CommentAutomata();
-        this.numberAutomata = new NumberAutomata();
-        this.stringAutomata = new StringAutomata();
-        this.wordAutomata = new WordAutomata();
+        Automata commentAutomata = new CommentAutomata();
+        Automata numberAutomata = new NumberAutomata();
+        Automata stringAutomata = new StringAutomata();
+        Automata wordAutomata = new WordAutomata();
+        this.automatas.addAutomata(commentAutomata);
+        this.automatas.addAutomata(numberAutomata);
+        this.automatas.addAutomata(stringAutomata);
+        this.automatas.addAutomata(wordAutomata);
         this.fileSource = null;
         this.line = 1;
-        this.possibleAutomatas = new Automata[0];
-    }
-
-    private void resetAutomatas() {
-        LOGGER.debug("Reseted the automatas");
-        this.commentAutomata.resetAutomata();
-        this.numberAutomata.resetAutomata();
-        this.stringAutomata.resetAutomata();
-        this.wordAutomata.resetAutomata();
-        this.possibleAutomatas = new Automata[0];
-//        this.selectedAutomata = automataSelection.NONE;
     }
 
     /**
@@ -211,46 +165,12 @@ public class Analyzer {
         return instance;
     }
 
-    protected void removeAutomatas(boolean toBeRemoved[]) {
-        int amount2Remove, index;
-        amount2Remove = 0;
-        index = 0;
-        while (index < toBeRemoved.length) {
-            if (toBeRemoved[index]) {
-                amount2Remove++;
-            }
-            index++;
-        }
-        index = 0;
-        Automata newArray[] = new Automata[possibleAutomatas.length - amount2Remove];
-        int index2 = 0;
-        while (index < possibleAutomatas.length) {
-            if (!toBeRemoved[index]) {
-                newArray[index2] = possibleAutomatas[index];
-                index2++;
-            }
-            index++;
-        }
-        this.possibleAutomatas = newArray;
-
-    }
-
-    protected void addAutomata2List(Automata automaton) {
-        int size = this.possibleAutomatas.length + 1;
-        Automata newArray[] = new Automata[size];
-        int index = 0;
-        while (index < size - 1) {
-            newArray[index] = possibleAutomatas[index];
-            index++;
-        }
-        newArray[size - 1] = automaton;
-        this.possibleAutomatas = newArray;
-    }
-
     /**
      * For testing only, resets the instance
      */
     protected void resetAnalyzer() {
-        this.init();
+        line = 1;
+        this.fileSource = null;
+        this.automatas.resetAutomatas();
     }
 }
