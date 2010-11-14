@@ -3,29 +3,27 @@ lista_import = {“import” "identificador" “;”}.
 lista_funcoes_proced = {declaracao_procedimento | declaracao_funcao}.
 lista_tipos = {declaracao_tipo}.
 
-declaracao_variavel = tipo identificador {“,” identificador}.
-declaracao_array = tipo identificador “[“expressao_num”]”{”[“expressao_num”]”}.
+declaracao_variavel = tipo "identificador" {“,” "identificador"}.
+declaracao_array = tipo "identificador" “[“expressao_num”]”{”[“expressao_num”]”}.
 declaracao_struct = “struct” ”{“ { declaracao_variavel  “;”}“}”.
-declaracao_tipo = “typedef” declaracao_struct identificador “;”.
+declaracao_tipo = “typedef” declaracao_struct "identificador" “;”.
 
-declaracao_procedimento = “void” identificador “(“ {declaracao_variavel} “)” (corpo_procedimento | ”;”).
-declaracao_funcao = tipo identificador “(“ { declaracao_variavel } “)”(corpo_funcao | “;”).
+declaracao_procedimento = “void” "identificador" “(“ {declaracao_variavel} “)” (corpo_procedimento | ”;”).
+declaracao_funcao = tipo "identificador" “(“ { declaracao_variavel } “)”(corpo_funcao | “;”).
 
-chamada_de_funcao_procedimento = identificador “(“ {identificador “,” } “)”.
+chamada_de_funcao_procedimento = "identificador" “(“ {"identificador" “,” } “)”.
 
-rotulo = identificador “:”.
-desvio = “continue” [identificador].
+rotulo = "identificador" “:”.
+desvio = “continue” ["identificador"].
 condicional = “if” “(“ expressao_bool “)” ”{“ bloco_codigo“}” [“else” ”{“ bloco_codigo “}”].
 
 
 expressao_num = termo | (termo “+” | “-“ expressao_num).
 termo = fator | (termo “*” | “/” fator).
-fator = "numero" | identificador | “(“ expressao_num “)”.
+fator = "numero" | "identificador" | “(“ expressao_num “)”.
 
 expressao_bool = {“!”} (termo_bool | (termo_bool ( “&&” | “||” | “!=” | “==” ) expressao_bool)).
-termo_bool = booleano | identificador | “(“expressao_bol”)”.
+termo_bool = booleano | "identificador" | “(“expressao_bol”)”.
 
 
-identificador = letra {letradig}.
 booleano = “true” | “false”.
-letradig = letra | digito.

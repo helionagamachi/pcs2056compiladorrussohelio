@@ -59,4 +59,11 @@ public class StringAutomata extends Automata {
         this.currentState = State.INITIAL;
         this.content = "";
     }
+
+    @Override
+    public String toString() {
+        return "String automata on state " + currentState;
+    }
+
+
 }

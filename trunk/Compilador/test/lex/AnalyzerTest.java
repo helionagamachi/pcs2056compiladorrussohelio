@@ -6,13 +6,11 @@ package lex;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import utils.ArraysUtils;
-import utils.Others;
 import utils.SymbolTable;
 import static org.junit.Assert.*;
 
@@ -71,11 +69,11 @@ public class AnalyzerTest {
         URL sourceFile = AnalyzerTest.class.getResource("/lex/numberCommentSource");
         analyzer.setFile(sourceFile.getFile());
         Token Test = analyzer.getNextToken(null);
-        System.out.println(Test);
+        
         Test = analyzer.getNextToken(null);
-        System.out.println(Test);
+        
         Test = analyzer.getNextToken(null);
-        System.out.println(Test);
+        
     }
 
     @Test
@@ -184,9 +182,9 @@ public class AnalyzerTest {
         assertEquals(token, analyzer.getNextToken(table));
         token = getPrivateWordToken("}",21);
         assertEquals(token, analyzer.getNextToken(table));
-
-
-
+        token = new Token(TokenType.EOF, 0);
+        token.setLine(21);
+        assertEquals(token, analyzer.getNextToken(table));
     }
 
     private Token getPrivateWordToken(String word, int line) {

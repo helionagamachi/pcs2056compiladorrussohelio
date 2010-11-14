@@ -134,6 +134,11 @@ public class NumberAutomata extends Automata {
         return integerNumber;
     }
 
+    @Override
+    public String toString() {
+        return "Number automata on state " + currentState;
+    }
+
 
 
 }
