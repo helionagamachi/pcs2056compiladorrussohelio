@@ -20,6 +20,8 @@ public enum  State {
     STRING_CONTENT, STRING_FINAL(true),
     //For reserved words and identifiers...
     POSSIBLE_RESERVED_WORD, POSSIBLE_OPERATOR, RESERVED_WORD(true), IDENTIFIER(true),
+    //Characters
+    ONE_QUOTE, POSSIBLE_CHAR ,POSSIBLE_ESCAPE_CHAR ,CHAR(true),
     ;
     
     private boolean finalState;

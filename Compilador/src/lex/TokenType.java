@@ -1,5 +1,5 @@
 package lex;
 
 public enum TokenType {
-    INT, RESERVED_WORD, EOF, IDENTIFIER,
+    INT, RESERVED_WORD, EOF, IDENTIFIER, CHAR,
 }

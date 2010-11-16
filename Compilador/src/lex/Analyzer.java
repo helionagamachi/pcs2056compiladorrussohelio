@@ -1,6 +1,7 @@
 package lex;
 
 import automaton.Automata;
+import automaton.CharAutomata;
 import automaton.CommentAutomata;
 import automaton.NumberAutomata;
 import automaton.State;
@@ -145,10 +146,12 @@ public class Analyzer {
         Automata numberAutomata = new NumberAutomata();
         Automata stringAutomata = new StringAutomata();
         Automata wordAutomata = new WordAutomata();
+        Automata charAutomata = new CharAutomata();
         this.automatas.addAutomata(commentAutomata);
         this.automatas.addAutomata(numberAutomata);
         this.automatas.addAutomata(stringAutomata);
         this.automatas.addAutomata(wordAutomata);
+        this.automatas.addAutomata(charAutomata);
         this.fileSource = null;
         this.line = 1;
     }

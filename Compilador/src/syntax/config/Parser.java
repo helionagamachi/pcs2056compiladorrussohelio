@@ -109,7 +109,7 @@ public class Parser {
      * @return the corresponding transition
      */
     protected Transition parseTransition(String transitionLine) {
-        
+        System.out.println("parsing line " + transitionLine);
         int index = 1, from, to;
         char ch = transitionLine.charAt(index);
         String temp = "";
@@ -123,10 +123,12 @@ public class Parser {
         //Skips the space char...
         index = index + 2;
         ch = transitionLine.charAt(index);
-        while (ch != ')') {
+        char ch1 = transitionLine.charAt(index+1);
+        while (!(ch == ')' && ch1 == ' ')) {
             temp = temp + ch;
             index++;
             ch = transitionLine.charAt(index);
+            ch1 = transitionLine.charAt(index+1);
         }
         String transition = temp;
 
@@ -152,6 +154,7 @@ public class Parser {
                 token = new Token(TokenType.IDENTIFIER, -1);
             }
             else {
+                System.out.println("transition " + transition);
                 String reservedWord = "";
                 index = 1;
                 ch = transition.charAt(index);

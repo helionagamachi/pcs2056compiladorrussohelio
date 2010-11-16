@@ -74,6 +74,11 @@ public class StructedAutomata {
         return isFinalState && isInitialAutomata;
     }
 
+    /**
+     * mostly used to reset the automata, sets the current finite automata and state.
+     * @param automata
+     * @param state
+     */
     private void setAutomataAndState(int automata, int state) {
         currentAutomata = automata;
         automatas[currentAutomata].setCurrentState(state);

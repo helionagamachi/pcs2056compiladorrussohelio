@@ -29,7 +29,7 @@ public class ParserTest {
     private static Parser parser;
 
     public ParserTest() {
-        parser = new Parser(new File(ParserTest.class.getResource("/syntax/config/desvio").getFile()));
+        parser = new Parser(new File(ParserTest.class.getResource("/syntax/config/test/desvio").getFile()));
       
     }
 
