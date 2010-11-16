@@ -8,6 +8,7 @@ package utils;
 import java.io.IOException;
 import java.io.InputStream;
 
+
 /**
  *
  * @author helionagamachi
@@ -24,7 +25,7 @@ public class FileUtils {
         String result = "";
         int e;
         e =  read(file);
-        while(e != '\n' && e != -1){
+        while(e != '\n' && e != -1 && e!= '\r'){
             result = result + (char) e;
             e = read(file);
         }
