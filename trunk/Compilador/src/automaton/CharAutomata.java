@@ -31,6 +31,8 @@ public class CharAutomata extends Automata {
                 if(a == '\''){
                     currentState = State.ONE_QUOTE;
                     return true;
+                }else{
+                    currentState = State.ERROR;
                 }
                 break;
             case ONE_QUOTE:
@@ -49,6 +51,7 @@ public class CharAutomata extends Automata {
             case POSSIBLE_CHAR:
                 if(a=='\''){
                     currentState = State.CHAR;
+                    return true;
                 }else{
                     currentState = State.ERROR;
                 }

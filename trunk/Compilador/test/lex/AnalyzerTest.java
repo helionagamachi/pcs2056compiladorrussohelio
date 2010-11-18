@@ -11,6 +11,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import utils.ArraysUtils;
+import utils.LexicalException;
 import utils.SymbolTable;
 import static org.junit.Assert.*;
 
@@ -51,7 +52,7 @@ public class AnalyzerTest {
     }
 
     @Test
-    public void testEmptyLoadFile() {
+    public void testEmptyLoadFile() throws LexicalException {
         //An empty file is loaded
         URL sourceFile = AnalyzerTest.class.getResource("/lex/emptySource");
         analyzer.setFile(sourceFile.getFile());
@@ -62,7 +63,7 @@ public class AnalyzerTest {
     }
 
     @Test
-    public void testCommentAndNumber() {
+    public void testCommentAndNumber() throws LexicalException {
         //The URL source file of this test
         analyzer = Analyzer.getInstance();
 
@@ -77,7 +78,7 @@ public class AnalyzerTest {
     }
 
     @Test
-    public void complexTest() {
+    public void complexTest() throws LexicalException {
 
         SymbolTable table = new SymbolTable();
         analyzer.resetAnalyzer();

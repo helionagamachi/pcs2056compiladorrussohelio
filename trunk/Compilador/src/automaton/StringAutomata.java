@@ -5,6 +5,7 @@
 package automaton;
 
 import lex.Token;
+import lex.TokenType;
 
 /**
  * Class destined to take care of strings
@@ -31,7 +32,7 @@ public class StringAutomata extends Automata {
             case STRING_CONTENT:
                 if (a == '"') {
                     this.currentState = State.STRING_FINAL;
-                    // TODO : Treat scape chars.
+                    result = true;
                 } else {
                     content += a;
                     result = true;
@@ -43,7 +44,9 @@ public class StringAutomata extends Automata {
 
     @Override
     public Token getToken() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        //TODO -> something to do with the constants table.
+        Token result = new Token(TokenType.STRING, 0);
+        return result;
     }
 
     /**

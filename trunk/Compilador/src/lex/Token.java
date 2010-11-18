@@ -65,6 +65,8 @@ public class Token {
                 return other.getType() == TokenType.IDENTIFIER;
             case INT:
                 return other.getType() == TokenType.INT;
+            case STRING:
+                return other.getType() == TokenType.STRING;
             default:
                 return false;
 

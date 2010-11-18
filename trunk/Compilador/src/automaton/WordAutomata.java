@@ -13,6 +13,7 @@ import static utils.ArraysUtils.reservedWords;
 import static utils.ArraysUtils.whiteSpaceChars;
 import static utils.ArraysUtils.charIsOnArray;
 import static utils.ArraysUtils.getReservedWordIndex;
+import static utils.ArraysUtils.nonLettersOKId;
 
 /**
  * Automata to find reserved words and identifiers,
@@ -64,7 +65,7 @@ public class WordAutomata extends Automata {
                 }
                 break;
             case IDENTIFIER:
-                if (isNumber(a) || charIsOnArray(a, letters)) {
+                if (isNumber(a) || charIsOnArray(a, letters) || charIsOnArray(a, nonLettersOKId )) {
                     //Still a identifier
                     result = true;
                     this.name += a;

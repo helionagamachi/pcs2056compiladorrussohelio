@@ -52,6 +52,7 @@ public class StringTest {
     @Test
     public void testEmptyString(){
         assertTrue("Should accept Empty String", stringAutomata.processChar('"'));
+        assertTrue("Should accept Empty String", stringAutomata.processChar('"'));
         assertFalse("Should accept Empty String", stringAutomata.processChar('"'));
         assertEquals("Should be on the final State", State.STRING_FINAL, stringAutomata.currentState);
         assertEquals("Should have an empty String","", stringAutomata.getContent());

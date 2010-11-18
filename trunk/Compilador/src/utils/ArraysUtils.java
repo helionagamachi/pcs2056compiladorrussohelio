@@ -76,6 +76,7 @@ public class ArraysUtils {
         "&&",
         "{",
         "}",
+        ",",
     };
 
     public static final String[] reservedWords = {
@@ -89,6 +90,10 @@ public class ArraysUtils {
         "continue",
         "true",
         "false",
+        "import",
+        "typedef",
+        "String",
+        "char",
     };
 
     public static final char[] whiteSpaceChars = {
@@ -103,7 +108,9 @@ public class ArraysUtils {
         'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O',
         'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'X', 'W', 'Y', 'Z',};
 
-
+    public static final char[] nonLettersOKId ={
+        '_', 
+    };
     /**
      * Checks if the given char is present in the char array
      * @param check the char that must be found

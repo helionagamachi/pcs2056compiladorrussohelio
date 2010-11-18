@@ -1,26 +1,15 @@
-programa = {“import” "string" “;”}  {declaracao_tipo} {declaracao_funcao}.
-
-declaracao_variavel = tipo [“[“expressao_num”]”{”[“expressao_num”]”}] "identificador" {“,” "identificador"} ";".
-declaracao_tipo = “typedef” "identificador" ”{“ { declaracao_variavel }“}”.
-
-declaracao_funcao =  (tipo | "void" )"identificador" “(“ { declaracao_variavel } “)” bloco_codigo .
-
+programa = {"import" "string" ";"}  {("typedef" "identificador" "{" { ("bool" | "int" | "String"| "char" | "identificador") ["["expressao_num"]"{"["expressao_num"]"}] "identificador" {"," "identificador"} ";" }"}")} {("String" | "char" | "int" | "bool" | "identificador" | "void" )"identificador" "(" [ ("String" | "char" | "int" | "bool" | "identificador" )["[" expressa_num "]"{"["expressao_num"]"}] "identificador" {"," ("String" | "char" | "int" | "bool" | "identificador") ["[" expressa_num "]" {"["expressao_num"]"}] "identificador"}]")" bloco_codigo}.
+declaracao_variavel = ("bool" | "int" | "string" | "String" | "char" | "identificador") [“[“expressao_num”]”{”[“expressao_num”]”}] "identificador" {“,” "identificador"} ";".
 chamada_de_funcao_procedimento = "identificador" “(“ {"identificador" “,” } “)”.
-
 rotulo = "identificador" “:”.
 desvio = (“continue” ["identificador"]) | ("break" ";").
 condicional = “if” “(“ expressao_bool “)” bloco_codigo [“else”  bloco_codigo ].
 laco = "while" "("expressao_bool")" bloco_codigo.
-
 bloco_codigo = "{" (atribuicao | condicional | laco | desvio | retorno | chamada_funcao_procedimento ) "}".
-
+retorno = "return" ("identificador" | chamada_funcao_prodecimento | expressao) ";".
 atribuicao = "identificador" "=" (expressao_num | expressao_bool | chamada_funcao_procedimento ) ";".
-
 expressao_num = termo | (termo “+” | “-“ expressao_num).
 termo = fator | (termo “*” | “/” fator).
 fator = "numero" | "identificador" | chamada_funcao_procedimento | “(“ expressao_num “)”.
-
-expressao_bool = [“!”] (termo_bool | (termo_bool ( “&&” | “||” | “!=” | “==” ) expressao_bool)).
-termo_bool = "true" | "false" | "identificador" | chamada funcao_procedimento  | “(“expressao_bol”)”.
-
-tipo = "bool" | "int" | "char" | "string" | "identificador".
+expressao_bool = {“!”} (termo_bool | (termo_bool ( “&&” | “||” | “!=” | “==” ) expressao_bool)).
+termo_bool = "true" | "false"| "identificador" | chamada funcao_procedimento  | “(“expressao_bol”)”.

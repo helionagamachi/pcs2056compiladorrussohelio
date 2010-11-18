@@ -5,6 +5,11 @@
 
 package syntax;
 
+import lex.Token;
+import lex.TokenType;
+import utils.LexicalException;
+import utils.SymbolTable;
+
 /**
  * This class takes cares on analyzing
  * a code file syntax.
@@ -15,13 +20,40 @@ public class Analyzer {
 
     private lex.Analyzer lexical;
     private StructedAutomata structedAutomata;
-    private final String[] files = {"programa" , "laco"};
+    private final String[] files = {"programa" };
 
     public Analyzer() {
         lexical = lex.Analyzer.getInstance();
         structedAutomata = new  StructedAutomata(17);
         structedAutomata.init(getFilePaths());
         
+    }
+
+
+
+    public void setFile(String filePath){
+        lexical.setFile(filePath);
+    }
+
+    /**
+     * returns true if the program is valid.
+     * @return
+     */
+    public boolean analyze() throws LexicalException{
+        Token token ;
+        SymbolTable table = new SymbolTable();
+        token = lexical.getNextToken(table);
+        while(token.getType() != TokenType.EOF){
+            boolean result;
+            System.out.println("Syntax analyzer got this token " + token);
+            result = structedAutomata.nextStep(token);
+            if(!result){
+                return false;
+            }
+            System.out.println("getting next token");
+            token = lexical.getNextToken(table);
+        }
+        return true;
     }
 
 
@@ -33,7 +65,6 @@ public class Analyzer {
         String[] result = new String[files.length];
         int index = 0;
         while(index < files.length){
-            System.out.println("/syntax/config/" + files[index]);
             result[index] = Analyzer.class.getResource("/syntax/config/" + files[index]).getFile();
             index ++;
         }
