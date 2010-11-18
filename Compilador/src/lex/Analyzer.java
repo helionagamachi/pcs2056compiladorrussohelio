@@ -16,6 +16,7 @@ import static utils.ArraysUtils.charIsOnArray;
 
 
 import org.apache.log4j.Logger;
+import utils.LexicalException;
 import utils.SymbolTable;
 
 /**
@@ -53,12 +54,11 @@ public class Analyzer {
      * @return the token, if reaches the end of the file, token of the type EOF
      * will be given
      */
-    public Token getNextToken(SymbolTable table) {
+    public Token getNextToken(SymbolTable table) throws LexicalException {
 //        LOGGER.debug("Automata selected " + this.selectedAutomata.name());
         Token result;
         result = null;
         while (charIsOnArray((char) now, whiteSpaceChars)) {
-//            LOGGER.debug("Killing white spaces");
             readNextChar();
         }
         if (now == -1) {
@@ -74,21 +74,30 @@ public class Analyzer {
         Automata finalAutomata = null;
         while (canContinue) {
             readNextChar();
-            canContinue = automatas.process((char) now);
-
+            if (now == -1) {
+                canContinue = false;
+                // no automata understands the -1 char, so giving them a white space char.
+                automatas.process('\n');
+            } else {
+                canContinue = automatas.process((char) now);
+            }
         }
         finalAutomata = automatas.getFinalAutomata();
 
+        if (finalAutomata == null) {
+            LexicalException ex = new LexicalException("An lexical error occurred on line " + line + " with char " + (char) now);
+            throw ex;
+        }
+        result = finalAutomata.getToken();
+        if (result == null || finalAutomata.getState() == State.ERROR) {
+            LexicalException ex = new LexicalException("An lexical error eccoured on line " + line + " with char " + (char) now);
+            throw ex;
+        }
 
         State automataState = finalAutomata.getState();
         if (automataState.isFinalState()) {
             //checking the state of the last automata.
-            result = finalAutomata.getToken();
-            if (result == null) {
-                //no token, error, or comment block
-                LOGGER.debug("null result, read another char..");
-                readNextChar();
-            }
+
             if (table != null) {
                 //if I have the table to put a symbol..
                 if (automataState == State.IDENTIFIER) {
@@ -102,8 +111,8 @@ public class Analyzer {
 
         // Automatas need to be reseted
         automatas.resetAutomatas();
-        if (result == null) {
-            //more likely an error, or a comment block.
+        if (result.getType() == TokenType.COMMENT) {
+            //comment tokens should not be returned at all
             result = getNextToken(table);
         } else {
             //sets the line on the token
@@ -131,6 +140,7 @@ public class Analyzer {
     private void readNextChar() {
         try {
             now = this.fileSource.read();
+            LOGGER.debug("Got the char " + (char) now);
             if (now == '\n') {
                 this.line++;
             }

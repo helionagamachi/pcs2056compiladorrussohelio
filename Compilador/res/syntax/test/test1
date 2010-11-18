@@ -1,0 +1,19 @@
+import "test" ;
+import "test" ;import "test" ;
+import "test" ;
+import "test" ;
+import "test" ;
+typedef teste {
+    int a, c, d;
+    bool b;
+    String hahahaFu_nciona;
+    char umChar;
+}
+
+
+bool funcao(int arg1, String nome);
+bool funcao(bool ok);
+String LOL();
+int a(int x, int y);
+
+//Hahah aceito esse comentário de boa tbm!

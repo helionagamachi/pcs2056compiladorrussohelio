@@ -5,6 +5,7 @@
 package automaton;
 
 import lex.Token;
+import lex.TokenType;
 
 /**
  * Class that should be able to process comments.
@@ -54,6 +55,7 @@ public class CommentAutomata extends Automata {
                 if (a == '/') {
                     // The comment block will really end
                     this.currentState = State.COMMENT_END;
+                    result = true;
                 } else {
                     // Block not ended
                     result = true;
@@ -73,7 +75,7 @@ public class CommentAutomata extends Automata {
      */
     @Override
     public Token getToken() {
-        return null;
+        return new Token(TokenType.COMMENT, 0);
     }
 
     @Override

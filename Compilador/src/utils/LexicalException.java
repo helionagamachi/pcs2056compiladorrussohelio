@@ -6,17 +6,13 @@
 package utils;
 
 /**
- * Class to exceptions to the compiler project
+ *
  * @author helionagamachi
  */
-public class CompilerException  extends Exception{
+public class LexicalException extends CompilerException{
 
-
-    public CompilerException(String string) {
+    public LexicalException(String string) {
         super(string);
     }
-
-
-
 
 }

@@ -152,6 +152,8 @@ public class Parser {
                 token = new Token(TokenType.INT, 0);
             }else if(transition.equals("\"identificador\"")){
                 token = new Token(TokenType.IDENTIFIER, -1);
+            }else if(transition.equals("\"string\"")){
+                token = new Token(TokenType.STRING, 0);
             }
             else {
                 System.out.println("transition " + transition);
