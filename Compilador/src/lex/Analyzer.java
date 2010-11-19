@@ -40,9 +40,12 @@ public class Analyzer {
      * @throws IOException
      */
     public void setFile(String filePath) {
+        line = 1;
+        automatas.resetAutomatas();
         LOGGER.info("Loading the file " + filePath);
         try {
             this.fileSource = new FileInputStream(filePath);
+            
         } catch (FileNotFoundException ex) {
             LOGGER.error("The source file was not found!" + ex.getMessage());
         }

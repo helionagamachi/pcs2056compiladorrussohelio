@@ -20,17 +20,23 @@ public class Analyzer {
 
     private lex.Analyzer lexical;
     private StructedAutomata structedAutomata;
-    private final String[] files = {"programa" };
+    private final String[] files = {"programa" , "bloco_codigo" , "expressao_num", "atribuicao", "expressao_bool"};
 
     public Analyzer() {
         lexical = lex.Analyzer.getInstance();
-        structedAutomata = new  StructedAutomata(17);
+        structedAutomata = new  StructedAutomata(5);
         structedAutomata.init(getFilePaths());
         
     }
 
 
-
+    public void reset(){
+        structedAutomata.setAutomataAndState(0, 0);
+        AutomataStack stack = AutomataStack.getInstance();
+        while(!stack.isEmpty()){
+            stack.pop();
+        }
+    }
     public void setFile(String filePath){
         lexical.setFile(filePath);
     }

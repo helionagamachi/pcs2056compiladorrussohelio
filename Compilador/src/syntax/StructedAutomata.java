@@ -79,7 +79,7 @@ public class StructedAutomata {
      * @param automata
      * @param state
      */
-    private void setAutomataAndState(int automata, int state) {
+    protected void setAutomataAndState(int automata, int state) {
         currentAutomata = automata;
         automatas[currentAutomata].setCurrentState(state);
     }

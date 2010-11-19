@@ -148,7 +148,7 @@ public class Parser {
         Transition result;
         if (transition.charAt(0) == '"') {
             Token token;
-            if (transition.equals("\"number\"")) {
+            if (transition.equals("\"numero\"")) {
                 token = new Token(TokenType.INT, 0);
             }else if(transition.equals("\"identificador\"")){
                 token = new Token(TokenType.IDENTIFIER, -1);
