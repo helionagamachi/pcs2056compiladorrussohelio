@@ -12,7 +12,9 @@ typedef teste {
 
 
 
-bool funcao(int arg1, String nome){}
+bool funcao(int arg1, String nome){
+    
+}
 bool funcao(bool ok){
     int a, c, d;
     bool b;
@@ -31,8 +33,10 @@ int a(int x, int y){
     int a, c, d;
     chamada();
     bool b;
+    int[91212][0] c;
     String hahahaFu_nciona;
     char umChar;
+    return testea;
 }
 void x(String lol , asas asas){
 }

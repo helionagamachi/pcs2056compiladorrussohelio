@@ -4,8 +4,9 @@
  */
 package syntax;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import utils.LexicalException;
 
 /**
@@ -14,18 +15,25 @@ import utils.LexicalException;
  */
 public class SyntaxTesting {
 
-
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Analyzer analyzer = new Analyzer();
-        String filePath = SyntaxTesting.class.getResource("/syntax/test/test1").getFile();
-        analyzer.setFile(filePath);
-        try {
-            System.out.println(analyzer.analyze());
-        } catch (LexicalException ex) {
-            System.out.println(ex.getMessage());
-        }
+        String[] testingFiles = {"test1", "test2", "test3"};
+        InputStreamReader in = new InputStreamReader(System.in);
         
+        for (String name : testingFiles) {
+            String filePath = SyntaxTesting.class.getResource("/syntax/test/" + name).getFile();
+            System.out.println("Testing syntax for the file " + name + " press enter to continue");
+            in.read();
+            analyzer.setFile(filePath);
+            try {
+                System.out.println(analyzer.analyze() ? "valid program" : "invalid program");
+            } catch (LexicalException ex) {
+                System.out.println(ex.getMessage());
+            }
+            analyzer.reset();
+        }
+
+
+
     }
-
-
 }
