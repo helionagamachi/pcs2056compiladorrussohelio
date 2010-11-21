@@ -20,11 +20,11 @@ public class Analyzer {
 
     private lex.Analyzer lexical;
     private StructedAutomata structedAutomata;
-    private final String[] files = {"programa" , "bloco_codigo" , "expressao_num", "atribuicao", "expressao_bool"};
+    private final String[] files = {"programa" , "bloco_codigo" , "atribuicao", "expressao"};
 
     public Analyzer() {
         lexical = lex.Analyzer.getInstance();
-        structedAutomata = new  StructedAutomata(5);
+        structedAutomata = new  StructedAutomata(4);
         structedAutomata.init(getFilePaths());
         
     }

@@ -1,5 +1,7 @@
 package lex;
 
+import utils.ArraysUtils;
+
 /**
  * Represents a token
  * @author helionagamachi
@@ -91,6 +93,13 @@ public class Token {
 
     @Override
     public String toString() {
+        if (type == TokenType.RESERVED_WORD) {
+            if (value > 0) {
+                return this.type.name() + " " + ArraysUtils.getReservedWordByIndex(this.value) + " on line " + this.line;
+            } else {
+                return this.type.name() + " " + this.value + " on line " + this.line;
+            }
+        }
         return this.type.name() + " " + this.value + " on line " + this.line;
     }
 }

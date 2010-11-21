@@ -17,7 +17,11 @@ public class SyntaxTesting {
 
     public static void main(String[] args) throws IOException {
         Analyzer analyzer = new Analyzer();
-        String[] testingFiles = {"test1", "test2", "test3"};
+        String[] testingFiles = {
+//        "test1",
+        "test2",
+//        "test3",
+        };
         InputStreamReader in = new InputStreamReader(System.in);
         
         for (String name : testingFiles) {

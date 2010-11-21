@@ -7,6 +7,7 @@ package automaton;
 import lex.Token;
 import lex.TokenType;
 import org.apache.log4j.Logger;
+import utils.ArraysUtils;
 import static utils.ArraysUtils.letters;
 import static utils.ArraysUtils.operators;
 import static utils.ArraysUtils.reservedWords;
@@ -120,8 +121,14 @@ public class WordAutomata extends Automata {
                     checkPossibleReserved(a);
                     //it reduced the possibilities to zero!
                     if (this.possibleReserved.length == 0) {
-                        LOGGER.error("Word Automata in error State!");
-                        this.currentState = State.ERROR;
+                        // still can be a token like = , > or <
+                        int possible_value = getReservedWordIndex(name);
+                        if(possible_value == -1){
+                            LOGGER.error("Word Automata in error State!");
+                            this.currentState = State.ERROR;
+                        }else{
+                            this.currentState = State.RESERVED_WORD;
+                        }
                     } else {
                         this.name += a;
                         result = true;
