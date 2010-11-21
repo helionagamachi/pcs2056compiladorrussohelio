@@ -69,32 +69,17 @@ public class FiniteAutomata {
     public TransitionType transit(Token token) throws CompilerException {
         LOGGER.debug("Looking for a transition, on Automata " + automataNumber);
         LOGGER.debug("Current state :" + currentState);
-        int transitionIndex = 0;
-        while (transitionIndex < transitions.length) {
-            Transition candidate = transitions[transitionIndex];
-            if (candidate.getStateNumber() == this.currentState) {
-                //Normal or Call to another?
-                switch (candidate.getType()) {
-                    case NORMAL:
-                        if (candidate.getToken().compatible(token)) {
-                            LOGGER.debug("Found a normal transition");
-                            currentState = candidate.getNextState();
-                            LOGGER.debug("now on state" + currentState);
-                            return TransitionType.NORMAL;
-                        }
-                        break;
-                    case CALL_TO_ANOTHER_AUTOMATA:
-                        LOGGER.debug("The automata should call another one");
-                        this.transition = candidate;
-                        return TransitionType.CALL_TO_ANOTHER_AUTOMATA;
-                        
-                }
-            }
-            transitionIndex++;
+        TransitionType possible;
+        possible = searchTransition(TransitionType.NORMAL, token);
+        if (possible == null) {
+            possible = searchTransition(TransitionType.CALL_TO_ANOTHER_AUTOMATA, token);
+        }
+        if (possible != null) {
+            return possible;
         }
         //Already checked for every possibility, so it's time to check
         //if it is in a final state, so it should return.
-        if(states[currentState]){
+        if (states[currentState]) {
             LOGGER.debug("The automata should return");
             return TransitionType.GO_BACK;
         }
@@ -102,6 +87,43 @@ public class FiniteAutomata {
         CompilerException e = new CompilerException("No transition available");
         throw e;
 
+    }
+
+    /**
+     * Searches a transition, based on the type give, if looking for a normal one, the token should be passed
+     * to check compatibility
+     * @param typeToSearch
+     * @param token
+     * @return null if no transition was found
+     */
+    private TransitionType searchTransition(TransitionType typeToSearch, Token token) {
+        int transitionIndex = 0;
+        while (transitionIndex < transitions.length) {
+            Transition candidate = transitions[transitionIndex];
+            if (candidate.getStateNumber() == this.currentState) {
+                switch (typeToSearch) {
+                    case NORMAL:
+                        if (candidate.getType() == TransitionType.NORMAL) {
+                            if (candidate.getToken().compatible(token)) {
+                                LOGGER.debug("Found a normal transition");
+                                currentState = candidate.getNextState();
+                                LOGGER.debug("now on state" + currentState);
+                                return TransitionType.NORMAL;
+                            }
+                        }
+                        break;
+                    case CALL_TO_ANOTHER_AUTOMATA:
+                        if (candidate.getType() == TransitionType.CALL_TO_ANOTHER_AUTOMATA) {
+                            LOGGER.debug("The automata should call another one");
+                            this.transition = candidate;
+                            return TransitionType.CALL_TO_ANOTHER_AUTOMATA;
+                        }
+
+                }
+            }
+            transitionIndex++;
+        }
+        return null;
     }
 
     /**

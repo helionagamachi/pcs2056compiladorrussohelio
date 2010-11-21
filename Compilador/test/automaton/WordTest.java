@@ -101,4 +101,12 @@ public class WordTest {
         assertFalse(wordAutomata.processChar(' '));
         assertEquals("numero", wordAutomata.getIdentifier());
     }
+
+    @Test
+    public void TestEqual(){
+        assertTrue(wordAutomata.processChar('='));
+        assertEquals(State.POSSIBLE_OPERATOR, wordAutomata.getState());
+        assertFalse(wordAutomata.processChar(' '));
+        assertEquals(State.RESERVED_WORD, wordAutomata.getState());
+    }
 }

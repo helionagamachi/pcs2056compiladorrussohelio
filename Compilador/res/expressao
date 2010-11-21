@@ -1,0 +1,15 @@
+expressao_num = termo | (termo  (“+” | “-“) expressao_num).
+termo = fator | (fator (“*” | “/”) fator).
+fator = "numero" | "identificador" | chamada_funcao_procedimento | “(“ expressao_num “)”.
+
+expressao_bool = {“!”} (termo_bool | (termo_bool ( “&&” | “||” ) expressao_bool)).
+termo_bool = booleano | "identificador" | chamada funcao_procedimento  | “(“expressao_bol”)” | comparacao.
+
+comparacao = ("identificador" | "numero" |chamada_funcao_procedimento) ("==" | ">" | ">=" | "<=" | "<" | "!=") ("identificador" | "numero" | chamada_funcao_procedimento).
+booleano = “true” | “false”.
+
+
+expressao = {!} termo | (termo ("+" | "-" | "&&" | "||") expressao).
+termo = fator | ( fator ("*" | "/" | "==" | ">" | "<" | "<=" | "=>" | "!=" ) fator).
+fator = booleano | "identificador" | chamada_funcao_procedimento | "(" expressao")" | "numero".
+

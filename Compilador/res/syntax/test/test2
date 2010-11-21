@@ -11,8 +11,8 @@ typedef teste {
 }
 
 
-
 bool funcao(int arg1, String nome){}
+
 bool funcao(bool ok){
     int a, c, d;
     bool b;
@@ -33,6 +33,10 @@ int a(int x, int y){
     bool b;
     String hahahaFu_nciona;
     char umChar;
+    if(1212 == 1212){
+        a = 1;
+        
+    }
 }
 void x(String lol , asas asas){
 }

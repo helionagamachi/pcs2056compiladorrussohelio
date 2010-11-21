@@ -17,25 +17,20 @@ chamada_funcao_procedimento = "identificador" “(“ [ "identificador" { "," "i
 
 rotulo = "identificador" “:”.
 desvio = (“continue” ["identificador"]) | ("break" ";").
-condicional = “if” “(“ expressao_bool “)” bloco_codigo [“else”  bloco_codigo ].
-laco = "while" "("expressao_bool")" bloco_codigo.
+condicional = “if” “(“ expressao “)” bloco_codigo [“else”  bloco_codigo ].
+laco = "while" "("expressao")" bloco_codigo.
 
-bloco_codigo = "{" { declaracao_variavel | atribuicao | condicional | laco | desvio | retorno | chamada_funcao_procedimento } "}".
+bloco_codigo = "{" {declaracao_variavel} { atribuicao | condicional | laco | desvio | retorno | chamada_funcao_procedimento";" }  "}".
 
-retorno = "return" ("identificador" | chamada_funcao_procedimento | expressao_num | expressao_bool) ";".
+retorno = "return" ("identificador" | chamada_funcao_procedimento | expressao | expressao) ";".
 
 
 
-atribuicao = "identificador" "=" (expressao_num | expressao_bool | chamada_funcao_procedimento | "identificador" ) ";".
+atribuicao = "identificador" "=" (expressao| chamada_funcao_procedimento | "identificador" ) ";".
 
-expressao_num = termo | (termo  (“+” | “-“) expressao_num).
-termo = fator | (fator (“*” | “/”) fator).
-fator = "numero" | "identificador" | chamada_funcao_procedimento | “(“ expressao_num “)”.
-
-expressao_bool = {“!”} (termo_bool | (termo_bool ( “&&” | “||” ) expressao_bool)).
-termo_bool = booleano | "identificador" | chamada funcao_procedimento  | “(“expressao_bol”)” | comparacao.
-
-comparacao = ("identificador" | "numero" |chamada_funcao_procedimento) ("==" | ">" | ">=" | "<=" | "<" | "!=") ("identificador" | "numero" | chamada_funcao_procedimento).
+expressao = {"!"} termo | (termo ("+" | "-" | "&&" | "||") expressao).
+termo = fator | ( fator ("*" | "/" | "==" | ">" | "<" | "<=" | "=>" | "!=" ) fator).
+fator = booleano | "identificador" | chamada_funcao_procedimento | "(" expressao")" | "numero".
 
 booleano = “true” | “false”.
 

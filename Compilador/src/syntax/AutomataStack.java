@@ -20,7 +20,7 @@ public class AutomataStack {
      * @param state the number of the state.
      */
     public void push(int automata, int state) {
-        LOGGER.debug("Pushing into the stack : automata - " + automata + " state - " + state );
+        LOGGER.debug("Pushing into the stack : automata  " + automata + " state  " + state );
         Element element = new Element(this.top, automata, state);
         top = element;
     }
