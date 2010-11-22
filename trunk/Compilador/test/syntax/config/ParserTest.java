@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package syntax.config;
 
 import syntax.Transition;
@@ -30,7 +29,7 @@ public class ParserTest {
 
     public ParserTest() {
         parser = new Parser(new File(ParserTest.class.getResource("/syntax/config/test/desvio").getFile()));
-      
+
     }
 
     @BeforeClass
@@ -43,7 +42,6 @@ public class ParserTest {
 
     @Before
     public void setUp() {
-   
     }
 
     @After
@@ -51,7 +49,7 @@ public class ParserTest {
     }
 
     @Test
-    public void testIntConversion(){
+    public void testIntConversion() {
         assertEquals(90, parser.getInteger("90"));
         assertEquals(12, parser.getInteger("12"));
         assertEquals(45, parser.getInteger("45"));
@@ -63,32 +61,34 @@ public class ParserTest {
     }
 
     @Test
-    public void testSecondLineParse(){
+    public void testSecondLineParse() {
         int[] result = parser.parseSecondLine("final: 1, 2 , 50");
         assertEquals(3, result.length);
-        assertEquals(1 , result[0]);
-        assertEquals(2  , result[1]);
-        assertEquals(50 , result[2]);
+        assertEquals(1, result[0]);
+        assertEquals(2, result[1]);
+        assertEquals(50, result[2]);
 
     }
 
     @Test
-    public void TransitionTest(){
+    public void TransitionTest() {
+        String[] names = {"desvio", "another_machine"};
+        Parser.fillNamesList(names);
         Transition transition;
         transition = parser.parseTransition("(3, \"identificador\") -> 2");
-        assertEquals(0,transition.getAutomataNumber());
-        assertEquals(2,transition.getNextState());
-        assertEquals(3,transition.getStateNumber());
-        assertEquals(TransitionType.NORMAL,transition.getType());
+        assertEquals(0, transition.getAutomataNumber());
+        assertEquals(2, transition.getNextState());
+        assertEquals(3, transition.getStateNumber());
+        assertEquals(TransitionType.NORMAL, transition.getType());
 
 
         transition = parser.parseTransition("(3, another_machine) -> 2");
-        assertEquals(0,transition.getAutomataNumber());
-        assertEquals(2,transition.getNextState());
+        assertEquals(0, transition.getAutomataNumber());
+        assertEquals(2, transition.getNextState());
         assertEquals(1, transition.getNextAutomataNumber());
-        assertEquals(3,transition.getStateNumber());
-        assertEquals(TransitionType.CALL_TO_ANOTHER_AUTOMATA,transition.getType());
-        
+        assertEquals(3, transition.getStateNumber());
+        assertEquals(TransitionType.CALL_TO_ANOTHER_AUTOMATA, transition.getType());
+
 
 
 
@@ -111,22 +111,30 @@ public class ParserTest {
         assertEquals(TransitionType.NORMAL, transition.getType());
         assertEquals(token, transition.getToken());
 
+
+        transition = parser.parseTransition("(8, acao) -> 10\t\n");
+        assertNull(transition);
+
     }
 
     @Test
-    public void parseTest() throws CompilerException{
+    public void parseTest() throws CompilerException {
         FiniteAutomata auto = parser.parse();
         assertEquals(0, auto.getCurrentState());
         Token continueToken = new Token(TokenType.RESERVED_WORD, ArraysUtils.getReservedWordIndex("continue"));
-        TransitionType type ;
+        TransitionType type;
         type = auto.transit(continueToken);
         assertEquals(TransitionType.NORMAL, type);
-        assertEquals(1, auto.getCurrentState());
+        assertNotNull(auto.getTransition().getAction());
+        assertEquals(2, auto.getCurrentState());
         //Should raise an exception here....
-        type = auto.transit(continueToken);
-        assertEquals(TransitionType.GO_BACK, type);
-        
-    }
+        try {
+            type = auto.transit(continueToken);
+            fail("Exception expected");
+        } catch (CompilerException ex) {
+        }
 
-    
+//        assertEquals(TransitionType.GO_BACK, type);
+
+    }
 }

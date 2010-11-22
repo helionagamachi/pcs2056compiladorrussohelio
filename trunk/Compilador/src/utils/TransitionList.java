@@ -39,9 +39,12 @@ public class TransitionList {
 
     /**
      * Adds a String on the list.
-     * @param string the string to be added.
+     * @param transition the string to be added, if null nothing is added.
      */
     public void addTransition(Transition transition) {
+        if(transition == null){
+            return;
+        }
         if (this.firstElement == null) {
             this.firstElement = new Element(transition);
             this.lastElement = this.firstElement;

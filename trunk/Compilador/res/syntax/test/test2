@@ -26,14 +26,12 @@ String LOL(){
     char umChar;
 }
 int a(int x, int y){
+    int a, c, d;
+    bool b;
     asasas(asas_asas, asasas);
     main (asas , asass ,s) ;
-    int a, c, d;
     chamada();
-    bool b;
-    String hahahaFu_nciona;
-    char umChar;
-    if(1212 == 1212){
+    if(1212 == 12112122){
         a = 1;
         
     }

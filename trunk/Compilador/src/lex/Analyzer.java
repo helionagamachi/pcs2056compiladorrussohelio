@@ -143,7 +143,7 @@ public class Analyzer {
     private void readNextChar() {
         try {
             now = this.fileSource.read();
-            LOGGER.debug("Got the char " + (char) now);
+//            LOGGER.debug("Got the char " + (char) now);
             if (now == '\n') {
                 this.line++;
             }

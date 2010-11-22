@@ -17,6 +17,8 @@ public class Transition {
     private int stateNumber;
     private int nextState;
     private int nextAutomataNumber;
+    //If this transition has an action associated if , the name will not be null.
+    private String action;
     private Token token;
     private TransitionType type;
 
@@ -52,10 +54,22 @@ public class Transition {
         this.token = null;
     }
 
-    
+    public String getAction() {
+        return action;
+    }
+
+    public void setAction(String action) {
+        this.action = action;
+    }
+
     public int getAutomataNumber() {
         return automataNumber;
     }
+
+    public void setNextState(int nextState) {
+        this.nextState = nextState;
+    }
+
 
     public int getNextState() {
         return nextState;
