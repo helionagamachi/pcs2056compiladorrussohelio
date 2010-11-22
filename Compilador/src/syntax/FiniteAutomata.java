@@ -1,8 +1,11 @@
 package syntax;
 
+import semantic.Action;
 import lex.Token;
 import org.apache.log4j.Logger;
 import utils.CompilerException;
+import static semantic.Semantic.addToken;
+import static semantic.Semantic.getAction;
 
 /**
  * Class to be used on the Finite Automata of the structed automata.
@@ -73,6 +76,19 @@ public class FiniteAutomata {
         possible = searchTransition(TransitionType.NORMAL, token);
         if (possible == null) {
             possible = searchTransition(TransitionType.CALL_TO_ANOTHER_AUTOMATA, token);
+        } else {
+            //Got a normal transition.
+            //adds the token to the list
+            addToken(token);
+            String name = transition.getAction();
+            if (name != null) {
+                Action action = getAction(name);
+                if (action != null) {
+                    action.run(token);
+                } else {
+                    LOGGER.warn("Missing semantical Action: " + name);
+                }
+            }
         }
         if (possible != null) {
             return possible;
@@ -108,6 +124,7 @@ public class FiniteAutomata {
                                 LOGGER.debug("Found a normal transition");
                                 currentState = candidate.getNextState();
                                 LOGGER.debug("now on state" + currentState);
+                                this.transition = candidate;
                                 return TransitionType.NORMAL;
                             }
                         }

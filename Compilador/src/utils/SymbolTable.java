@@ -49,7 +49,7 @@ public class SymbolTable {
             SymbolLine compare;
             compare = this.firstLine;
             while (index < lines) {
-                //checks if the symbol isn' already present on the table
+                //checks if the symbol isn't already present on the table
                 if (symbol.equals(compare.getSymbol())) {
                     //if it is, returns it index.
                     return index;

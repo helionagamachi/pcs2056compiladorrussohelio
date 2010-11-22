@@ -7,6 +7,8 @@ package syntax;
 
 import lex.Token;
 import lex.TokenType;
+import semantic.Semantic;
+import syntax.config.Parser;
 import utils.LexicalException;
 import utils.SymbolTable;
 
@@ -20,13 +22,15 @@ public class Analyzer {
 
     private lex.Analyzer lexical;
     private StructedAutomata structedAutomata;
-    private final String[] files = {"programa" , "bloco_codigo" , "atribuicao", "expressao"};
+    public static final String[] files = {"programa" , "bloco_codigo" , "atribuicao", "expressao"};
 
     public Analyzer() {
+        //makes the parser listing
+        Parser.fillNamesList(files);
         lexical = lex.Analyzer.getInstance();
         structedAutomata = new  StructedAutomata(4);
         structedAutomata.init(getFilePaths());
-        
+        Semantic.init();
     }
 
 

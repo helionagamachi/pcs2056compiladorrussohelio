@@ -5,6 +5,7 @@
 
 package syntax;
 
+import syntax.config.Parser;
 import java.io.File;
 import lex.Token;
 import lex.TokenType;
@@ -45,6 +46,8 @@ public class StructedAutomataTest {
 
     @Test
     public void test(){
+        String[] names = {"lol", "lol2"};
+        Parser.fillNamesList(names);
         String[] filesPath = new String[2];
         filesPath[0] = StructedAutomataTest.class.getResource("/syntax/config/test/lol").getFile();
         filesPath[1] = StructedAutomataTest.class.getResource("/syntax/config/test/lol2").getFile();

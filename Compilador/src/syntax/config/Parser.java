@@ -28,17 +28,31 @@ public class Parser {
 
     // This list will be used to make equivalence on the name to the automata
     // number.
-    protected static StringListing namesList = new StringListing();
+    // the namesLIst should be alread filled...
+    private static StringListing namesList = new StringListing();
     private File source;
     private static final Logger LOGGER = Logger.getLogger(Parser.class);
     private int statesAmount;
+    private TransitionList toCorrect = new TransitionList();
 
+    /**
+     * The names list should contain the names of the automatas.
+     * @param source
+     * @param namesList
+     */
     public Parser(File source) {
         this.source = source;
         LOGGER.debug("Preparing to parse the automata " + source.getName());
-        addString(source.getName());
         this.statesAmount = 0;
 
+    }
+
+    public static void fillNamesList(String[] names) {
+        int index = 0;
+        while (index < names.length) {
+            namesList.addString(names[index]);
+            index++;
+        }
     }
 
     public FiniteAutomata parse() {
@@ -57,6 +71,7 @@ public class Parser {
                 transitionLine = readLine(stream);
             }
             Transition[] transitions = transList.getArray();
+            transitions = correctTransitions(transitions);
             FiniteAutomata automata = new FiniteAutomata(statesAmount, transitions.length, namesList.getId(source.getName()));
             automata.initStates(finalStates);
             automata.setTransitions(transitions);
@@ -75,7 +90,6 @@ public class Parser {
      * @return the array containing the final states numbers .
      */
     protected int[] parseSecondLine(String secondLine) {
-        
         int size = secondLine.length();
         StringListing listing = new StringListing();
         int index = 6;
@@ -123,12 +137,12 @@ public class Parser {
         //Skips the space char...
         index = index + 2;
         ch = transitionLine.charAt(index);
-        char ch1 = transitionLine.charAt(index+1);
+        char ch1 = transitionLine.charAt(index + 1);
         while (!(ch == ')' && ch1 == ' ')) {
             temp = temp + ch;
             index++;
             ch = transitionLine.charAt(index);
-            ch1 = transitionLine.charAt(index+1);
+            ch1 = transitionLine.charAt(index + 1);
         }
         String transition = temp;
 
@@ -148,15 +162,15 @@ public class Parser {
         Transition result;
         if (transition.charAt(0) == '"') {
             Token token;
+            //TODO: add the char token here...
             if (transition.equals("\"numero\"")) {
                 token = new Token(TokenType.INT, 0);
-            }else if(transition.equals("\"identificador\"")){
+            } else if (transition.equals("\"identificador\"")) {
                 token = new Token(TokenType.IDENTIFIER, -1);
-            }else if(transition.equals("\"string\"")){
+            } else if (transition.equals("\"string\"")) {
                 token = new Token(TokenType.STRING, 0);
-            }
-            else {
-                System.out.println("transition " + transition);
+            } else {
+                
                 String reservedWord = "";
                 index = 1;
                 ch = transition.charAt(index);
@@ -165,16 +179,25 @@ public class Parser {
                     index++;
                     ch = transition.charAt(index);
                 }
-                
+
                 token = new Token(TokenType.RESERVED_WORD, ArraysUtils.getReservedWordIndex(reservedWord));
             }
             result = new Transition(namesList.getId(source.getName()), from, to, token);
         } else {
             // call to another Machine
-            addString(transition);
-            result = new Transition(namesList.getId(source.getName()), from, to, namesList.getId(transition));
+            // or not...
+            int destiny = namesList.getId(transition);
+            if (destiny == -1) {
+                
+                Transition trans = new Transition(0, from, to, 0);
+                trans.setAction(transition);
+                toCorrect.addTransition(trans);
+                return null;
+            } else {
+                result = new Transition(namesList.getId(source.getName()), from, to, namesList.getId(transition));
+            }
         }
-        LOGGER.debug("got this transition \n" + result);
+//        LOGGER.debug("got this transition \n" + result);
         return result;
     }
 
@@ -192,21 +215,41 @@ public class Parser {
             result = result * 10 + (string.charAt(index) - 48);
             index++;
         }
-        if (result+1 > statesAmount) {
+        if (result + 1 > statesAmount) {
             statesAmount = result + 1;
         }
         return result;
     }
 
+
     /**
-     * Adds the string on the list, only if it is not
-     * already on the list.
-     * @param string the string to be added, or not.
+     * Based on the list of the toCorrect transition listing
+     * it goes searching transitions that would lead to semantical
+     * actions, that need some corrections, like the adding the action
+     * and change of the next state.
+     * @param transitions the transitions array, that needs corrections
      */
-    private void addString(String string) {
-        if (namesList.getId(string) == -1) {
-            LOGGER.debug("Adding a string on the list, "+ string);
-            namesList.addString(string);
+    protected Transition[] correctTransitions(Transition[] transitions){
+        
+        Transition[] correctionVector = toCorrect.getArray();
+        int index = 0;
+        while(index < correctionVector.length){
+            
+            int number = correctionVector[index].getStateNumber();
+            int next = correctionVector[index].getNextState();
+            String action = correctionVector[index].getAction();
+            int index2 = 0;
+            while(index2 < transitions.length){
+                if(number == transitions[index2].getNextState()){
+                    
+                    //The transition will recieve the action..
+                    transitions[index2].setNextState(next);
+                    transitions[index2].setAction(action);
+                }
+                index2++;
+            }
+            index ++;
         }
+        return transitions;
     }
 }
