@@ -1,11 +1,9 @@
 package syntax;
 
-import semantic.Action;
 import lex.Token;
 import org.apache.log4j.Logger;
 import utils.CompilerException;
-import static semantic.Semantic.addToken;
-import static semantic.Semantic.getAction;
+import semantic.Semantic;
 
 /**
  * Class to be used on the Finite Automata of the structed automata.
@@ -18,6 +16,7 @@ public class FiniteAutomata {
      * and it's number, which will be the position on the array, the boolean says
      * if it is a final state or not.
      */
+    private Semantic semantics = new Semantic();
     private boolean[] states;
     private Transition[] transitions;
     private int automataNumber;
@@ -79,15 +78,10 @@ public class FiniteAutomata {
         } else {
             //Got a normal transition.
             //adds the token to the list
-            addToken(token);
+            semantics.addToken(token);
             String name = transition.getAction();
             if (name != null) {
-                Action action = getAction(name);
-                if (action != null) {
-                    action.run(token);
-                } else {
-                    LOGGER.warn("Missing semantical Action: " + name);
-                }
+                semantics.runAction(name);
             }
         }
         if (possible != null) {

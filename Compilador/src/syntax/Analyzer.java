@@ -30,7 +30,7 @@ public class Analyzer {
         lexical = lex.Analyzer.getInstance();
         structedAutomata = new  StructedAutomata(4);
         structedAutomata.init(getFilePaths());
-        Semantic.init();
+        
     }
 
 
@@ -51,7 +51,7 @@ public class Analyzer {
      */
     public boolean analyze() throws LexicalException{
         Token token ;
-        SymbolTable table = new SymbolTable();
+        SymbolTable table = Semantic.latestTable;
         token = lexical.getNextToken(table);
         while(token.getType() != TokenType.EOF){
             boolean result;

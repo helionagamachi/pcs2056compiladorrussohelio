@@ -56,6 +56,8 @@ public class StructedAutomata {
                     return false;
             }
         } catch (CompilerException ex) {
+            System.out.println("Something went wrong, you should check your program");
+            System.out.println(ex.getMessage());
             return false;
         }
 

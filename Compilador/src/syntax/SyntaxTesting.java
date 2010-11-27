@@ -21,6 +21,7 @@ public class SyntaxTesting {
 //        "test1",
         "test2",
 //        "test3",
+        "test4",
         };
         InputStreamReader in = new InputStreamReader(System.in);
         

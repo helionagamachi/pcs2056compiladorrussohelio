@@ -5,13 +5,12 @@
 
 package semantic;
 
-import lex.Token;
-
 /**
  *
  * @author helionagamachi
  */
-public abstract  class Action {
+public class ExpressionSemantics {
+    private TokenStack operators;
+    private TokenStack operands;
     
-    public abstract void run(Token token);
 }
