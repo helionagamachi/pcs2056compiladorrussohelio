@@ -65,6 +65,7 @@ public class TokensList {
      * Clears the list.
      */
     public void clear() {
+        System.out.println("Tokens list cleared");
         count = 0;
         first = null;
     }

@@ -96,6 +96,7 @@ public class ArraysUtils {
         "typedef",
         "String",
         "char",
+        "bool",
     };
 
     public static final char[] whiteSpaceChars = {

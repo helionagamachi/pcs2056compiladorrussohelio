@@ -4,6 +4,8 @@
  */
 package utils;
 
+import org.apache.log4j.Logger;
+
 /**
  *
  * @author helionagamachi
@@ -13,11 +15,13 @@ public class SymbolTable {
     private int lines = 0;
     private SymbolLine firstLine;
     private SymbolLine lastLine;
+    private static final Logger LOGGER = Logger.getLogger(SymbolLine.class);
 
     public SymbolTable() {
     }
 
     public SymbolLine getLine(int index) {
+        LOGGER.debug("Requested index " + index + " table has " + lines + " lines");
         if (index < 0 || index > lines) {
             return null;
         } else {

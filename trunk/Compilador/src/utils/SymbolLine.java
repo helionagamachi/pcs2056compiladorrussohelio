@@ -13,10 +13,13 @@ public class SymbolLine {
     private int id;
     private String symbol;
     private SymbolLine nextLine;
+    private SymbolType type;
+    private int dimension;
 
     public SymbolLine(int id, String Symbol) {
         this.id = id;
         this.symbol = Symbol;
+        this.type = SymbolType.UNKOWN;
     }
 
     public String getSymbol() {
@@ -34,7 +37,22 @@ public class SymbolLine {
     public void setNextLine(SymbolLine nextLine) {
         this.nextLine = nextLine;
     }
-    
-    
 
+    public SymbolType getType() {
+        return type;
+    }
+
+    public int getDimension() {
+        return dimension;
+    }
+
+    public void setDimension(int dimension) {
+        this.dimension = dimension;
+    }
+
+    public void setType(SymbolType type) {
+        this.type = type;
+    }
+    
+    
 }

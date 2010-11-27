@@ -3,11 +3,11 @@ lista_import = {“import” "string" “;” fim_import}.
 lista_funcoes = {declaracao_funcao}.
 lista_tipos = {declaracao_tipo}.
 
-declaracao_variavel = tipo [indice_vetor_matriz] "identificador" {“,” "identificador"} ";".
+declaracao_variavel = tipo [indice_vetor_matriz] "identificador" new_var {“,” "identificador" new_var} ";".
 declaracao_tipo = “typedef” "identificador" ”{“ { declaracao_variavel }“}” fim_new_type.
 
 
-declaracao_funcao =  (tipo | "void" )"identificador" "(" [tipo [indice_vetor_matriz] "identificador" {","tipo [indice_vetor_matriz] "identificador" } ]")" bloco_codigo .
+declaracao_funcao =  (tipo | "void" )"identificador" "(" [tipo [indice_vetor_matriz] "identificador" {","tipo [indice_vetor_matriz] "identificador" } ]")" new_func bloco_codigo .
 
 
 indice_vetor_matriz = "[" ("identificador" | "numero") "]" {"[" ("identificador" | "numero") "]"}.
@@ -20,7 +20,7 @@ desvio = (“continue” ["identificador"]) | ("break" ";").
 condicional = “if” “(“ expressao “)” bloco_codigo [“else”  bloco_codigo ].
 laco = "while" "("expressao")" bloco_codigo.
 
-bloco_codigo = "{" {declaracao_variavel} { atribuicao | condicional | laco | desvio | retorno | chamada_funcao_procedimento";" }  "}".
+bloco_codigo = "{" new_context {declaracao_variavel fim_vars}  { atribuicao | condicional | laco | desvio | retorno | chamada_funcao_procedimento";" }  "}".
 
 retorno = "return" ("identificador" | chamada_funcao_procedimento | expressao) ";".
 
