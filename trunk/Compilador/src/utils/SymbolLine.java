@@ -5,6 +5,8 @@
 
 package utils;
 
+import labels.Label;
+
 /**
  *
  * @author helionagamachi
@@ -15,11 +17,13 @@ public class SymbolLine {
     private SymbolLine nextLine;
     private SymbolType type;
     private int dimension;
+    private Label label;
 
     public SymbolLine(int id, String Symbol) {
         this.id = id;
         this.symbol = Symbol;
         this.type = SymbolType.UNKOWN;
+        System.out.println("new symbol created , " + Symbol);
     }
 
     public String getSymbol() {
@@ -52,6 +56,14 @@ public class SymbolLine {
 
     public void setType(SymbolType type) {
         this.type = type;
+    }
+
+    public Label getLabel() {
+        return label;
+    }
+
+    public void setLabel(Label label) {
+        this.label = label;
     }
     
     

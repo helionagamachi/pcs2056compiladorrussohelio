@@ -1,8 +1,8 @@
 bool funcao(bool ok){
     int a, c, d;
-    bool b;
+//    bool b;
     String hahahaFu_nciona;
     char umChar;
 
-    a = 9  + 2 + b;
+    a = ( 9 + 3 )  + ( d + c);
 }

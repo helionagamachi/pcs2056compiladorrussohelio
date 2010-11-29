@@ -16,18 +16,26 @@ public class LabelManager {
 
     public Label getLabel(LabelType type) {
         Label result;
-        result = new Label("Const", constCount, type);
+        int counter = 0;
+        String name = "";
         switch (type) {
             case CONST:
+                counter = constCount;
+                name = "CONST";
                 constCount ++;
                 break;
             case NORMAL:
+                counter = normalCount;
+                name = "LB";
                 normalCount++;
                 break;
             case VARIABLE:
+                counter = varCount;
+                name = "VAR";
                 varCount++;
                 break;
         }
+        result = new Label(name, counter, type);
         return result;
     }
 }

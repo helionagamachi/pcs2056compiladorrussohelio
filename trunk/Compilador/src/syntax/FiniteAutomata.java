@@ -91,6 +91,8 @@ public class FiniteAutomata {
         //if it is in a final state, so it should return.
         if (states[currentState]) {
             LOGGER.debug("The automata should return");
+            // Try the final action of the machine.
+            semantics.runFinalAction(automataNumber);
             return TransitionType.GO_BACK;
         }
 

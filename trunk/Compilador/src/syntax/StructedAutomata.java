@@ -5,7 +5,9 @@
 package syntax;
 
 import java.io.File;
+
 import lex.Token;
+import org.apache.log4j.Logger;
 import syntax.config.Parser;
 import utils.CompilerException;
 
@@ -18,6 +20,7 @@ public class StructedAutomata {
     private FiniteAutomata[] automatas;
     private AutomataStack stack;
     private int currentAutomata;
+    private static final Logger LOGGER = Logger.getLogger(StructedAutomata.class);
 
     public StructedAutomata(int automataAmount) {
         stack = AutomataStack.getInstance();
@@ -51,6 +54,7 @@ public class StructedAutomata {
                     }
                     int[] result =  stack.pop();
                     setAutomataAndState(result[0], result[1]);
+                    LOGGER.debug("Setting back automata " + result[0] + " on state " + result[1]);
                     return nextStep(token);
                 default:
                     return false;

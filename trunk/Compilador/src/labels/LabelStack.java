@@ -2,19 +2,17 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package semantic;
 
-import lex.Token;
+package labels;
 
 /**
  *
  * @author helionagamachi
  */
-public class TokenStack {
+public class LabelStack {
+ private Element top;
 
-    private Element top;
-
-    public TokenStack() {
+    public LabelStack() {
     }
 
     public boolean isEmpty(){
@@ -25,58 +23,55 @@ public class TokenStack {
      * Gets the top of the stack.
      * @return null if the stack is empty.
      */
-    public Token pop(){
+    public Label pop(){
         if(top == null){
             return null;
         }else{
             Element result = top;
             top = result.getPrevious();
-            return result.getToken();
+            return result.getLabel();
         }
     }
 
     /**
-     * Like pop, but doesn't remove the top from stack
+     * Adds a label to the stack.
+     * @param label
+     */
+    public void push(Label label){
+        System.out.println("Stacking a label " + label);
+        Element element = new Element(label);
+        element.setPrevious(top);
+        top = element;
+    }
+
+    /**
+     * Like pop, but doesn't remove the top from the stack
      * @return
      */
-    public Token peek(){
-        if(top == null){
-            return null;
-        }
-        return top.getToken();
+    public Label peek(){
+       return top.getLabel();
     }
 
 
     @Override
     public String toString(){
-        System.out.println("Called to string from the Token stack");
+        System.out.println("Called to string from the label stack");
         String result = "";
         Element element;
         element = top;
         while(element != null){
-            result = element.getToken() + " \n" + result;
+            result = element.getLabel() + " \n" + result;
             element = element.getPrevious();
         }
         return result;
     }
-
-    /**
-     * Adds a token to the stack.
-     * @param token
-     */
-    public void push(Token token){
-        Element element = new Element(token);
-        element.setPrevious(top);
-        top = element;
-    }
-
     private class Element {
 
         private Element previous;
-        private Token token;
+        private Label label;
 
-        public Element(Token token) {
-            this.token = token;
+        public Element(Label label) {
+            this.label = label;
         }
 
         public Element getPrevious() {
@@ -87,10 +82,10 @@ public class TokenStack {
             this.previous = previous;
         }
 
-        public Token getToken() {
-            return token;
+        public Label getLabel() {
+            return label;
         }
 
-        
+
     }
 }

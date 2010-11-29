@@ -6,9 +6,9 @@
 package utils;
 
 /**
- *
+ * The symbol is supposed to hold which kid of data ?
  * @author helionagamachi
  */
 public enum SymbolType {
-    VAR , USER_TYPE , INT , CHAR , BOOL , STRING , FUNCTION , PROCEDURE , UNKOWN , 
+    USER_TYPE , INT , CHAR , BOOL , STRING , UNKOWN ,
 }
