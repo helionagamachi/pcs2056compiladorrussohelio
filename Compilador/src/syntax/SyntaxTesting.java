@@ -4,9 +4,11 @@
  */
 package syntax;
 
-import java.io.BufferedReader;
+import codeGeneration.Coder;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import semantic.Semantic;
+import utils.CompilerException;
 import utils.LexicalException;
 
 /**
@@ -15,11 +17,13 @@ import utils.LexicalException;
  */
 public class SyntaxTesting {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, CompilerException {
         Analyzer analyzer = new Analyzer();
+        Coder.init("Teste");
+        Semantic.initCoder();
         String[] testingFiles = {
 //        "test1",
-        "test2",
+//        "test2",
 //        "test3",
         "test4",
         };
@@ -32,6 +36,7 @@ public class SyntaxTesting {
             analyzer.setFile(filePath);
             try {
                 System.out.println(analyzer.analyze() ? "valid program" : "invalid program");
+                Coder.getInstance().flush();
             } catch (LexicalException ex) {
                 System.out.println(ex.getMessage());
             }

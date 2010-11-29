@@ -13,6 +13,25 @@ public class Label {
     private String name;
     private int id;
     private LabelType type;
+    // if the label is a label for a constant, it can hold some data...
+    private int numericalData;
+    private String StringData;
+
+    public String getStringData() {
+        return StringData;
+    }
+
+    public void setStringData(String StringData) {
+        this.StringData = StringData;
+    }
+
+    public int getNumericalData() {
+        return numericalData;
+    }
+
+    public void setNumericalData(int numericalData) {
+        this.numericalData = numericalData;
+    }
 
     public Label(String name, int id, LabelType type) {
         this.name = name;
@@ -44,11 +63,9 @@ public class Label {
         this.type = type;
     }
 
-    
-
     @Override
     public String toString(){
-        return name + id;
+        return " " + name + id + " ";
     }
 
     

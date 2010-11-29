@@ -1,0 +1,21 @@
+; ambiente basico de execucao
+; para uso basico da funcao print
+PRINT <
+ALVO  <
+; para uso basico da funcao de copia de variavel para a memoria
+CPVAR <
+VAR   >
+; Indica o inicio do registro de ativacao atual.
+BASE  >
+; Teclado ?
+& /0000 ;
+JP INICIO
+; Some stuff is testing yet...
+	K /0002
+	K /0003
+BASE    K /0004
+VAR     K /0000
+TEMP1   K /0000
+TEMP2   K /0000
+
+

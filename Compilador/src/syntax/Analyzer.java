@@ -22,7 +22,7 @@ public class Analyzer {
 
     private lex.Analyzer lexical;
     private StructedAutomata structedAutomata;
-    public static final String[] files = {"programa" , "bloco_codigo" , "atribuicao", "expressao"};
+    public static final String[] files = {"programa" , "bloco_codigo" ,  "expressao"};
 
     public Analyzer() {
         //makes the parser listing

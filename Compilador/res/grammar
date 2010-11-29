@@ -7,7 +7,7 @@ declaracao_variavel = tipo [indice_vetor_matriz] "identificador" new_var {“,�
 declaracao_tipo = “typedef” "identificador" ”{“ { declaracao_variavel }“}” fim_new_type.
 
 
-declaracao_funcao =  (tipo | "void" )"identificador" "(" [tipo [indice_vetor_matriz] "identificador" {","tipo [indice_vetor_matriz] "identificador" } ]")" new_func bloco_codigo .
+declaracao_funcao =  (tipo | "void" )"identificador" "(" [tipo [indice_vetor_matriz] "identificador" {","tipo [indice_vetor_matriz] "identificador" } ]")" new_func bloco_codigo  .
 
 
 indice_vetor_matriz = "[" ("identificador" | "numero") "]" {"[" ("identificador" | "numero") "]"}.
@@ -20,7 +20,7 @@ desvio = (“continue” ["identificador"]) | ("break" ";").
 condicional = “if” “(“ expressao “)” bloco_codigo [“else”  bloco_codigo ].
 laco = "while" "("expressao")" bloco_codigo.
 
-bloco_codigo = "{" new_context {declaracao_variavel fim_vars}  { atribuicao | condicional | laco | desvio | retorno | chamada_funcao_procedimento";" }  "}".
+bloco_codigo = "{" new_context {declaracao_variavel fim_vars}  { atribuicao | condicional | laco | desvio | retorno | chamada_funcao_procedimento";" }  "}" end_block_code.
 
 retorno = "return" ("identificador" | chamada_funcao_procedimento | expressao) ";".
 
@@ -28,9 +28,9 @@ retorno = "return" ("identificador" | chamada_funcao_procedimento | expressao) "
 
 atribuicao = "identificador" "=" (expressao| chamada_funcao_procedimento | "identificador" ) ";".
 
-expressao = {"!" push_op }  termo | (termo ("+" | "-" | "&&" | "||") push_op expressao).
+expressao = {("!" | "-") push_op }  termo | (termo ("+" | "-" | "&&" | "||") push_op expressao).
 termo = fator | ( fator ("*" | "/" | "==" | ">" | "<" | "<=" | "=>" | "!=" ) push_op fator).
-fator = (booleano | "identificador" | chamada_funcao_procedimento | "(" expressao")" | "numero" | "char" ) push_term .
+fator =( (booleano | "identificador" | chamada_funcao_procedimento | "numero" | "char" ) push_term  )| "(" push_op expressao ")" .
 
 booleano = “true” | “false”.
 
