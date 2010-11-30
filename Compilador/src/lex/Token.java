@@ -55,6 +55,9 @@ public class Token {
     }
 
     public boolean compatible(Token other) {
+        if (other == null) {
+            return false;
+        }
         TokenType instanceType = this.type;
         switch (instanceType) {
             case RESERVED_WORD:
@@ -69,6 +72,8 @@ public class Token {
                 return other.getType() == TokenType.INT;
             case STRING:
                 return other.getType() == TokenType.STRING;
+            case CHAR:
+                return other.getType() == TokenType.CHAR;
             default:
                 return false;
 

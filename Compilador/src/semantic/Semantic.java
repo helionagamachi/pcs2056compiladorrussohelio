@@ -43,6 +43,7 @@ public class Semantic {
     // so that i know how to react to them.
 
     enum expression_cases {
+
         TWO_CONSTANTS, VAR_AND_CONSTANT, CONSTANT_AND_VAR, TWO_VARS
     };
     private String loadString;
@@ -229,20 +230,92 @@ public class Semantic {
         Token RW_MINUS = getReservedWordToken("-");
         Token RW_MUL = getReservedWordToken("*");
         Token RW_DIV = getReservedWordToken("/");
-
+        Token RW_OPEN_BRACKET = getReservedWordToken("(");
+        Token top = expressionOperators.peek();
         if (latestToken.compatible(RW_SUM)) {
             //SUM is less priotary than minus, mul and div.
-            Token top = expressionOperators.peek();
-            if (top != null) {
-                while (!top.compatible(latestToken)) {
-                    // it is a minus, or a mul , or a div...
-                    // pops the top
-                    top = expressionOperators.pop();
+            String code ="";
+            while (! (latestToken.compatible(top) || RW_OPEN_BRACKET.compatible(top) || top == null)) {
+                // it is a minus, or a mul , or a div...
+                // pops the top
+                top = expressionOperators.pop();
+                Label first, second;
+                Label toUse;
+                second = expressionOperands.pop();
+                first = expressionOperands.pop();
+                expression_cases expCase = getLoadString(first, second);
+                code = loadString;
+                switch (expCase) {
+                    case TWO_CONSTANTS:
+                        toUse = second;
+                        break;
+                    case VAR_AND_CONSTANT:
+                        toUse = first;
+                        break;
+                    case CONSTANT_AND_VAR:
+                        toUse = second;
+                        break;
+                    case TWO_VARS:
+                        toUse = temp2;
+                        break;
+                    default:
+                        toUse = second;
+                        break;
                 }
+                if (top.compatible(RW_MINUS) && RW_MINUS.compatible(expressionOperators.peek())) {
+                    // the top is a minus, check if before it there is a minus too..
+                    code += "+" + toUse + "\n";
+                } else {
+                    code += getReservedWordByIndex(top.getValue()) + toUse + "\n";
+                }
+                Label temp = labelMan.getLabel(LabelType.CONST);
+                code += "MM" + temp + "\n";
+                constLabelList.addLabel(temp);
+                expressionOperands.push(temp);
+                top = expressionOperators.peek();
             }
+            coder.putOnBuffer(code, false);
 
         }
         if (latestToken.compatible(RW_MINUS)) {
+            String code = "";
+            // minus is less prioritary than mul and div.
+            while(!(latestToken.compatible(top) || top == null || RW_OPEN_BRACKET.compatible(top))){
+                // it is  a mul , or a div...
+                // pops the top
+                top = expressionOperators.pop();
+                Label first, second;
+                Label toUse;
+                second = expressionOperands.pop();
+                first = expressionOperands.pop();
+                expression_cases expCase = getLoadString(first, second);
+                code = loadString;
+                switch (expCase) {
+                    case TWO_CONSTANTS:
+                        toUse = second;
+                        break;
+                    case VAR_AND_CONSTANT:
+                        toUse = first;
+                        break;
+                    case CONSTANT_AND_VAR:
+                        toUse = second;
+                        break;
+                    case TWO_VARS:
+                        toUse = temp2;
+                        break;
+                    default:
+                        toUse = second;
+                        break;
+                }
+                code += getReservedWordByIndex(top.getValue()) + toUse + "\n";
+                Label temp = labelMan.getLabel(LabelType.CONST);
+                code += "MM" + temp + "\n";
+                constLabelList.addLabel(temp);
+                expressionOperands.push(temp);
+                coder.putOnBuffer(code, false);
+                top = expressionOperators.peek();
+
+            }
         }
         // in the end the operator will be pushed into the stack.
         expressionOperators.push(latestToken);
