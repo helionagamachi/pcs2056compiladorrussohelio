@@ -62,8 +62,8 @@ public class ArraysUtils {
     public static final String[] operators = {
         "+",
         "-",
-        "++",
         "/",
+        "*",
         "(",
         ")",
         "[",
