@@ -169,7 +169,10 @@ public class Parser {
                 token = new Token(TokenType.IDENTIFIER, -1);
             } else if (transition.equals("\"string\"")) {
                 token = new Token(TokenType.STRING, 0);
-            } else {
+            } else if(transition.equals("\"Char\"")){
+                token = new Token(TokenType.CHAR, 0);
+            }
+            else {
                 
                 String reservedWord = "";
                 index = 1;

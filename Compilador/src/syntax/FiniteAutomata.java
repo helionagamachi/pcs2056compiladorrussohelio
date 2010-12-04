@@ -23,6 +23,7 @@ public class FiniteAutomata {
     private int currentState;
     //This will hold the transition that should be available when applicable
     private Transition transition;
+    private boolean ok_Run_FinalTransition;
     private static Logger LOGGER = Logger.getLogger(FiniteAutomata.class);
 
     /**
