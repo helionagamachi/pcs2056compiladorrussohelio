@@ -44,11 +44,13 @@ public class Semantic {
 
     enum expression_cases {
 
-        TWO_CONSTANTS, VAR_AND_CONSTANT, CONSTANT_AND_VAR, TWO_VARS
+        TWO_CONSTANTS, VAR_AND_CONSTANT, CONSTANT_AND_VAR, TWO_VARS, ONE_VAR, ONE_CONSTANT
     };
     private String loadString;
+    final Label zero = new Label("ZERO", 0, LabelType.CONST);
     final Label temp1 = new Label("TEMP", 1, LabelType.CONST);
     final Label temp2 = new Label("TEMP", 2, LabelType.CONST);
+    final Label temp3 = new Label("TEMP", 3, LabelType.CONST);
 
     public static void initCoder() {
         coder = Coder.getInstance();
@@ -100,6 +102,8 @@ public class Semantic {
 
         Token RW_SUM = getReservedWordToken("+");
         Token RW_OPEN_BRACKETS = getReservedWordToken("(");
+        Token RW_MINUS = getReservedWordToken("-");
+        Token RW_DIV = getReservedWordToken("/");
         switch (machineNumber) {
             case 0:
                 //PROGRAM;
@@ -122,24 +126,49 @@ public class Semantic {
                     operator = expressionOperators.pop();
                     second = expressionOperands.pop();
                     first = expressionOperands.pop();
+
                     while (!stop) {
                         expression_cases exp_case = getLoadString(first, second);
                         String result = loadString;
+                        Label toUse = null;
                         switch (exp_case) {
                             case TWO_CONSTANTS:
-                                result += getReservedWordByIndex(operator.getValue()) + second + "\n";
+                                toUse = second;
                                 break;
                             case VAR_AND_CONSTANT:
-                                result += getReservedWordByIndex(operator.getValue()) + first + "\n";
+                                toUse = second;
                                 break;
                             case CONSTANT_AND_VAR:
-                                result += getReservedWordByIndex(operator.getValue()) + second + "\n";
+                                toUse = first;
                                 break;
                             case TWO_VARS:
-                                result += getReservedWordByIndex(operator.getValue()) + temp2 + "\n";
+                                toUse = temp2;
                                 break;
                         }
+                        Token otherTop = expressionOperators.peek();
+                        if (operator.compatible(RW_MINUS) && RW_MINUS.compatible(otherTop)) {
+                            result += "+" + toUse + "\n";
+                        } else if (operator.compatible(RW_DIV) && RW_DIV.compatible(otherTop)) {
+                            result += "*" + toUse + "\n";
+                        } else if (isBooleanOperator(operator)) {
+                            result += getBooleanOpExecutionCode(first, second, operator, exp_case);
+                        } else if (!expressionOperators.isEmpty()) {
+                            result += getReservedWordByIndex(operator.getValue()) + toUse + "\n";
+                        }
                         if (expressionOperators.isEmpty()) {
+                            // it is the case that got one var / const ?
+                            if (exp_case == expression_cases.ONE_CONSTANT || exp_case == expression_cases.ONE_VAR) {
+                                if (operator.compatible(RW_MINUS)) {
+                                    result += "MM" + temp2 + "\n";
+                                    result += "LD" + zero + "\n";
+                                    result += "-" + temp2 + "\n";
+                                }
+                            } else {
+                                //The ,the last operation should be written, if not a boolean operator
+                                if (!isBooleanOperator(operator)) {
+                                    result += getReservedWordByIndex(operator.getValue()) + toUse + "\n";
+                                }
+                            }
                             stop = true;
                             Label endLabel = labelMan.getLabel(LabelType.CONST);
                             expressionOperands.push(endLabel);
@@ -154,16 +183,19 @@ public class Semantic {
                                 constLabelList.addLabel(endLabel);
                                 result += "MM " + endLabel + "\n";
                             } else {
+                                result += "MM " + temp3 + "\n";
+                                expressionOperands.push(temp3);
                                 second = expressionOperands.pop();
                                 first = expressionOperands.pop();
-                                result += "MM " + temp1 + "\n";
-                                expressionOperands.push(temp1);
                             }
                         }
                         coder.putOnBuffer(result, false);
                     }
+
                     System.out.println("after all " + expressionOperands);
                     System.out.println("after all " + expressionOperators);
+                } else {
+                    // there is a var or constant hanging out..
                 }
 
 // </editor-fold>
@@ -234,8 +266,8 @@ public class Semantic {
         Token top = expressionOperators.peek();
         if (latestToken.compatible(RW_SUM)) {
             //SUM is less priotary than minus, mul and div.
-            String code ="";
-            while (! (latestToken.compatible(top) || RW_OPEN_BRACKET.compatible(top) || top == null)) {
+            String code = "";
+            while (!(latestToken.compatible(top) || RW_OPEN_BRACKET.compatible(top) || top == null)) {
                 // it is a minus, or a mul , or a div...
                 // pops the top
                 top = expressionOperators.pop();
@@ -250,17 +282,27 @@ public class Semantic {
                         toUse = second;
                         break;
                     case VAR_AND_CONSTANT:
-                        toUse = first;
+                        toUse = second;
                         break;
                     case CONSTANT_AND_VAR:
-                        toUse = second;
+                        toUse = first;
                         break;
                     case TWO_VARS:
                         toUse = temp2;
                         break;
+                    case ONE_VAR:
+                        toUse = temp2;
+                        break;
+                    case ONE_CONSTANT:
+                        toUse = second;
+                        break;
                     default:
                         toUse = second;
                         break;
+                }
+                if (top.compatible(RW_MINUS) && (expCase == expression_cases.ONE_CONSTANT || expCase == expression_cases.ONE_VAR)) {
+                    code += "LD" + zero + "\n";
+                    code += "-" + toUse + "\n";
                 }
                 if (top.compatible(RW_MINUS) && RW_MINUS.compatible(expressionOperators.peek())) {
                     // the top is a minus, check if before it there is a minus too..
@@ -280,7 +322,7 @@ public class Semantic {
         if (latestToken.compatible(RW_MINUS)) {
             String code = "";
             // minus is less prioritary than mul and div.
-            while(!(latestToken.compatible(top) || top == null || RW_OPEN_BRACKET.compatible(top))){
+            while (!(latestToken.compatible(top) || top == null || RW_OPEN_BRACKET.compatible(top) || RW_SUM.compatible(top))) {
                 // it is  a mul , or a div...
                 // pops the top
                 top = expressionOperators.pop();
@@ -368,9 +410,25 @@ public class Semantic {
      * @return the type of the two labels, so i know how to use them after...
      */
     private expression_cases getLoadString(Label first, Label second) {
+        System.out.println("load string for the labels " + first + second);
         LabelType firstType, secondType;
-        firstType = first.getType();
+        // There are chances that the first is null, in case of  c =  ! true
+        // or in case like a=  - b
         secondType = second.getType();
+        if (first == null) {
+            if (secondType == LabelType.CONST) {
+                System.out.println("Nothing to add on the string...");
+                loadString = "";
+                return expression_cases.ONE_CONSTANT;
+            } else {
+                loadString = "LD " + second + "\n";
+                loadString += "MM VAR" + "\n";
+                loadString += "SC LDVAR" + "\n";
+//                loadString += "MM " + temp2 + "\n";
+                return expression_cases.ONE_VAR;
+            }
+        }
+        firstType = first.getType();
         if (firstType == LabelType.CONST && secondType == LabelType.CONST) {
             loadString = "LD " + first + "\n";
             return expression_cases.TWO_CONSTANTS;
@@ -417,6 +475,7 @@ public class Semantic {
         Token type = array[0];
         int numericalData = 0;
         if (type.getType() == TokenType.RESERVED_WORD) {
+            System.out.println("new var is the type of " + type);
             // checks if it is one of the above, if not, error should happen...
             numericalData = 2;
             boolean ok = false;
@@ -426,11 +485,12 @@ public class Semantic {
             } else if (RW_STRING.compatible(type)) {
                 ok = true;
                 symbolType = SymbolType.STRING;
+                //Strings will have a maximum of 20 chars, the 2 last are the terminator char...
+                numericalData = 22;
             } else if (RW_CHAR.compatible(type)) {
                 ok = true;
                 symbolType = SymbolType.CHAR;
-                //Strings will have a maximum of 20 chars, the 2 last are the terminator char...
-                numericalData = 22;
+
             } else if (RW_BOOL.compatible(type)) {
                 ok = true;
                 symbolType = symbolType.BOOL;
@@ -465,6 +525,91 @@ public class Semantic {
     }
     // </editor-fold>
 
+// <editor-fold  desc=" SUPPORT , Boolean expressions ">
+    private boolean isBooleanOperator(Token operator) {
+        TokensList booleanOperators = new TokensList();
+        booleanOperators.addToken(getReservedWordToken("=="));
+        booleanOperators.addToken(getReservedWordToken("<="));
+        booleanOperators.addToken(getReservedWordToken(">="));
+        booleanOperators.addToken(getReservedWordToken(">"));
+        booleanOperators.addToken(getReservedWordToken("<"));
+        booleanOperators.addToken(getReservedWordToken("&&"));
+        booleanOperators.addToken(getReservedWordToken("||"));
+        booleanOperators.addToken(getReservedWordToken("!"));
+        booleanOperators.addToken(getReservedWordToken("!="));
+        boolean result = false;
+        Token[] array = booleanOperators.getArray();
+        int index = 0;
+        while (index < array.length) {
+            if (array[index].compatible(operator)) {
+                result = true;
+                index = array.length;
+            }
+            index++;
+        }
+        return result;
+    }
+
+    private String getBooleanOpExecutionCode(Label first, Label second, Token operator, expression_cases exp_case) {
+        String result = "";
+        Token RW_equals = getReservedWordToken("==");
+        Token RW_dif = getReservedWordToken("!");
+        Token RW_lesser = getReservedWordToken("<");
+        Token RW_greater = getReservedWordToken(">");
+        Token RW_not = getReservedWordToken("!");
+        Token RW_lesser_equal = getReservedWordToken("<=");
+        Token RW_greater_equal = getReservedWordToken(">=");
+        Token RW_or = getReservedWordToken("||");
+        Token RW_and = getReservedWordToken("&&");
+        //TODO : continue from here
+        switch (exp_case) {
+            case TWO_CONSTANTS:
+                result += "MM" + temp1 + "\n";
+                result += "LD" + second + "\n";
+                result += "MM" + temp2 + "\n";
+                break;
+            case CONSTANT_AND_VAR:
+                result += "MM" + temp2 + "\n";
+                result += "LD" + first + "\n";
+                result += "MM" + temp1 + "\n";
+                break;
+            case VAR_AND_CONSTANT:
+                result += "MM" + temp1 + "\n";
+                result += "LD" + second + "\n";
+                result += "MM" + temp2 + "\n";
+                break;
+            case ONE_CONSTANT:
+                result += "LD" + second + "\n";
+                result += "MM" + temp1 + "\n";
+                break;
+            case ONE_VAR:
+                result += "MM" + temp1 + "\n";
+                break;
+        }
+        if (RW_equals.compatible(operator)) {
+            result += "SC IGUAL\n";
+        } else if (RW_dif.compatible(operator)) {
+            result += "SC DIF\n";
+        } else if (RW_and.compatible(operator)) {
+            result += "SC AND\n";
+        } else if (RW_or.compatible(operator)) {
+            result += "SC OU\n";
+        } else if (RW_lesser.compatible(operator)) {
+            result += "SC MENOR\n";
+        } else if (RW_lesser_equal.compatible(operator)) {
+            result += "SC MENORIG\n";
+        } else if (RW_greater.compatible(operator)) {
+            result += "SC MAIOR\n";
+        } else if (RW_greater_equal.compatible(operator)) {
+            result += "SC MAIORIG\n";
+        } else if (RW_not.compatible(operator)) {
+            result += "SC NOT\n";
+        }
+
+        return result;
+    }
+
+// </editor-fold>
     public Token getReservedWordToken(String reservedWord) {
         return new Token(TokenType.RESERVED_WORD, getReservedWordIndex(reservedWord));
     }

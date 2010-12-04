@@ -74,21 +74,7 @@ public class WordTest {
         assertEquals(State.RESERVED_WORD, wordAutomata.currentState);
     }
     
-    @Test
-    public void testOtherOperator(){
-        assertTrue(wordAutomata.processChar('+'));
-        assertTrue(wordAutomata.processChar('+'));
-        assertFalse(wordAutomata.processChar(' '));
-        assertEquals("++", wordAutomata.getIdentifier());
-    }
 
-    @Test
-    public void testOtherOperator2(){
-        assertTrue(wordAutomata.processChar('+'));
-        assertTrue(wordAutomata.processChar('='));
-        assertFalse(wordAutomata.processChar(' '));
-        assertEquals("+=", wordAutomata.getIdentifier());
-    }
 
     @Test
     public void testIdentifier(){
@@ -108,5 +94,13 @@ public class WordTest {
         assertEquals(State.POSSIBLE_OPERATOR, wordAutomata.getState());
         assertFalse(wordAutomata.processChar(' '));
         assertEquals(State.RESERVED_WORD, wordAutomata.getState());
+    }
+
+    @Test
+    public void Testing(){
+        assertTrue(wordAutomata.processChar('|'));
+        assertFalse(wordAutomata.processChar('|'));
+        assertEquals("||", wordAutomata.getIdentifier());
+        
     }
 }

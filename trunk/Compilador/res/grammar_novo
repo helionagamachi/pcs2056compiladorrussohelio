@@ -1,0 +1,39 @@
+programa = lista_import  lista_tipos lista_funcoes.
+lista_import = {“import” "string" “;” fim_import}.
+lista_funcoes = {declaracao_funcao}.
+lista_tipos = {declaracao_tipo}.
+
+declaracao_variavel = tipo [indice_vetor_matriz] "identificador" new_var {“,” "identificador" new_var} ";".
+declaracao_tipo = “typedef” "identificador" ”{“ { declaracao_variavel }“}” fim_new_type.
+
+
+declaracao_funcao =  (tipo | "void" )"identificador" "(" [tipo [indice_vetor_matriz] "identificador" {","tipo [indice_vetor_matriz] "identificador" } ]")" new_func bloco_codigo  .
+
+
+indice_vetor_matriz = "[" ("identificador" | "numero") "]" {"[" ("identificador" | "numero") "]"}.
+
+chamada_funcao_procedimento = "identificador" “(“ [ "identificador" { "," "identificador"  } ]“)”.
+
+
+rotulo = "identificador" “:”.
+desvio = (“continue” ["identificador"]) | ("break" ";").
+condicional = “if” “(“ expressao “)” bloco_codigo [“else”  bloco_codigo ].
+laco = "while" "("expressao")" bloco_codigo.
+
+bloco_codigo = "{" new_context {declaracao_variavel fim_vars}  { atribuicao | condicional | laco | desvio | retorno | chamada_funcao_procedimento";" }  "}" end_block_code.
+
+retorno = "return" expressao ";".
+
+
+
+atribuicao = "identificador" "=" expressao ";".
+
+expressao = {("!" | "-") push_op} ( (termo push_term) | (termo push_term {operadores push_op (termo push_term | "("push_op expressao ")")} )| ("("push_op expressao ")" )) | chamada_funcao_procedimento.
+
+termo = "identificador" | "true" | "false" | "Char" | "numero".
+
+operadores = "+" | "-" | "/" | "*" | "||" | "&&" | "==" | ">=" | "<=" | "!=" | "<" | ">".
+
+booleano = “true” | “false”.
+
+tipo = "bool" | "int" | "String" | "identificador" | "char".

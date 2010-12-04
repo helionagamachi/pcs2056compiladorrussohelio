@@ -4,5 +4,5 @@ bool funcao(bool ok){
     String hahahaFu_nciona;
     char umChar;
 
-    a =  9 - 3 + 4 * 5 - 8 + 9 ;
+    y = true &&  false ;
 }
