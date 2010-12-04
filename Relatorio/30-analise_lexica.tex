@@ -1,1 +1,24 @@
-O objetivo deste projeto é modelar e construir um compilador que utilize uma linguagem de programação imperativa.
+A análise léxica é a primeira verificação feita sobre os programas escritos, basicamente separa o texto fonte em átomos que podem ser utilizadaos nas etapas posteriores da compilação. Na análise léxica todo o conteúdo irrelevante para a compilação é descartado, como por exemplo: Espaços em branco, marcadores de nova linha, e comentários.
+\subsection{Tokens}
+A análise léxica do compilador se dá basicamente pelo reconhecimento dos Tokens definidos para a linguagem, são eles:
+\begin{itemize}
+	\item Identificador
+	\item Número
+	\item Palavra Reservada
+	\item Caracter
+	\item Comentário
+	\item String
+\end{itemize}
+
+Para o reconhecimento dos Tokens(Átomos), lançou-se mão do uso de Autômatos finitos, que aceitam como entrada caracteres, e estando em um estado final, podem emitir um Token.
+
+O token foi modelado com 3 campos: 
+
+\begin{itemize}
+	\item Valor
+	\item Tipo
+	\item Linha
+\end{itemize}
+
+O valor do Token depende diretamente do tipo de token, por exemplo, se o token for do tipo palavra reservada, seu valor é o número correspondente à palavra reservada representada, se for um número o valor assume a parte inteira do número.
+A linha foi definida como um inteiro, indica a linha em que o Token aparece no texto fonte para fins informativos, para auxílio na depuração pelo usuário.
