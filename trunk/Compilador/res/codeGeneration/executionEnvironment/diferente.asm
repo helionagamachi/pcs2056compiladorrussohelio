@@ -1,0 +1,19 @@
+; testa TEMP1 != TEMP2
+; testa TEMP1 == TEMP2
+
+DIF >
+TEMP1 <
+TEMP2 <
+TEMP3 <
+
+& /0000
+DIF		JP /0000
+		LD TEMP1
+		-  TEMP2
+		JZ FALS
+		LV /0001
+		JP FIM
+FALS	LV /0000
+FIM		MM TEMP3
+		RS DIF
+# DIF
