@@ -1,16 +1,16 @@
-A análise léxica é a primeira verificação feita sobre os programas escritos, basicamente separa o texto fonte em átomos / Tokens que podem ser utilizadaos nas etapas posteriores da compilação. Na análise léxica todo o conteúdo irrelevante para a compilação é descartado, como por exemplo: Espaços em branco, marcadores de nova linha, e comentários.
+A análise léxica é a primeira verificação feita sobre os programas escritos, basicamente separa o texto fonte em átomos / Tokens que podem ser utilizados nas etapas posteriores da compilação. Na análise léxica todo o conteúdo irrelevante para a compilação é descartado, como por exemplo: Espaços em branco, marcadores de nova linha, e comentários.
 \subsection{Tokens}
 A análise léxica do compilador se dá basicamente pelo reconhecimento dos Tokens definidos para a linguagem, são eles:
 \begin{itemize}
 	\item Identificador
 	\item Número
 	\item Palavra Reservada
-	\item Caracter
+	\item caracter
 	\item Comentário
 	\item String
 \end{itemize}
 
-Para o reconhecimento dos Tokens(Átomos), lançou-se mão do uso de Autômatos finitos, que aceitam como entrada caracteres, e estando em um estado final, podem emitir um Token.
+Para o reconhecimento dos Tokens(Átomos), lançou-se mão do uso de automatos finitos, que aceitam como entrada caracteres, e estando em um estado final, podem emitir um Token.
 
 O token foi modelado com 3 campos: 
 
@@ -34,7 +34,7 @@ Os valores possíveis para o Token depende diretamente do tipo de token, isso é v
 		Palavra reservada		& Número associado à palavra reservada \\
 		Identificador			& Inicialmente o valor é um numero qualquer, depois é associado a um ID \\
 		Comentário			& O valor assumido é sempre 0 \\
-		Caracter			& O valor é o equivalente em código ascii do caracter \\
+		caracter			& O valor é o equivalente em código ascii do caracter \\
 		String 				& nop
 		\toprule
 	\end{tabular}
@@ -50,5 +50,26 @@ Dependendo do estado e de como ocorreu o processamento o automato pode ser solic
 
 \subsection{Analisador Léxico}
 O Analisador é a classe que tem o contato direto com o arquivo de texto fonte.
-Sua função é obter os tokens do texto fonte a ser compilado. Sua implementação é da seguinte maneira :
+Sua função é obter os tokens do texto fonte a ser compilado, em sua estrutura possuí uma lista que contém todos os automatos, associado a cada automato, há um booleano, que indica se a aquele automato já retornou um booleano falso alguma vez, na análise do token atual.
 
+O funcionamento do analisador léxico é descrito como : Ao ser iniciado, o analisador cria os meios para leitura de caracters um a um do arquivo fonte, e lê o primeiro caracter do arquivo.
+
+Quando o método {\it getNextToken(table)} é chamado o analisador sintático executa os seguintes passos:
+
+\begin{enumerate}
+	\item Verifica se o último caracter é um caracter de espaço em branco (whitespace) , se for le o próximo até achar um que não seja.
+	\item Verifica se o último caracter é o marcador de fim de arquivo, se sim, retorna o Token de EOF.
+	\item Pede a todos os automatos para processarem o caracter, aqueles que retornarem falso são marcados como automatos desabilitados para o próximo caracter.
+	\item Lê o próximo caracter
+	\item Aos automatos restantes oferece o caracter para processamento.
+	\item Verifica se ainda há automatos habilitados
+	\item Se sim , volta a repetir desde o item 4.
+	\item Se não há automatos habilitados, verifica o último automato a ser desativado
+	\item Se esse automato está em estado final, recupera o token, reinicializa os automatos, e retorna o token
+	\item Se o último automato não estiver em um estado final, isso caracteriza um estado de erro, o analisador sintático pára o processo, isso pode ocorrer por exemplo na presença de um caracter que não seja ascii no nome de um identificador, por exemplo.
+	
+\end{enumerate}
+
+Se o token obtido no processo for um token de comentário, o analisador léxico descarta o token, e retorna o próximo token.
+
+Se o token obtido for um identificador, o analisador léxico recupera o nome do identificador no automato de palavras e insere a palavra na tabela de símbolos passada, o índice retornado pela tabela de símbolo é o valor que o token vai assumir.
