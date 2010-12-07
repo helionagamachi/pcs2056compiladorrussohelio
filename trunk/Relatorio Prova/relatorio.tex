@@ -1,0 +1,87 @@
+\documentclass[12pt,a4paper,titlepage]{article}
+\usepackage[latin1]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{helvet} \renewcommand{\familydefault}{\sfdefault}
+\usepackage{ae}
+\usepackage{graphicx} % para poder inserir imagens PNG, JPG e GIG
+\usepackage{verbatim}
+\usepackage{rotating}
+\usepackage{fullpage}
+\usepackage{indentfirst}
+\usepackage{moreverb}
+\usepackage{listings}
+\newcommand{\LinhaHorizontal}{\rule{\linewidth}{0.5mm}}
+\usepackage[show]{ed} % para adicionar notas de edição - retirar da versão final (usar o comando \ednote{})
+\def\verbatimtabsize{2\relax}
+\usepackage{color}
+	\definecolor{contentsLinks}{RGB}{0, 0, 100}
+\usepackage[breaklinks]{hyperref}
+\hypersetup{
+    pdfnewwindow=true,			% links in new window
+    colorlinks=true,			% false: boxed links; true: colored links
+    linkcolor=contentsLinks,	% color of internal links
+    citecolor=green,			% color of links to bibliography
+    filecolor=magenta,			% color of file links
+    urlcolor=cyan				% color of external links
+}
+
+
+\usepackage{listings} % para códigos fonte
+\renewcommand{\lstlistingname}{Código}
+\lstset{
+	inputencoding=latin1,
+	commentstyle=\it,
+	stringstyle=\bf,
+	belowcaptionskip=5pt,
+	numbers=left,
+	stepnumber=1,
+	firstnumber=1,
+	numberstyle=\tiny,
+	extendedchars=true,
+	breaklines=true,
+	frame=tb,
+	basicstyle=\footnotesize,
+	stringstyle=\ttfamily,
+	showstringspaces=false,
+	mathescape,
+	tabsize=1
+}
+\begin{document}
+	% Título
+	\input{00-titulo}
+	% Sumário
+	\tableofcontents
+	\newpage
+	
+	%
+	% Capítulos
+	%
+
+	
+	\section{Introdução}
+		\input{10-introducao}
+	\section{Definição da linguagem de alto nível}
+		\input{20-definicao_da_linguagem}
+	\section{Análise léxica}
+		\input{30-analise_lexica}
+	\section{Analise sintática}
+		\input{40-analise_sintatica}
+	\section{Definição do ambiente de execução}
+		\input{50-definicao_do_ambiente}
+	\section{Estrutura de dados e algoritmos do compilador}
+		\input{60-estrutura_de_dados}
+	\section{Semântica dinâmica}
+		\input{70-semantica_dinamica}
+	\section{Integração das rotinas semânticas}
+	 	\input{80-integracao}
+
+	
+	% Referências
+	\nocite{*} % mostrar todos, não só os citados
+	\bibliographystyle{apalike} % estilo da ABNT
+	\bibliography{bibliografia} % arquivo bibtex
+	\addcontentsline{toc}{section}{Referências}
+	\newpage
+	\section{Anexos}
+		\input{90-anexos}
+\end{document}
