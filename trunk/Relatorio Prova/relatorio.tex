@@ -1,7 +1,11 @@
 \documentclass[12pt,a4paper,titlepage]{article}
 \usepackage[latin1]{inputenc}
 \usepackage[brazil]{babel}
-\usepackage{helvet} \renewcommand{\familydefault}{\sfdefault}
+
+\usepackage[T1]{fontenc} % permite hifenização em palavras acentuadas
+\usepackage[scaled]{helvet} % usa uma fonte sem serifa no tamanho adequado
+\renewcommand*\familydefault{\sfdefault} % usa a fonte não serifada
+
 \usepackage{ae}
 \usepackage{graphicx} % para poder inserir imagens PNG, JPG e GIG
 \usepackage{verbatim}
@@ -9,7 +13,6 @@
 \usepackage{fullpage}
 \usepackage{indentfirst}
 \usepackage{moreverb}
-\usepackage{listings}
 \newcommand{\LinhaHorizontal}{\rule{\linewidth}{0.5mm}}
 \usepackage[show]{ed} % para adicionar notas de edição - retirar da versão final (usar o comando \ednote{})
 \def\verbatimtabsize{2\relax}
@@ -26,25 +29,32 @@
 }
 
 
-\usepackage{listings} % para códigos fonte
-\renewcommand{\lstlistingname}{Código}
+\usepackage{verbatim}
+% \def\verbatimtabsize{2\relax}
+
+\usepackage{multirow}
+
+%CÓDIGOS FONTE
+\usepackage{listings} % para importação de códigos fonte
+\renewcommand{\lstlistingname}{Código} % definição visual dos códigos fonte
 \lstset{
+	extendedchars=true,
 	inputencoding=latin1,
-	commentstyle=\it,
-	stringstyle=\bf,
 	belowcaptionskip=5pt,
 	numbers=left,
 	stepnumber=1,
 	firstnumber=1,
 	numberstyle=\tiny,
-	extendedchars=true,
 	breaklines=true,
 	frame=tb,
-	basicstyle=\footnotesize,
-	stringstyle=\ttfamily,
+	basicstyle=\ttfamily\small,
 	showstringspaces=false,
 	mathescape,
-	tabsize=1
+	tabsize=3,
+	% prebreak = \raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+	keywordstyle=\ttfamily\color[rgb]{0,0,1},
+	commentstyle=\ttfamily\color[rgb]{0.133,0.545,0.133},
+	stringstyle=\ttfamily\color[rgb]{0.627,0.126,0.941}
 }
 \begin{document}
 	% Título
@@ -58,9 +68,9 @@
 	%
 
 	
-	\section{Introdução}
+	\section{Objetivo}
 		\input{10-introducao}
-	\section{Definição da linguagem de alto nível}
+	\section{Linguagem}
 		\input{20-definicao_da_linguagem}
 	\section{Análise léxica}
 		\input{30-analise_lexica}
