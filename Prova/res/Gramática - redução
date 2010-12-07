@@ -1,0 +1,69 @@
+nomedafuncao = "Nome" {"." "Nome"} [":" "Nome"].
+listavar = var {"," var}.
+
+
+listadenomes = "Nome" {"," "Nome" } .
+listaexp = {exp ","} exp.
+exp = "nil" | "false" | "true" | "Numero" | "Cadeia" |  "..." | funcao |
+            expprefixo | construtortabela | exp opbin exp | opunaria exp.
+
+
+-----------------------------------------
+exp = "nil" | "false" | "true" | "Numero" | "Cadeia" |  "..." | funcao |
+            expprefixo | construtortabela | exp opbin exp | opunaria exp.
+
+lidando com a recursão à esquerda :
+
+exp = ("nil" | "false" | "true" | "Numero" | "Cadeia" |  "..." | funcao |
+            expprefixo | construtortabela |  opunaria exp )
+            {opbin ("nil" | "false" | "true" | "Numero" | "Cadeia" |  "..." | funcao |
+            expprefixo | construtortabela |  opunaria exp )}.
+
+
+
+-----------------------------------------
+
+var = "Nome" | expprefixo "[" exp "]" | expprefixo "." "Nome".
+
+vira facilmente :
+
+var = "Nome" |  expprefixo   ("[" exp "]" | "." "Nome").
+
+            
+------------------
+expprefixo = var | chamadadefuncao | "(" exp ")".
+
+substituindo a nova forma de var...
+
+expprefixo =  ( "Nome" |  expprefixo   ("[" exp "]" | "." "Nome") ) | chamadadefuncao | "(" exp ")".
+
+se transforma em :
+
+expprefixo = ("Nome" | chamadadefuncao | "(" exp ")" ) { "[" exp "]" | "." "Nome"  }.
+
+substituindo chamadadefuncao
+
+expprefixo = ("Nome" | (("Nome" | "(" exp ")" ) { "[" exp "]" | "." "Nome"  }  [ ":" "Nome" ] args { [ ":" "Nome" ] args }) | "(" exp ")" ) { "[" exp "]" | "." "Nome"  }.
+
+
+------------------
+
+
+----------------
+chamadadefuncao = expprefixo  [ ":" "Nome" ] args.
+
+colocando expprefixo...
+
+chamadadefuncao = ("Nome" | chamadadefuncao | "(" exp ")" ) { "[" exp "]" | "." "Nome"  } [ ":" "Nome" ] args.
+
+chamadadefuncao = ("Nome" | "(" exp ")" ) { "[" exp "]" | "." "Nome"  }  [ ":" "Nome" ] args { [ ":" "Nome" ] args }.
+--------------
+
+
+campo = "[" exp "]" "=" exp | "Nome" "=" exp | exp.
+
+campo = (("[" exp "]" | "Nome" ) "=" exp) | (("nil" | "false" | "true" | "Numero" | "Cadeia" |  "..." | funcao |
+            expprefixo | construtortabela |  opunaria exp )
+            {opbin ("nil" | "false" | "true" | "Numero" | "Cadeia" |  "..." | funcao |
+            expprefixo | construtortabela |  opunaria exp )}).
+
