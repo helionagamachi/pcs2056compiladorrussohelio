@@ -22,8 +22,17 @@ Seu funcionamento é enumerado a seguir:
 \end{enumerate}
 
 \subsubsection{Expressão - ação final}
-Quando a máquina de expressão deve retornar de sua chamada, ela deve gerar o código correspondente à expressão presente na pilha, a geração de código é bastante simples, uma vez que a complexidade de lidar com a precedência de operações já foi resolvida, essa ação pára no momento em que um "(" aparece na pilha de operandos indicando que a ação deve simplesmente guardar o resultado em uma variável temporária para outro processamento de expressão.
+Quando a máquina de expressão deve retornar de sua chamada, ela deve gerar o código correspondente à expressão presente na pilha, a geração de código é bastante simples, uma vez que a complexidade de lidar com a precedência de operações já foi resolvida, essa ação pára no momento em que um token de abertura de parênteses aparece na pilha de operandos indicando que a ação deve simplesmente guardar o resultado em uma variável temporária para outro processamento de expressão, essa variável temporária é empilhada na pilha de operandos. Se não houver mais dados para serem processados, o resultado será armazenado em uma nova variável e também estará à disposição para outros comandos no acumulador.
 
-\subsubsection{AAAH me ajuda!}
+\subsubsection{nova\_var}
+Ação semântica que associa uma nova label à variavel criada.
 
+\subsubsection{atribuicao}
+Atribui um valor a variável que está à esquerda no comando, atulmente apenas inteiros, booleanos e caracteres podem ser atribuídos
+
+\subsubsection{fecha\_escopo}
+Emite uma label para o final do escopo corrente, no caso de while e else, eles podem emitir uma instrução que leva até essa label antes mesmo dela ser sido declarada, por isso deve verificar se há alguma desse tipo presente em uma pequena pilha para essa finalidade.
+
+\subsubsection{novo\_escopo}
+Emite uma label correspondente ao novo escopo, pode ser utilizada pela instrução while, que ao chegar ao seu final faz um desvio incondicional para essa label.
 
