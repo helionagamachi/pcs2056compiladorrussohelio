@@ -1,0 +1,1 @@
+#, -, +, *, /, ^, %, ., .., ..., <, <=, >, >=, ==, ~=, and, or, ,, ;, :, [, ], =, {, }, (, ), end, nil, false, true, return, not, break, local, function, for, in, do, if, then, elseif, else, while, repeat, until.
