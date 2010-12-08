@@ -35,7 +35,7 @@ Os valores possíveis para o Token depende diretamente do tipo de token, isso é v
 		Identificador			& Inicialmente o valor é um numero qualquer, depois é associado a um ID \\
 		Comentário			& O valor assumido é sempre 0 \\
 		caracter			& O valor é o equivalente em código ascii do caracter \\
-		String 				& nop
+		String 				& Valor correspondente a uma entrada em uma tabela de constantes
 		\toprule
 	\end{tabular}
 \end{table}
@@ -63,7 +63,7 @@ Quando o método {\it getNextToken(table)} é chamado o analisador sintático execu
 	\item Lê o próximo caracter
 	\item Aos automatos restantes oferece o caracter para processamento.
 	\item Verifica se ainda há automatos habilitados
-	\item Se sim , volta a repetir desde o item 4.
+	\item Se sim, volta a repetir desde o item 4.
 	\item Se não há automatos habilitados, verifica o último automato a ser desativado
 	\item Se esse automato está em estado final, recupera o token, reinicializa os automatos, e retorna o token
 	\item Se o último automato não estiver em um estado final, isso caracteriza um estado de erro, o analisador sintático pára o processo, isso pode ocorrer por exemplo na presença de um caracter que não seja ascii no nome de um identificador, por exemplo.
