@@ -1,1 +1,12 @@
 A definição da linguagem em notação de WIRTH segue:
+\lstinputlisting[language=none, caption={Gramática}, label = {code:grammar}] {codigos/grammar} 
+
+Na definição da gramática não há detalhamento de como são os identificadores , números e caracteres, eles são reconhecidos pelo analisador léxico e já são recebidos pelo analisador sintático como tokens prontos e apropriados, por isso na gramática aparecem como elementos finais.
+
+Uma breve descrição de como cada um dos elementos citados acima, são esperados
+\begin{itemize}
+	\item Identificador: Pelo menos uma letra, seguida de letras e números, não pode ser uma palavra reservada.
+	\item Número: Números inteiros sem sinal, e de ponto flutuante, no entanto como a mvn só trabalha com inteiros, somente a parte inteira é considerada
+	\item Caractere: uma letra entre aspas simples
+	\item String: Começa com aspas duplas, uma sequencia qualquer de caracteres e termina com aspas duplas.
+\end{itemize}
