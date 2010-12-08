@@ -56,6 +56,15 @@
 	commentstyle=\ttfamily\color[rgb]{0.133,0.545,0.133},
 	stringstyle=\ttfamily\color[rgb]{0.627,0.126,0.941}
 }
+
+\newcommand{\inputpng}[4]{%
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=#4\textwidth]{#1.png}
+  \caption{\it #3.}
+  \label{fig:#2}
+\end{figure}
+}
 \begin{document}
 	% Título
 	\input{00-titulo}
@@ -70,7 +79,7 @@
 	
 	\section{Objetivo}
 		\input{10-objetivo}
-	\section{Linguagem}
+	\section{Gramática}
 		\input{20-linguagem}
 	\section{Análise léxica}
 		\input{30-analise_lexica}
@@ -87,11 +96,8 @@
 
 	
 	% Referências
-	\nocite{*} % mostrar todos, não só os citados
-	\bibliographystyle{apalike} % estilo da ABNT
-	\bibliography{bibliografia} % arquivo bibtex
-	\addcontentsline{toc}{section}{Referências}
-	\newpage
-	\section{Anexos}
-		\input{90-anexos}
+	% \nocite{*} % mostrar todos, não só os citados
+	% \bibliographystyle{apalike} % estilo da ABNT
+	% \bibliography{bibliografia} % arquivo bibtex
+	% \addcontentsline{toc}{section}{Referências}
 \end{document}

@@ -1,18 +1,19 @@
-A análise Sintática se utiliza de um automato estruturado de pilha que é descrito por \cite{JJ}, estrutura que utiliza uma pilha e alguns automatos finitos para realizar a tarefa de análise sintática.
+Como visto anteriormente, a gramática em notação de Wirth foi reduzida de forma a ficarmos com 3 automatos, um de ``comandos'', um de ``funções'' e o terceiro de ``expressões''.
 
-\subsection{Estrutura}
-O analisador sintático possuí basicamente um automato estruturado de pilha e acesso à códigos que permitem o parse de arquivos de configuração dos automatos finitos.
+Esta gramática foi transformada em autômatos finitos determinísticos mínimos com o uso da ferramenta desenvolvida por Fabio Sendoda Yamate e Hugo Baraúna\footnote{Encontra-se em http://radiant-fire-72.heroku.com/} que aplica o algoritmo de conversão e gera os APEs automaticamente.
 
-O Automato estruturado de pilha, tem sua estrutura definida por :
-\subsubsection{Automato Finito}
-O automato finito utilizado para a análise sintática possuí um vetor de booleanos que denota os seus estados, se uma posição do vetor possuir o booleano verdadeiro, quer dizer que aquele estado é final. O automato também possuí um vetor com as transições do automato.
+A tabela de transição dos autômatos encontra-se a seguir\footnote{Os APEs não são apresentados pois ficaram muito confusos de visualizar.}:
 
-\subsubsection{Transição} 
-A transição pode ser de dois tipos, uma transição normal , ou a chamada de outro automato. Se a transição for normal, ela possuí o próximo estado e o token que a ativa. Se a transição for uma chamada, a transição contém o número do automato a ser chamado e o estado de retorno, que é um estado no automato atual que será o estado corrente após a execução do segundo automato.
+\lstinputlisting[caption={Transições do Wirth de ``comandos''.}, label = {code:comando}] {codigos/comando}
 
-\subsubsection{Pilha}
-A pilha é a estrutura utilizada pelo Automato estruturado de pilha para armazenar a informação de automato e estado quando a transição de um automato a ser executada é a chamada de outro automato. Quando esse tipo de transição ocorre o automato corrente passa a ser o automato denotado pela transição e a pilha guarda qual o automato que realizou a chamada, e qual o estado que esse deve voltar após a execução do segunto automato.
+\lstinputlisting[caption={Transições do Wirth de ``funções''.}, label = {code:funcao}] {codigos/funcao}
 
+\lstinputlisting[caption={Transições do Wirth de ``expressões''.}, label = {code:expressao}] {codigos/exp}
 
-\subsection{Parse}
-A gramática em notação de Wirth foi reduzida de forma a fircarmos com 3 automatos, um de programa, um de bloco de código e o terceiro de expressões.
+Para a contrução do analisador sintático, foram usados os códigos apresentados na figura \ref{fig:figuras_sintatico}.
+
+\inputpng{figuras/sintatico}{figuras_sintatico}{Códigos utilizados para construir o analisador sintático}{1.0}
+
+A classe principal do analisador sintático, que chama as funções dos outros códigos encontra-se no código \ref{code:analsint}.
+
+\lstinputlisting[language=Java, tabsize = 4, caption={Classe ``Analyzer.java'' que controla o processo de análise sintática.}, label = {code:analsint}]{codigos/Analyzersint.java}
