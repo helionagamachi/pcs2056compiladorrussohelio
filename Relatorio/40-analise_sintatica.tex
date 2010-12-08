@@ -1,27 +1,38 @@
-A análise Sintática se utiliza de um automato estruturado de pilha que é descrito por \cite{JJ}, estrutura que utiliza uma pilha e alguns automatos finitos para realizar a tarefa de análise sintática.
+A análise sintática se utiliza de um Autômato de Pilha Estruturado (APE) que é descrito por \cite{JJ}, estrutura que utiliza uma pilha e alguns autômatos finitos para realizar a tarefa de análise sintática.
 
 \subsection{Estrutura}
-O analisador sintático possuí basicamente um automato estruturado de pilha e acesso à códigos que permitem o parse de arquivos de configuração dos automatos finitos.
+O analisador sintático possuí, basicamente, um APE e acesso a códigos que permitem o \emph{parse} de arquivos de configuração dos autômatos finitos.
 
-O Automato estruturado de pilha, tem sua estrutura definida por :
-\subsubsection{Automato Finito}
-O automato finito utilizado para a análise sintática possuí um vetor de booleanos que denota os seus estados, se uma posição do vetor possuir o booleano verdadeiro, quer dizer que aquele estado é final. O automato também possuí um vetor com as transições do automato.
+% O APE, tem sua estrutura definida por :
 
-\subsubsection{Transição} 
-A transição pode ser de dois tipos, uma transição normal , ou a chamada de outro automato. Se a transição for normal, ela possuí o próximo estado e o token que a ativa. Se a transição for uma chamada, a transição contém o número do automato a ser chamado e o estado de retorno, que é um estado no automato atual que será o estado corrente após a execução do segundo automato.
+\subsubsection{Autômato Finito}
+O autômato finito utilizado para a análise sintática possuí um vetor de booleanos que denota os seus estados. Se uma posição do vetor possuir o booleano ``verdadeiro'', quer dizer que aquele estado é final. Há também um vetor com as transições do autômato.
+
+\subsubsection{Transição}
+A transição pode ser de dois tipos: transição normal ou a chamada de outro autômato.
+
+Se a transição for normal, ela possuí o próximo estado e o token que a ativa.
+
+Se a transição for uma chamada, ela contém o número do autômato a ser chamado e o estado de retorno, que é um estado no autômato atual que será o estado corrente após a execução do segundo autômato.
 
 \subsubsection{Pilha}
-A pilha é a estrutura utilizada pelo Automato estruturado de pilha para armazenar a informação de automato e estado quando a transição de um automato a ser executada é a chamada de outro automato. Quando esse tipo de transição ocorre o automato corrente passa a ser o automato denotado pela transição e a pilha guarda qual o automato que realizou a chamada, e qual o estado que esse deve voltar após a execução do segunto automato.
+A pilha é a estrutura utilizada pelo APE para armazenar a informação de autômato e estado quando a transição de um autômato a ser executada é a chamada de outro autômato.
 
+Quando esse tipo de transição ocorre, o autômato corrente passa a ser o autômato denotado pela transição e a pilha guarda qual o autômato que realizou a chamada e qual o estado que esse deve voltar após a execução do segundo autômato.
 
 \subsection{Parse}
-A gramática em notação de Wirth foi reduzida de forma a ficarmos com 3 automatos, um de programa, um de bloco de código e o terceiro de expressões. A gramática foi transformada em autômatos finitos determinísticos mínimos com o uso da ferramenta RadiantFire\cite{RadiantFire} um meta compilador de definições de gramática em notação wirth. Um exemplo da saída para um dos automatos encontra-se na seção de anexo, as transiçoes do automato de bloco estão nos anexos, código \ref{automato:bloco_codigo}. A primeira linha do arquivo é sempre igual, indicando que o estado inicial do automato é o estado zero, a segunda linha mostra quais são os estados finais e as outras linhas indicam as transições. Se o elemento da transição representar um token é uma transição normal, caso seja o nome de um automato, indica a chamada para o outro automato.
+A gramática em notação de Wirth foi reduzida de forma a ficarmos com 3 autômatos: um de programa, um de bloco de código e o terceiro de expressões.
 
-Conforme o arquivo de configuração é lido, descobre-se ao final a quantidade de estados do automato.
+A gramática foi transformada em autômatos finitos determinísticos mínimos com o uso da ferramenta criada por Hugo Baraúna e Fabio Yamate \cite{RadiantFire}, um meta compilador de definições de gramática em notação Wirth.
+
+Um exemplo da saída para um dos autômatos encontra-se na seção de anexo. As transições do autômato de bloco estão nos anexos -- código \ref{automato:bloco_codigo}. A primeira linha do arquivo é sempre igual, indicando que o estado inicial do autômato é o estado zero, a segunda linha mostra quais são os estados finais e as outras linhas indicam as transições. Se o elemento da transição representar um token é uma transição normal, caso seja o nome de um autômato, indica a chamada para o outro autômato.
+
+Conforme o arquivo de configuração é lido, descobre-se ao final a quantidade de estados do autômato.
 
 \subsection{Análise Sintática}
 
-A análise sintática se dá com a requisição dos tokens um a um do sintático para o léxico. O analisador gerencia o automato estruturado de pilha e na eventualidade de um erro o processo para e uma mensagem de erro é apresentada. Caso o token que marca o fim do texto fonte seja recebido, o analisador deve verificar se não há dados na pilha de automatos e se o automato atual é o primeiro automato (no caso o automato referente a programa) e o estado corrente desse automato é final, caso essas condições sejam atendidas, o programa é válido
-sob o ponto de vista sintático.
+A análise sintática se dá com a requisição dos tokens um a um do sintático para o léxico.
+
+O analisador gerencia o APE e, na eventualidade de um erro, o processo para e uma mensagem de erro é apresentada. Caso o átomo que marca o fim do texto fonte seja recebido, o analisador deve verificar se não há dados na pilha de autômatos e se o autômato atual é o primeiro autômato -- no caso o autômato referente a programa -- e o estado corrente desse autômato é final. Caso essas condições sejam atendidas, o programa é válido sob o ponto de vista sintático.
 
  

@@ -1,7 +1,13 @@
 \documentclass[12pt,a4paper,titlepage]{article}
 \usepackage[latin1]{inputenc}
 \usepackage[brazil]{babel}
-\usepackage{helvet} \renewcommand{\familydefault}{\sfdefault}
+
+\usepackage[T1]{fontenc} % permite hifenização em palavras acentuadas
+\usepackage[scaled]{helvet} % usa uma fonte sem serifa no tamanho adequado
+\renewcommand*\familydefault{\sfdefault} % usa a fonte não serifada
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{booktabs}
 \usepackage{ae}
 \usepackage{graphicx} % para poder inserir imagens PNG, JPG e GIG
 \usepackage{verbatim}
@@ -14,15 +20,15 @@
 \usepackage[show]{ed} % para adicionar notas de edição - retirar da versão final (usar o comando \ednote{})
 \def\verbatimtabsize{2\relax}
 \usepackage{color}
-	\definecolor{contentsLinks}{RGB}{0, 0, 100}
+	\definecolor{black}{RGB}{0, 0, 0}
 \usepackage[breaklinks]{hyperref}
 \hypersetup{
     pdfnewwindow=true,			% links in new window
     colorlinks=true,			% false: boxed links; true: colored links
-    linkcolor=contentsLinks,	% color of internal links
-    citecolor=green,			% color of links to bibliography
-    filecolor=magenta,			% color of file links
-    urlcolor=cyan				% color of external links
+    linkcolor=black,	% color of internal links
+    citecolor=black,			% color of links to bibliography
+    filecolor=black,			% color of file links
+    urlcolor=black				% color of external links
 }
 
 
@@ -46,6 +52,15 @@
 	mathescape,
 	tabsize=1
 }
+\newcommand{\inputpng}[4]{%
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=#4\textwidth]{#1.png}
+  \caption{\it #3.}
+  \label{fig:#2}
+\end{figure}
+}
+
 \begin{document}
 	% Título
 	\input{00-titulo}

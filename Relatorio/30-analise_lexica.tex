@@ -1,75 +1,79 @@
-A análise léxica é a primeira verificação feita sobre os programas escritos, basicamente separa o texto fonte em átomos / Tokens que podem ser utilizados nas etapas posteriores da compilação. Na análise léxica todo o conteúdo irrelevante para a compilação é descartado, como por exemplo: Espaços em branco, marcadores de nova linha, e comentários.
+A análise léxica é a primeira feita sobre os programas escritos. Basicamente, separa o texto fonte em átomos que podem ser utilizados nas etapas posteriores da compilação.
+
+Na análise léxica, todo o conteúdo irrelevante para a compilação -- espaços em branco, marcadores de nova linha e comentários -- é descartado.
+
 \subsection{Tokens}
-A análise léxica do compilador se dá basicamente pelo reconhecimento dos Tokens definidos para a linguagem, são eles:
-\begin{itemize}
-	\item Identificador
-	\item Número
-	\item Palavra Reservada
-	\item caracter
-	\item Comentário
-	\item String
-\end{itemize}
-
-Para o reconhecimento dos Tokens(Átomos), lançou-se mão do uso de automatos finitos, que aceitam como entrada caracteres, e estando em um estado final, podem emitir um Token.
-
-O token foi modelado com 3 campos: 
+A análise léxica do compilador se dá basicamente pelo reconhecimento dos tokens definidos para a linguagem, são eles:
 
 \begin{itemize}
-	\item Valor
-	\item Tipo
-	\item Linha
+	\item \textbf{Identificador}
+	\item \textbf{Número}
+	\item \textbf{Palavra Reservada}
+	\item \textbf{Caracter}
+	\item \textbf{Comentário}
+	\item \textbf{String}
 \end{itemize}
 
+Para o reconhecimento dos átomos, lançou-se mão do uso de autômatos finitos. Estes aceitam caracteres como entrada e, ao chegar em um estado final, podem emitir um token.
 
-Os valores possíveis para o Token depende diretamente do tipo de token, isso é visto na tabela \ref{table:tokens}
+Os tokens foram modelados com os três campos a seguir:
+
+\begin{itemize}
+	\item \textbf{Valor}
+	\item \textbf{Tipo}
+	\item \textbf{Linha}
+\end{itemize}
+
+Os valores possíveis para o token dependem diretamente do seu tipo, como pode ser visto na tabela \ref{table:tokens}
 
 \begin{table}[htb!]
-	\caption{\it Tipos de tokens e valores}
+	\caption{\it Tipos de tokens e valores.}
 	\label{table:tokens}
 	\centering
-	\begin{tabular}{c c }
+	\begin{tabular}{p{4cm} p{11cm}}
 		\toprule
-		\textbf{\ac{Tipo de Token}}	& \textbf{Valores Possíveis} 	\\ 	\hline
-		Número				&0 ,1 , 2 ,3 , 4 ,... 		\\
-		Palavra reservada		& Número associado à palavra reservada \\
-		Identificador			& Inicialmente o valor é um numero qualquer, depois é associado a um ID \\
-		Comentário			& O valor assumido é sempre 0 \\
-		caracter			& O valor é o equivalente em código ascii do caracter \\
-		String 				& Valor correspondente a uma entrada em uma tabela de constantes
+		\textbf{Tipo de token}	& \textbf{Valores Possíveis} 	\\\hline
+		\textbf{Número}				&	0 ,1 , 2 ,3 , 4 ,... 		\\
+		\textbf{Palavra reservada}		& Número associado à palavra reservada \\
+		\textbf{Identificador}			& Inicialmente o valor é um numero qualquer, depois é associado a um ID \\
+		\textbf{Comentário}				& O valor assumido é sempre 0 \\
+		\textbf{Caracter}				& O valor é o equivalente em código ascii do caracter \\
+		\textbf{String} 					& Valor correspondente a uma entrada em uma tabela de constantes\\
 		\toprule
 	\end{tabular}
 \end{table}
 
-\subsection{Automatos}
-Os automatos para o reconhecimento dos Tokens foram modelados da seguinte forma, todos herdam da classe automata.java, {\it Código \ref{code:automata}}.
-O campo State , representa o estado do Automato, os estados são membros de uma enumeração pública que tem, uma propriedade, se o estado é final ou não. {\it Código \ref{code:state}}
+\subsection{Autômatos}
+Os autômatos para o reconhecimento dos tokens foram modelados da seguinte forma: todos herdam da classe automata.java -- código \ref{code:automata}.
 
-Cada um dos automatos implementa de forma diferente o método {\it processChar(char a)} que deve retornar um booleano ao final do método. O booleano a ser retornado deve ter valor verdadeiro caso o automato pode consumir o caracter fornecido, caso contrário falso será retornado e o analisador léxico deve verificar se o automato chegou a um estado final ou não , e pedir a emissão do Token caso o estado atual seja um estado final.
+O campo \textbf{State} representa o estado do autômato. Os estados são membros de uma enumeração pública que tem uma única  propriedade: se o estado é final ou não -- código \ref{code:state}.
 
-Dependendo do estado e de como ocorreu o processamento o automato pode ser solicitado a emitir um Token baseado no seu estado atual.
+Cada um dos autômatos implementa de forma diferente o método \emph{processChar(char a)}, que deve retornar um booleano ao final do método. O booleano a ser retornado deve ter valor ``verdadeiro'' caso o autômato possa consumir o caracter fornecido, e ``falso'' caso contrário. O analisador léxico deve, então, verificar se o autômato chegou a um estado final ou não e pedir a emissão do token caso o estado atual seja um estado final.
+
+Dependendo do estado e de como ocorreu o processamento, o autômato pode ser solicitado a emitir um átomo baseado no seu estado atual.
 
 \subsection{Analisador Léxico}
-O Analisador é a classe que tem o contato direto com o arquivo de texto fonte.
-Sua função é obter os tokens do texto fonte a ser compilado, em sua estrutura possuí uma lista que contém todos os automatos, associado a cada automato, há um booleano, que indica se a aquele automato já retornou um booleano falso alguma vez, na análise do token atual.
+O analisador é a classe que tem o contato direto com o arquivo de texto fonte e sua função é obter os tokens do texto fonte a ser compilado.
 
-O funcionamento do analisador léxico é descrito como : Ao ser iniciado, o analisador cria os meios para leitura de caracters um a um do arquivo fonte, e lê o primeiro caracter do arquivo.
+Em sua estrutura, há uma lista com todos os autômatos, e, associado a cada um deles, um booleano que indica se a aquele autômato já retornou ``falso'' alguma vez na análise do token atual.
 
-Quando o método {\it getNextToken(table)} é chamado o analisador sintático executa os seguintes passos:
+O funcionamento do analisador léxico é descrito da seguinte forma: Ao ser iniciado, o analisador cria os meios para leitura de caracters um a um do arquivo fonte e lê o primeiro caracter do arquivo.
+
+Quando o método \emph{getNexttoken(table)} é chamado, o analisador sintático executa os seguintes passos:
 
 \begin{enumerate}
-	\item Verifica se o último caracter é um caracter de espaço em branco (whitespace) , se for le o próximo até achar um que não seja.
-	\item Verifica se o último caracter é o marcador de fim de arquivo, se sim, retorna o Token de EOF.
-	\item Pede a todos os automatos para processarem o caracter, aqueles que retornarem falso são marcados como automatos desabilitados para o próximo caracter.
-	\item Lê o próximo caracter
-	\item Aos automatos restantes oferece o caracter para processamento.
-	\item Verifica se ainda há automatos habilitados
+	\item Verifica se o último caracter é de espaço em branco (\emph{whitespace}). Se for, lê o próximo até achar um que não seja.
+	\item Verifica se o último caracter é o marcador de fim de arquivo. Se sim, retorna o token de EOF.
+	\item Pede a todos os autômatos para processarem o caracter. Aqueles que retornarem ``falso'' são marcados como autômatos desabilitados para o próximo caracter.
+	\item Lê o próximo caracter.
+	\item Aos autômatos restantes, oferece o caracter para processamento.
+	\item Verifica se ainda há autômatos habilitados.
 	\item Se sim, volta a repetir desde o item 4.
-	\item Se não há automatos habilitados, verifica o último automato a ser desativado
-	\item Se esse automato está em estado final, recupera o token, reinicializa os automatos, e retorna o token
-	\item Se o último automato não estiver em um estado final, isso caracteriza um estado de erro, o analisador sintático pára o processo, isso pode ocorrer por exemplo na presença de um caracter que não seja ascii no nome de um identificador, por exemplo.
-	
+	\item Se não há autômatos habilitados, verifica o último autômato a ser desativado.
+	\item Se esse autômato está em estado final, recupera o token, reinicializa os autômatos e retorna o token.
+	\item Se o último autômato não estiver em um estado final, isso caracteriza um estado de erro. O analisador sintático pára o processo -- por exemplo, na presença de um caracter que não seja ASCII no nome de um identificador.
 \end{enumerate}
 
-Se o token obtido no processo for um token de comentário, o analisador léxico descarta o token, e retorna o próximo token.
+Se o token obtido no processo for de comentário, o analisador léxico o descarta e avança para o próximo.
 
-Se o token obtido for um identificador, o analisador léxico recupera o nome do identificador no automato de palavras e insere a palavra na tabela de símbolos passada, o índice retornado pela tabela de símbolo é o valor que o token vai assumir.
+Se o token obtido for um identificador, o analisador léxico recupera o nome do identificador no autômato de palavras e insere a palavra na tabela de símbolos passada. O índice retornado pela tabela de símbolo é o valor que o token vai assumir.
