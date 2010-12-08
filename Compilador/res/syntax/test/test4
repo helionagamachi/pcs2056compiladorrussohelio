@@ -3,6 +3,8 @@ bool funcao(bool ok){
 //    bool b;
     String hahahaFu_nciona;
     char umChar;
-
-    y = true &&  false ;
+    if(true){
+    d = a <= c;
+    }
+    
 }

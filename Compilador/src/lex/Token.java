@@ -14,7 +14,7 @@ public class Token {
 
     /**
      * Creates a new token
-     * @param type the type of the token, see
+     * @param type the type of the token, see TokenType
      * @param value an Integer Value to the Token
      */
     public Token(TokenType type, int value) {

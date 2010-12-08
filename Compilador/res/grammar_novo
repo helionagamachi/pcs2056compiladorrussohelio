@@ -17,8 +17,8 @@ chamada_funcao_procedimento = "identificador" “(“ [ "identificador" { "," "i
 
 rotulo = "identificador" “:”.
 desvio = (“continue” ["identificador"]) | ("break" ";").
-condicional = “if” “(“ expressao “)” bloco_codigo [“else”  bloco_codigo ].
-laco = "while" "("expressao")" bloco_codigo.
+condicional = “if” new_cond “(“ expressao “)” chk_cond bloco_codigo [“else”  bloco_codigo ].
+laco = "while" new_ite "("expressao")" chk_ite bloco_codigo  .
 
 bloco_codigo = "{" new_context {declaracao_variavel fim_vars}  { atribuicao | condicional | laco | desvio | retorno | chamada_funcao_procedimento";" }  "}" end_block_code.
 
@@ -26,7 +26,7 @@ retorno = "return" expressao ";".
 
 
 
-atribuicao = "identificador" "=" expressao ";".
+atribuicao = "identificador" "=" expressao ";" atrib.
 
 expressao = {("!" | "-") push_op} ( (termo push_term) | (termo push_term {operadores push_op (termo push_term | "("push_op expressao ")")} )| ("("push_op expressao ")" )) | chamada_funcao_procedimento.
 
