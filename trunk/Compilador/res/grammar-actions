@@ -29,9 +29,11 @@ retorno = "return" ("identificador" | chamada_funcao_procedimento | expressao | 
 
 atribuicao = "identificador" "=" (expressao| chamada_funcao_procedimento | "identificador" ) ";".
 
-expressao = {"!"} termo | (termo ("+" | "-" | "&&" | "||") expressao).
-termo = fator | ( fator ("*" | "/" | "==" | ">" | "<" | "<=" | "=>" | "!=" ) fator).
-fator = booleano | "identificador" | chamada_funcao_procedimento | "(" expressao")" | "numero" | "char".
+expressao = {("!" | "-")} ( (termo ) | (termo  {operadores  (termo | "("expressao ")")} )| ("(" expressao ")" )) | chamada_funcao_procedimento.
+
+termo = "identificador" | "true" | "false" | "Char" | "numero".
+
+operadores = "+" | "-" | "/" | "*" | "||" | "&&" | "==" | ">=" | "<=" | "!=" | "<" | ">".
 
 booleano = “true” | “false”.
 

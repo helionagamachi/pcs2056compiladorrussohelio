@@ -11,10 +11,7 @@ BASE  >
 & /0000 ;
 JP INICIO
 ; Some stuff is testing yet...
-	K /0002
-	K /0003
-BASE    K /0004
-VAR     K /0000
+
 TEMP1   K /0000
 TEMP2   K /0000
 TEMP3   K /0000

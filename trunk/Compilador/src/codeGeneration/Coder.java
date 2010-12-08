@@ -31,9 +31,9 @@ public class Coder {
      */
     public void putOnBuffer(String string, boolean before) {
         if (before) {
-            buffer = string + "\n" + buffer;
+            buffer = string  + buffer;
         } else {
-            buffer = buffer + "\n" + string;
+            buffer = buffer + string;
         }
         System.out.println("the buffer has now " + buffer);
     }

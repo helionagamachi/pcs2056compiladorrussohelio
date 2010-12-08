@@ -11,27 +11,21 @@ BASE  >
 & /0000 ;
 JP INICIO
 ; Some stuff is testing yet...
-	K /0002
-	K /0003
-BASE    K /0004
-VAR     K /0000
-TEMP1   K /0000
-TEMP2   K /0000
-TEMP3   K /0000
-ZERO0   K /0000
  CONST0  K =1 
  CONST1  K =0 
- CONST2  K =0 
  VAR0  K =0 
- VAR1  K =2 
- VAR2  K =4 
- VAR3  K =6 
- VAR4  K =28 
-
-
+ VAR1  K =0 
+ VAR2  K =0 
+ VAR3  K =0 
+ VAR4  K =0 
 LD  CONST0 
+JZ LB0 
+LD  VAR0 
 MM TEMP1 
-LD CONST1 
+LD VAR1 
 MM TEMP2 
-SC AND
-MM  CONST2 
+SC MENORIG
+LD TEMP3 
+MM  CONST1 
+MM  VAR2 
+ LB0 OS /0000

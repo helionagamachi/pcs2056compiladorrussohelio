@@ -16,6 +16,7 @@ import lex.Token;
 import lex.TokenType;
 import org.apache.log4j.Logger;
 import utils.CompilerException;
+import utils.StringStack;
 import utils.SymbolTable;
 import static utils.ArraysUtils.getReservedWordByIndex;
 import static utils.ArraysUtils.getReservedWordIndex;
@@ -41,6 +42,8 @@ public class Semantic {
     private LabelStack expressionOperands = new LabelStack();
     // this will be used to identify the situation with the labels of an expression,
     // so that i know how to react to them.
+    private LabelStack starRegion = new LabelStack();
+    private StringStack stringStack = new StringStack();
 
     enum expression_cases {
 
@@ -89,8 +92,18 @@ public class Semantic {
         } else if (name.equals("push_op")) {
             stackOperator();
         } else if (name.equals("end_block_code")) {
+            end_block_code();
             releaseVarsAndConstLabels();
-        } else {
+        } else if (name.equals("atrib")) {
+            atribuicao();
+        } else if (name.equals("new_ite")) {
+            new_while();
+        } else if (name.equals("chk_ite")) {
+            check_while();
+        } else if (name.equals("chk_cond")){
+            check_if();
+        }
+        else {
             LOGGER.warn("Action " + name + " not defined !");
         }
 
@@ -196,12 +209,60 @@ public class Semantic {
                     System.out.println("after all " + expressionOperators);
                 } else {
                     // there is a var or constant hanging out..
+                    if (!expressionOperands.isEmpty()) {
+                        getLoadString(expressionOperands.pop(), zero);
+                        coder.putOnBuffer(loadString, false);
+                    }
                 }
 
 // </editor-fold>
                 break;
 
         }
+    }
+
+
+
+    private void end_block_code() {
+        String end = stringStack.pop();
+        if (end != null) {
+            coder.putOnBuffer(end, false);
+        }
+    }
+
+    private void check_if(){
+        Label label = labelMan.getLabel(LabelType.NORMAL);
+        coder.putOnBuffer("JZ" + label + "\n", false);
+        String  finalString;
+        finalString = label + "OS /0000\n";
+        stringStack.push(finalString);
+    }
+
+    private void new_while() {
+        Label label = labelMan.getLabel(LabelType.NORMAL);
+        coder.putOnBuffer(label.toString(), false);
+        starRegion.push(label);
+    }
+
+    private void check_while() {
+        Label label = labelMan.getLabel(LabelType.NORMAL);
+        coder.putOnBuffer("JZ" + label + "\n", false);
+        String finalString = "JP" + starRegion.pop() + "\n";
+        finalString += label + "OS /0000\n";
+        stringStack.push(finalString);
+    }
+
+    private void atribuicao() throws CompilerException {
+        Token[] array = tokenList.getArray();
+        Token token = array[0];
+        SymbolLine line = latestTable.getLine(token.getValue());
+        if (line.getType() == SymbolType.UNKOWN) {
+            CompilerException e = new CompilerException("The variable " + line.getSymbol() + " wasn't declared");
+            throw e;
+        }
+        Label label = line.getLabel();
+        coder.putOnBuffer("MM " + label + "\n", false);
+        tokenList.clear();
     }
 
     /**
@@ -245,7 +306,7 @@ public class Semantic {
             Label label = labels[index];
             result = result + label + " K =" + offSet + " \n";
             index++;
-            offSet = offSet + label.getNumericalData();
+//            offSet = offSet + label.getNumericalData();
         }
         varLabelList.clear();
         coder.putOnBuffer(result, true);
@@ -276,7 +337,7 @@ public class Semantic {
                 second = expressionOperands.pop();
                 first = expressionOperands.pop();
                 expression_cases expCase = getLoadString(first, second);
-                code = loadString;
+                code += loadString;
                 switch (expCase) {
                     case TWO_CONSTANTS:
                         toUse = second;
@@ -303,8 +364,7 @@ public class Semantic {
                 if (top.compatible(RW_MINUS) && (expCase == expression_cases.ONE_CONSTANT || expCase == expression_cases.ONE_VAR)) {
                     code += "LD" + zero + "\n";
                     code += "-" + toUse + "\n";
-                }
-                if (top.compatible(RW_MINUS) && RW_MINUS.compatible(expressionOperators.peek())) {
+                } else if (top.compatible(RW_MINUS) && RW_MINUS.compatible(expressionOperators.peek())) {
                     // the top is a minus, check if before it there is a minus too..
                     code += "+" + toUse + "\n";
                 } else {
@@ -331,7 +391,7 @@ public class Semantic {
                 second = expressionOperands.pop();
                 first = expressionOperands.pop();
                 expression_cases expCase = getLoadString(first, second);
-                code = loadString;
+                code += loadString;
                 switch (expCase) {
                     case TWO_CONSTANTS:
                         toUse = second;
@@ -416,46 +476,49 @@ public class Semantic {
         // or in case like a=  - b
         secondType = second.getType();
         if (first == null) {
-            if (secondType == LabelType.CONST) {
-                System.out.println("Nothing to add on the string...");
-                loadString = "";
-                return expression_cases.ONE_CONSTANT;
-            } else {
-                loadString = "LD " + second + "\n";
-                loadString += "MM VAR" + "\n";
-                loadString += "SC LDVAR" + "\n";
-//                loadString += "MM " + temp2 + "\n";
-                return expression_cases.ONE_VAR;
-            }
+            loadString = "LD" + second + "\n";
+            return expression_cases.ONE_VAR;
+//            if (secondType == LabelType.CONST) {
+//                System.out.println("Nothing to add on the string...");
+//                loadString = "";
+//                return expression_cases.ONE_CONSTANT;
+//            } else {
+//                loadString = "LD " + second + "\n";
+//                loadString += "MM VAR" + "\n";
+//                loadString += "SC LDVAR" + "\n";
+//                return expression_cases.ONE_VAR;
+//            }
         }
         firstType = first.getType();
-        if (firstType == LabelType.CONST && secondType == LabelType.CONST) {
-            loadString = "LD " + first + "\n";
-            return expression_cases.TWO_CONSTANTS;
-        } else if (firstType == LabelType.CONST && secondType == LabelType.VARIABLE) {
-            loadString = "LD " + second + "\n";
-            loadString += "MM VAR " + "\n";
-            loadString += "SC LDVAR " + "\n";
-            return expression_cases.CONSTANT_AND_VAR;
-
-        } else if (firstType == LabelType.VARIABLE && secondType == LabelType.CONST) {
-            loadString = "LD " + first + "\n";
-            loadString += "MM VAR " + "\n";
-            loadString += "SC LDVAR " + "\n";
-            return expression_cases.VAR_AND_CONSTANT;
-
-        } else {
-            loadString = "LD " + first + "\n";
-            loadString += "MM VAR" + "\n";
-            loadString += "SC LDVAR" + "\n";
-            loadString += "MM " + temp1 + "\n";
-            loadString += "LD " + second + "\n";
-            loadString += "MM VAR" + "\n";
-            loadString += "SC LDVAR" + "\n";
-            loadString += "MM " + temp2 + "\n";
-            loadString += "LD " + temp1 + "\n";
-            return expression_cases.TWO_VARS;
-        }
+        loadString = "LD " + first + "\n";
+        return expression_cases.TWO_CONSTANTS;
+//        if (firstType == LabelType.CONST && secondType == LabelType.CONST) {
+//            loadString = "LD " + first + "\n";
+//            return expression_cases.TWO_CONSTANTS;
+//        } else if (firstType == LabelType.CONST && secondType == LabelType.VARIABLE) {
+//            loadString = "LD " + second + "\n";
+//            loadString += "MM VAR " + "\n";
+//            loadString += "SC LDVAR " + "\n";
+//            return expression_cases.CONSTANT_AND_VAR;
+//
+//        } else if (firstType == LabelType.VARIABLE && secondType == LabelType.CONST) {
+//            loadString = "LD " + first + "\n";
+//            loadString += "MM VAR " + "\n";
+//            loadString += "SC LDVAR " + "\n";
+//            return expression_cases.VAR_AND_CONSTANT;
+//
+//        } else {
+//            loadString = "LD " + first + "\n";
+//            loadString += "MM VAR" + "\n";
+//            loadString += "SC LDVAR" + "\n";
+//            loadString += "MM " + temp1 + "\n";
+//            loadString += "LD " + second + "\n";
+//            loadString += "MM VAR" + "\n";
+//            loadString += "SC LDVAR" + "\n";
+//            loadString += "MM " + temp2 + "\n";
+//            loadString += "LD " + temp1 + "\n";
+//            return expression_cases.TWO_VARS;
+//        }
     }
 // </editor-fold>
 
@@ -605,7 +668,7 @@ public class Semantic {
         } else if (RW_not.compatible(operator)) {
             result += "SC NOT\n";
         }
-
+        result += "LD" + temp3 + "\n";
         return result;
     }
 
