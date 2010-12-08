@@ -15,7 +15,7 @@ A pilha é a estrutura utilizada pelo Automato estruturado de pilha para armazena
 
 
 \subsection{Parse}
-A gramática em notação de Wirth foi reduzida de forma a ficarmos com 3 automatos, um de programa, um de bloco de código e o terceiro de expressões. A gramática foi transformada em autômatos finitos determinísticos mínimos com o uso da ferramenta (COLOCAR O RADIANTFIRE). Um exemplo da saída para um dos automatos encontra-se na seção de anexo, código  REFERENCIA!  A primeira linha do arquivo é sempre igual, indicando que o estado inicial do automato é o estado zero, a segunda linha mostra quais são os estados finais e as outras linhas indicam as transições. Se o elemento da transição representar um token é uma transição normal, caso seja o nome de um automato, indica a chamada para o outro automato.
+A gramática em notação de Wirth foi reduzida de forma a ficarmos com 3 automatos, um de programa, um de bloco de código e o terceiro de expressões. A gramática foi transformada em autômatos finitos determinísticos mínimos com o uso da ferramenta (COLOCAR O RADIANTFIRE). Um exemplo da saída para um dos automatos encontra-se na seção de anexo, as transiçoes do automato de bloco estão nos anexos, código \ref{automato:bloco_codigo} A primeira linha do arquivo é sempre igual, indicando que o estado inicial do automato é o estado zero, a segunda linha mostra quais são os estados finais e as outras linhas indicam as transições. Se o elemento da transição representar um token é uma transição normal, caso seja o nome de um automato, indica a chamada para o outro automato.
 
 \subsection{Análise Sintática}
 
