@@ -1,38 +1,39 @@
-Na análise semântica é realizada a geração de código e outras checagens que não podem ser feitas apenas com a definição da gramática
+Na análise semântica é realizada a geração de código e outras verificações que não podem ser feitas apenas com a definição da gramática
+
 \subsection{Introdução das ações semânticas}
-As ações semanticas foram introduzidas na gramática, em sua notação de wirth. Para podermos continuar a utilizar a ferramenta 
+As ações semânticas foram introduzidas na gramática, em sua notação de Wirth. Para podermos continuar a utilizar a ferramenta 
 
 \subsection{Estruturas}
-Para algumas ações semanticas foram criadas estruturas de dados específicas para auxiliar na sua função.
+Para algumas ações semânticas foram criadas estruturas de dados específicas para auxiliar na sua função.
 
 \subsection{Ações}
-Uma ação semântica é executada quando o ocorre a transição a que ela está associada. Por necessidade, cada automato, pode ter uma ação final que é executada apenas quando o automato irá retornar para outro autômato.
+Uma ação semântica é executada quando o ocorre a transição a que ela está associada. Por necessidade, cada autômato, pode ter uma ação final que é executada apenas quando o autômato irá retornar para outro autômato.
 
 \subsubsection{push\_term}
 Ação Semântica da máquina de expressão que empilha o operando na pilha de operandos.
 
 \subsubsection{push\_op}
-Ação semântica da máquina de expressão que empilha o operador na pilha de operadores, faz checagem com o topo atual da pilha para que as operações aritiméticas possam ser realizadas de acordo com sua prioridade.
+Ação semântica da máquina de expressão que empilha o operador na pilha de operadores, faz verificação com o topo atual da pilha para que as operações aritméticas possam ser realizadas de acordo com sua prioridade.
 
 Seu funcionamento é enumerado a seguir:
+
 \begin{enumerate}
-	\item Verifica o topo da pilha de operadores
-	\item Se o operador que está no topo da pilha é mais prioritário do que o novo operador , desempilha dois operandos e o operador, gera o código da operaçao e gera uma label temporária que irá receber o resultado da operação realizada, essa label é empilhada na pilha de operandos, volta para o passo inicial.
-	\item Se o topo está vazio, ou o operador que está no topo tem prioridade menor ou igual que o novo operador, simplesmente empilha o novo operador
+	\item Verifica o topo da pilha de operadores.
+	\item Se o operador que está no topo da pilha é mais prioritário do que o novo operador, desempilha dois operandos e o operador, gera o código da operação e gera uma \emph{label} temporária que irá receber o resultado da operação realizada. Essa \emph{label} é empilhada na pilha de operandos e volta para o passo inicial.
+	\item Se o topo está vazio, ou o operador que está no topo tem prioridade menor ou igual que o novo operador, simplesmente empilha o novo operador.
 \end{enumerate}
 
 \subsubsection{Expressão - ação final}
-Quando a máquina de expressão deve retornar de sua chamada, ela deve gerar o código correspondente à expressão presente na pilha, a geração de código é bastante simples, uma vez que a complexidade de lidar com a precedência de operações já foi resolvida, essa ação pára no momento em que um token de abertura de parênteses aparece na pilha de operandos indicando que a ação deve simplesmente guardar o resultado em uma variável temporária para outro processamento de expressão, essa variável temporária é empilhada na pilha de operandos. Se não houver mais dados para serem processados, o resultado será armazenado em uma nova variável e também estará à disposição para outros comandos no acumulador.
+Quando a máquina de expressão deve retornar de sua chamada, deve, também, gerar o código correspondente à expressão presente na pilha. A geração de código é bastante simples, uma vez que a complexidade de lidar com a precedência de operações já foi resolvida. Essa ação pára no momento em que um token de abertura de parênteses aparece na pilha de operandos, indicando que a ação deve simplesmente guardar o resultado em uma variável temporária para outro processamento de expressão. Essa variável temporária é empilhada na pilha de operandos e, se não houver mais dados para serem processados, o resultado é armazenado em uma nova variável e também estará à disposição para outros comandos no acumulador.
 
 \subsubsection{nova\_var}
-Ação semântica que associa uma nova label à variavel criada.
+Ação semântica que associa uma nova \emph{label} à variavel criada.
 
 \subsubsection{atribuicao}
-Atribui um valor a variável que está à esquerda no comando, atulmente apenas inteiros, booleanos e caracteres podem ser atribuídos
+Atribui um valor a variável que está à esquerda no comando, atualmente apenas inteiros, booleanos e caracters podem ser atribuídos.
 
 \subsubsection{fecha\_escopo}
-Emite uma label para o final do escopo corrente, no caso de while e else, eles podem emitir uma instrução que leva até essa label antes mesmo dela ser sido declarada, por isso deve verificar se há alguma desse tipo presente em uma pequena pilha para essa finalidade.
+Emite uma \emph{label} para o final do escopo corrente, no caso de \emph{while} e \emph{else}, eles podem emitir uma instrução que leva até essa \emph{label} antes mesmo dela ser sido declarada, por isso, deve verificar se há alguma desse tipo presente em uma pequena pilha para essa finalidade.
 
 \subsubsection{novo\_escopo}
-Emite uma label correspondente ao novo escopo, pode ser utilizada pela instrução while, que ao chegar ao seu final faz um desvio incondicional para essa label.
-
+Emite uma \emph{label} correspondente ao novo escopo. Pode ser utilizada pela instrução \emph{while}, que, ao chegar ao seu final, faz um desvio incondicional para essa \emph{label}.

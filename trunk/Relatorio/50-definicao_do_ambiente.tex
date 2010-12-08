@@ -1,4 +1,5 @@
-O ambiente de execução é composto por uma coleção de bibliotecas escritas em baixo nível, assembly da mvn para prover algumas funcionalidades básicas. São elas:
+O ambiente de execução é composto por uma coleção de bibliotecas escritas em baixo nível, assembly da MVN para prover algumas funcionalidades básicas. São elas:
+
 \begin{itemize}
 	\item função lógica OU
 	\item função lógica E
@@ -12,7 +13,7 @@ O ambiente de execução é composto por uma coleção de bibliotecas escritas em bai
 	\item função print de strings
 \end{itemize}
 
-A ideia é manter esses arquivos com essas funções em arquivos separados, pelo uso da biblioteca do montador , ligador e relocador, um único arquivo do programa principal pode ser gerado.
+A ideia é manter esses arquivos com essas funções em arquivos separados, pelo uso da biblioteca do montador, ligador e relocador, um único arquivo do programa principal pode ser gerado.
 
 \subsection{Registros de Ativação}
-A implementação da MVN não tem uma pilha em seu ambiente de execução, isso implica na impossibilidade de realizar chamadas de função recursivamente, um modo de fazer isso é utilizando-se de registros de ativação para contornar o problema.
+A implementação da MVN não tem uma pilha em seu ambiente de execução, isso implica na impossibilidade de realizar chamadas de função recursivamente. Um modo de fazer isso é utilizando-se de registros de ativação para contornar o problema.

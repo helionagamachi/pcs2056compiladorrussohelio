@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>documents</key>
+	<array>
+		<dict>
+			<key>filename</key>
+			<string>relatorio.tex</string>
+		</dict>
+		<dict>
+			<key>filename</key>
+			<string>00-titulo.tex</string>
+		</dict>
+		<dict>
+			<key>filename</key>
+			<string>10-introducao.tex</string>
+		</dict>
+		<dict>
+			<key>filename</key>
+			<string>20-definicao_da_linguagem.tex</string>
+		</dict>
+		<dict>
+			<key>filename</key>
+			<string>30-analise_lexica.tex</string>
+		</dict>
+		<dict>
+			<key>filename</key>
+			<string>40-analise_sintatica.tex</string>
+		</dict>
+		<dict>
+			<key>filename</key>
+			<string>50-definicao_do_ambiente.tex</string>
+		</dict>
+		<dict>
+			<key>filename</key>
+			<string>60-estrutura_de_dados.tex</string>
+		</dict>
+		<dict>
+			<key>filename</key>
+			<string>70-semantica_dinamica.tex</string>
+		</dict>
+		<dict>
+			<key>filename</key>
+			<string>80-integracao.tex</string>
+		</dict>
+		<dict>
+			<key>filename</key>
+			<string>90-anexos.tex</string>
+		</dict>
+	</array>
+	<key>fileHierarchyDrawerWidth</key>
+	<integer>200</integer>
+	<key>metaData</key>
+	<dict/>
+	<key>showFileHierarchyDrawer</key>
+	<true/>
+	<key>windowFrame</key>
+	<string>{{45, 0}, {601, 878}}</string>
+</dict>
+</plist>
