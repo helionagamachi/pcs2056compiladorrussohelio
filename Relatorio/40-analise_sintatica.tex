@@ -19,6 +19,7 @@ A gramática em notação de Wirth foi reduzida de forma a ficarmos com 3 automatos
 
 \subsection{Análise Sintática}
 
-
+A análise sintática se dá com a requisição dos tokens um a um do sintático para o léxico. O analisador gerencia o automato estruturado de pilha e na eventualidade de um erro o processo para e uma mensagem de erro é apresentada. Caso o token que marca o fim do texto fonte seja recebido, o analisador deve verificar se não há dados na pilha de automatos e se o automato atual é o primeiro automato (no caso o automato referente a programa) e o estado corrente desse automato é final, caso essas condições sejam atendidas, o programa é válido
+sob o ponto de vista sintático.
 
  
