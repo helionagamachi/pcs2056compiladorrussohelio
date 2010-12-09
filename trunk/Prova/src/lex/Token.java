@@ -54,6 +54,9 @@ public class Token {
                 result = "Identificador " + value;
                 break;
             case CADEIA:
+                if(stringList.isEmpty()){
+                    return "";
+                }
                 result = "Cadeia " + stringList.get(value);
                 break;
             case EOF:
