@@ -3,16 +3,14 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>relatorio.tex</string>
+	<string>80-integracao.tex</string>
 	<key>documents</key>
 	<array>
 		<dict>
 			<key>filename</key>
 			<string>relatorio.tex</string>
 			<key>lastUsed</key>
-			<date>2010-12-08T22:30:54Z</date>
-			<key>selected</key>
-			<true/>
+			<date>2010-12-09T07:32:41Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -48,13 +46,13 @@
 			<key>filename</key>
 			<string>50-definicao_do_ambiente.tex</string>
 			<key>lastUsed</key>
-			<date>2010-12-08T22:30:54Z</date>
+			<date>2010-12-09T07:36:25Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>60-estrutura_de_dados.tex</string>
 			<key>lastUsed</key>
-			<date>2010-12-08T20:38:36Z</date>
+			<date>2010-12-09T07:35:42Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -66,7 +64,9 @@
 			<key>filename</key>
 			<string>80-integracao.tex</string>
 			<key>lastUsed</key>
-			<date>2010-12-08T21:15:17Z</date>
+			<date>2010-12-09T07:36:25Z</date>
+			<key>selected</key>
+			<true/>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -168,30 +168,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>12</integer>
 				<key>line</key>
-				<integer>59</integer>
+				<integer>51</integer>
 			</dict>
-			<key>columnSelection</key>
-			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>37</integer>
-			<key>selectFrom</key>
-			<dict>
-				<key>column</key>
-				<integer>1</integer>
-				<key>line</key>
-				<integer>66</integer>
-			</dict>
-			<key>selectTo</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>59</integer>
-			</dict>
 		</dict>
 	</dict>
 	<key>openDocuments</key>
@@ -207,6 +191,6 @@
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{589, 26}, {1050, 844}}</string>
+	<string>{{311, 34}, {1050, 844}}</string>
 </dict>
 </plist>
