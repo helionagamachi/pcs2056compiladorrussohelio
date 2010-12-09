@@ -20,7 +20,8 @@ desvio = (“continue” ["identificador"]) | ("break" ";").
 condicional = “if” new_cond “(“ expressao “)” chk_cond bloco_codigo [“else”  bloco_codigo ].
 laco = "while" new_ite "("expressao")" chk_ite bloco_codigo  .
 
-bloco_codigo = "{" new_context {declaracao_variavel fim_vars}  { atribuicao | condicional | laco | desvio | retorno | chamada_funcao_procedimento";" }  "}" end_block_code.
+bloco_codigo = "{" new_context {declaracao_variavel fim_vars}  { atribuicao | condicional | laco | desvio | retorno | chamada_funcao_procedimento";" | "print" "(" ("string" ps | ("identificador" | "numero" ) pi )")" ";" }  "}" end_block_code.
+
 
 retorno = "return" expressao ";".
 

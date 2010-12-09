@@ -5,6 +5,7 @@
 package syntax;
 
 import codeGeneration.Coder;
+import codeGeneration.Mount;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import semantic.Semantic;
@@ -19,7 +20,7 @@ public class SyntaxTesting {
 
     public static void main(String[] args) throws IOException, CompilerException {
         Analyzer analyzer = new Analyzer();
-        Coder.init("Teste");
+        Coder.init("test4");
         Semantic.initCoder();
         String[] testingFiles = {
 //        "test1",
@@ -36,7 +37,10 @@ public class SyntaxTesting {
             analyzer.setFile(filePath);
             try {
                 System.out.println(analyzer.analyze() ? "valid program" : "invalid program");
+                String FinalString = "HM INICIO \n # FIM";
+                Coder.getInstance().putOnBuffer(FinalString, false);
                 Coder.getInstance().flush();
+                Mount.Mount(name + "_interm.asm");
             } catch (LexicalException ex) {
                 System.out.println(ex.getMessage());
             }

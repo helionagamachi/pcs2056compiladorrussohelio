@@ -123,7 +123,7 @@ public class Parser {
      * @return the corresponding transition
      */
     protected Transition parseTransition(String transitionLine) {
-        System.out.println("parsing line " + transitionLine);
+//        System.out.println("parsing line " + transitionLine);
         int index = 1, from, to;
         char ch = transitionLine.charAt(index);
         String temp = "";
