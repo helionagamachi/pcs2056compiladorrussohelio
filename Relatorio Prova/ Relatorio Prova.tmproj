@@ -10,7 +10,7 @@
 			<key>filename</key>
 			<string>relatorio.tex</string>
 			<key>lastUsed</key>
-			<date>2010-12-08T12:08:59Z</date>
+			<date>2010-12-08T22:30:54Z</date>
 			<key>selected</key>
 			<true/>
 		</dict>
@@ -18,73 +18,87 @@
 			<key>filename</key>
 			<string>00-titulo.tex</string>
 			<key>lastUsed</key>
-			<date>2010-12-07T18:40:36Z</date>
+			<date>2010-12-08T21:40:23Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>10-objetivo.tex</string>
 			<key>lastUsed</key>
-			<date>2010-12-08T11:41:12Z</date>
+			<date>2010-12-08T21:40:17Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>20-linguagem.tex</string>
 			<key>lastUsed</key>
-			<date>2010-12-08T11:40:26Z</date>
+			<date>2010-12-08T21:40:19Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>30-analise_lexica.tex</string>
 			<key>lastUsed</key>
-			<date>2010-12-08T12:08:59Z</date>
+			<date>2010-12-08T21:40:20Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>40-analise_sintatica.tex</string>
 			<key>lastUsed</key>
-			<date>2010-12-07T18:40:37Z</date>
+			<date>2010-12-08T21:40:22Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>50-definicao_do_ambiente.tex</string>
 			<key>lastUsed</key>
-			<date>2010-12-07T18:40:37Z</date>
+			<date>2010-12-08T22:30:54Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>60-estrutura_de_dados.tex</string>
 			<key>lastUsed</key>
-			<date>2010-12-07T18:40:37Z</date>
+			<date>2010-12-08T20:38:36Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>70-semantica_dinamica.tex</string>
 			<key>lastUsed</key>
-			<date>2010-12-07T18:40:36Z</date>
+			<date>2010-12-08T20:38:36Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>80-integracao.tex</string>
 			<key>lastUsed</key>
-			<date>2010-12-07T18:40:36Z</date>
+			<date>2010-12-08T21:15:17Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>90-anexos.tex</string>
 			<key>lastUsed</key>
-			<date>2010-12-07T18:40:36Z</date>
+			<date>2010-12-08T21:15:19Z</date>
 		</dict>
 	</array>
 	<key>fileHierarchyDrawerWidth</key>
 	<integer>200</integer>
 	<key>metaData</key>
 	<dict>
-		<key>10-objetivo.tex</key>
+		<key>00-titulo.tex</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>168</integer>
+				<integer>48</integer>
+				<key>line</key>
+				<integer>4</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>50-definicao_do_ambiente.tex</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
 				<key>line</key>
 				<integer>0</integer>
 			</dict>
@@ -93,12 +107,54 @@
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
-		<key>30-analise_lexica.tex</key>
+		<key>60-estrutura_de_dados.tex</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>132</integer>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>0</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>70-semantica_dinamica.tex</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>0</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>80-integracao.tex</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>0</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>90-anexos.tex</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
 				<key>line</key>
 				<integer>0</integer>
 			</dict>
@@ -112,41 +168,45 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>18</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>73</integer>
+				<integer>59</integer>
 			</dict>
 			<key>columnSelection</key>
 			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>52</integer>
+			<integer>37</integer>
 			<key>selectFrom</key>
 			<dict>
 				<key>column</key>
-				<integer>12</integer>
+				<integer>1</integer>
 				<key>line</key>
-				<integer>73</integer>
+				<integer>66</integer>
 			</dict>
 			<key>selectTo</key>
 			<dict>
 				<key>column</key>
-				<integer>21</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>73</integer>
+				<integer>59</integer>
 			</dict>
 		</dict>
 	</dict>
 	<key>openDocuments</key>
 	<array>
 		<string>relatorio.tex</string>
-		<string>10-objetivo.tex</string>
-		<string>30-analise_lexica.tex</string>
+		<string>00-titulo.tex</string>
+		<string>50-definicao_do_ambiente.tex</string>
+		<string>60-estrutura_de_dados.tex</string>
+		<string>70-semantica_dinamica.tex</string>
+		<string>80-integracao.tex</string>
+		<string>90-anexos.tex</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{45, 34}, {1050, 844}}</string>
+	<string>{{589, 26}, {1050, 844}}</string>
 </dict>
 </plist>
