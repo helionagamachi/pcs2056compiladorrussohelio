@@ -9,7 +9,7 @@ A análise léxica do compilador se dá basicamente pelo reconhecimento dos tokens 
 	\item \textbf{Identificador}
 	\item \textbf{Número}
 	\item \textbf{Palavra Reservada}
-	\item \textbf{Caracter}
+	\item \textbf{Caractere}
 	\item \textbf{Comentário}
 	\item \textbf{String}
 \end{itemize}
@@ -32,13 +32,13 @@ Os valores possíveis para o token dependem diretamente do seu tipo, como pode se
 	\centering
 	\begin{tabular}{p{4cm} p{11cm}}
 		\toprule
-		\textbf{Tipo de token}	& \textbf{Valores Possíveis} 	\\\hline
-		\textbf{Número}				&	0 ,1 , 2 ,3 , 4 ,... 		\\
+		\textbf{Tipo de token}			& \textbf{Valores Possíveis} 	\\\hline
+		\textbf{Número}					&	0 ,1 , 2 ,3 , 4 ,... 		\\
 		\textbf{Palavra reservada}		& Número associado à palavra reservada \\
 		\textbf{Identificador}			& Inicialmente o valor é um numero qualquer, depois é associado a um ID \\
 		\textbf{Comentário}				& O valor assumido é sempre 0 \\
-		\textbf{Caracter}				& O valor é o equivalente em código ascii do caracter \\
-		\textbf{String} 					& Valor correspondente a uma entrada em uma tabela de constantes\\
+		\textbf{Caractere}				& O valor é o equivalente em código ascii do caractere \\
+		\textbf{String} 				& Valor correspondente a uma entrada em uma tabela de constantes\\
 		\toprule
 	\end{tabular}
 \end{table}
@@ -48,7 +48,7 @@ Os autômatos para o reconhecimento dos tokens foram modelados da seguinte forma:
 
 O campo \textbf{State} representa o estado do autômato. Os estados são membros de uma enumeração pública que tem uma única  propriedade: se o estado é final ou não -- código \ref{code:state}.
 
-Cada um dos autômatos implementa de forma diferente o método \emph{processChar(char a)}, que deve retornar um booleano ao final do método. O booleano a ser retornado deve ter valor ``verdadeiro'' caso o autômato possa consumir o caracter fornecido, e ``falso'' caso contrário. O analisador léxico deve, então, verificar se o autômato chegou a um estado final ou não e pedir a emissão do token caso o estado atual seja um estado final.
+Cada um dos autômatos implementa de forma diferente o método \emph{processChar(char a)}, que deve retornar um booleano ao final do método. O booleano a ser retornado deve ter valor ``verdadeiro'' caso o autômato possa consumir o caractere fornecido, e ``falso'' caso contrário. O analisador léxico deve, então, verificar se o autômato chegou a um estado final ou não e pedir a emissão do token caso o estado atual seja um estado final.
 
 Dependendo do estado e de como ocorreu o processamento, o autômato pode ser solicitado a emitir um átomo baseado no seu estado atual.
 
@@ -57,21 +57,21 @@ O analisador é a classe que tem o contato direto com o arquivo de texto fonte e 
 
 Em sua estrutura, há uma lista com todos os autômatos, e, associado a cada um deles, um booleano que indica se a aquele autômato já retornou ``falso'' alguma vez na análise do token atual.
 
-O funcionamento do analisador léxico é descrito da seguinte forma: Ao ser iniciado, o analisador cria os meios para leitura de caracters um a um do arquivo fonte e lê o primeiro caracter do arquivo.
+O funcionamento do analisador léxico é descrito da seguinte forma: Ao ser iniciado, o analisador cria os meios para leitura de caracteres um a um do arquivo fonte e lê o primeiro caractere do arquivo.
 
 Quando o método \emph{getNexttoken(table)} é chamado, o analisador sintático executa os seguintes passos:
 
 \begin{enumerate}
-	\item Verifica se o último caracter é de espaço em branco (\emph{whitespace}). Se for, lê o próximo até achar um que não seja.
-	\item Verifica se o último caracter é o marcador de fim de arquivo. Se sim, retorna o token de EOF.
-	\item Pede a todos os autômatos para processarem o caracter. Aqueles que retornarem ``falso'' são marcados como autômatos desabilitados para o próximo caracter.
-	\item Lê o próximo caracter.
-	\item Aos autômatos restantes, oferece o caracter para processamento.
+	\item Verifica se o último caractere é de espaço em branco (\emph{whitespace}). Se for, lê o próximo até achar um que não seja.
+	\item Verifica se o último caractere é o marcador de fim de arquivo. Se sim, retorna o token de EOF.
+	\item Pede a todos os autômatos para processarem o caractere. Aqueles que retornarem ``falso'' são marcados como autômatos desabilitados para o próximo caractere.
+	\item Lê o próximo caractere.
+	\item Aos autômatos restantes, oferece o caractere para processamento.
 	\item Verifica se ainda há autômatos habilitados.
 	\item Se sim, volta a repetir desde o item 4.
 	\item Se não há autômatos habilitados, verifica o último autômato a ser desativado.
 	\item Se esse autômato está em estado final, recupera o token, reinicializa os autômatos e retorna o token.
-	\item Se o último autômato não estiver em um estado final, isso caracteriza um estado de erro. O analisador sintático pára o processo -- por exemplo, na presença de um caracter que não seja ASCII no nome de um identificador.
+	\item Se o último autômato não estiver em um estado final, isso caracteriza um estado de erro. O analisador sintático pára o processo -- por exemplo, na presença de um caractere que não seja ASCII no nome de um identificador.
 \end{enumerate}
 
 Se o token obtido no processo for de comentário, o analisador léxico o descarta e avança para o próximo.

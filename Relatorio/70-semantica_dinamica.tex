@@ -7,7 +7,7 @@ As ações semânticas foram introduzidas na gramática, em sua notação de Wirth. Pa
 Para algumas ações semânticas foram criadas estruturas de dados específicas para auxiliar na sua função.
 
 \subsection{Ações}
-Uma ação semântica é executada quando o ocorre a transição a que ela está associada. Por necessidade, cada autômato, pode ter uma ação final que é executada apenas quando o autômato irá retornar para outro autômato.
+Uma ação semântica é executada quando o ocorre a transição a que ela está associada. Por necessidade, cada autômato, pode ter uma ação final, que é executada apenas quando este retorna para outro autômato.
 
 \subsubsection{push\_term}
 Ação Semântica da máquina de expressão que empilha o operando na pilha de operandos.
@@ -27,10 +27,10 @@ Seu funcionamento é enumerado a seguir:
 Quando a máquina de expressão deve retornar de sua chamada, deve, também, gerar o código correspondente à expressão presente na pilha. A geração de código é bastante simples, uma vez que a complexidade de lidar com a precedência de operações já foi resolvida. Essa ação pára no momento em que um token de abertura de parênteses aparece na pilha de operandos, indicando que a ação deve simplesmente guardar o resultado em uma variável temporária para outro processamento de expressão. Essa variável temporária é empilhada na pilha de operandos e, se não houver mais dados para serem processados, o resultado é armazenado em uma nova variável e também estará à disposição para outros comandos no acumulador.
 
 \subsubsection{nova\_var}
-Ação semântica que associa uma nova \emph{label} à variavel criada.
+Ação semântica que associa uma nova \emph{label} à variável criada.
 
 \subsubsection{atribuicao}
-Atribui um valor a variável que está à esquerda no comando, atualmente apenas inteiros, booleanos e caracters podem ser atribuídos.
+Atribui um valor a variável que está à esquerda no comando, atualmente apenas inteiros, booleanos e caracteres podem ser atribuídos.
 
 \subsubsection{fecha\_escopo}
 Emite uma \emph{label} para o final do escopo corrente, no caso de \emph{while} e \emph{else}, eles podem emitir uma instrução que leva até essa \emph{label} antes mesmo dela ser sido declarada, por isso, deve verificar se há alguma desse tipo presente em uma pequena pilha para essa finalidade.
