@@ -1,0 +1,44 @@
+; ambiente basico de execucao
+; Temporarias de uso basico para diversas funcoes
+2000 0000 ; "TEMP1>"		;	TEMP1 >
+2002 0000 ; "TEMP2>"		;	TEMP2 >
+2004 0000 ; "TEMP3>"		;	TEMP3 >
+; para uso basico da funcao print
+4000 0000 ; "PRINT<"		;	PRINT <
+4001 0000 ; "ALVO<"		;	ALVO  <
+; funcoes logicas
+4002 0000 ; "OU<"		;	OU <
+4003 0000 ; "AND<"		;	AND <
+4004 0000 ; "NOT<"		;	NOT <
+; funcoes comparativas
+4005 0000 ; "MAIOR<"		;	MAIOR <
+4006 0000 ; "MENOR<"		;	MENOR <
+4007 0000 ; "IGUAL<"		;	IGUAL <
+4008 0000 ; "DIF<"		;	DIF <
+4009 0000 ; "MAIORIG<"		;	MAIORIG <
+4010 0000 ; "MENORIG<"		;	MENORIG <
+				;	& /0000 ;
+8000 0000		;	TEMP1   K /0000
+8002 0000		;	TEMP2   K /0000
+8004 0000		;	TEMP3   K /0000
+8006 0000		;	ZERO0   K /0000
+8008 f000		;	INICIO  OS  /0000
+800a 0001		;	 CONST0  K =1 
+800c 0000		;	 CONST1  K =0 
+800e 0000		;	 VAR0  K =0 
+8010 0000		;	 VAR1  K =0 
+8012 0000		;	 VAR2  K =0 
+8014 0000		;	 VAR3  K =0 
+8016 0000		;	 VAR4  K =0 
+a018 800a		;	LD  CONST0 
+a01a 102c		;	JZ LB0 
+a01c 800e		;	LD  VAR0 
+a01e 9000		;	MM TEMP1 
+a020 8010		;	LD VAR1 
+a022 9002		;	MM TEMP2 
+d024 a010		;	SC MENORIG
+a026 8004		;	LD TEMP3 
+a028 900c		;	MM  CONST1 
+a02a 9012		;	MM  VAR2 
+802c f000		;	 LB0 OS /0000
+a02e c008		;	HM INICIO 

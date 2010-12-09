@@ -3,6 +3,8 @@
 NOT >
 TEMP1 <
 TEMP3 <
+
+&   /0000
 NOT  JP /0000
 	 JZ UM
 	 LV /0000

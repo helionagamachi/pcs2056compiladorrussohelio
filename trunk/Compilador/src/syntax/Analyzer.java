@@ -58,9 +58,12 @@ public class Analyzer {
             System.out.println("Syntax analyzer got this token " + token);
             result = structedAutomata.nextStep(token);
             if(!result){
+                if(structedAutomata.accepted()){
+                    return true;
+                }
                 return false;
             }
-            System.out.println("getting next token");
+//            System.out.println("getting next token");
             token = lexical.getNextToken(table);
         }
         return true;

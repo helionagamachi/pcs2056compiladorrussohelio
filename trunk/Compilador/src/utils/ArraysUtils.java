@@ -98,6 +98,7 @@ public class ArraysUtils {
         "String",
         "char",
         "bool",
+        "print"
     };
 
     public static final char[] whiteSpaceChars = {

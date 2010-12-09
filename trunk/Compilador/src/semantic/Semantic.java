@@ -102,6 +102,8 @@ public class Semantic {
             check_while();
         } else if (name.equals("chk_cond")){
             check_if();
+        } else if(name.equals("pi")){
+            print_int();
         }
         else {
             LOGGER.warn("Action " + name + " not defined !");
@@ -120,8 +122,7 @@ public class Semantic {
         switch (machineNumber) {
             case 0:
                 //PROGRAM;
-                break;
-
+                
             case 1:
                 //Code block
                 break;
@@ -222,6 +223,14 @@ public class Semantic {
     }
 
 
+    private void print_int(){
+        String code = "";
+        Label label = latestTable.getLine(latestToken.getValue()).getLabel();
+        code = "LD"+label+"\n";
+        code += "MM NUM\n";
+        code += "SC PRINTI\n";
+        coder.putOnBuffer(code , false);
+    }
 
     private void end_block_code() {
         String end = stringStack.pop();
@@ -309,7 +318,8 @@ public class Semantic {
 //            offSet = offSet + label.getNumericalData();
         }
         varLabelList.clear();
-        coder.putOnBuffer(result, true);
+        result = "HM INICIO\n" +result;
+        coder.putOnBuffer(result, false);
     }
     // </editor-fold>
 
