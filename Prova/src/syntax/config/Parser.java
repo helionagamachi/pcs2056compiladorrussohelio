@@ -63,7 +63,10 @@ public class Parser {
             String transitionLine = reader.readLine();
             ArrayList<Transition> transList = new ArrayList<Transition>();
             while (transitionLine != null) {
-                transList.add(parseTransition(transitionLine));
+                Transition trans = parseTransition(transitionLine);
+                if (trans != null) {
+                    transList.add(trans);
+                }
                 transitionLine = reader.readLine();
             }
             Transition[] transitions = new Transition[0];
@@ -121,7 +124,7 @@ public class Parser {
      * @return the corresponding transition
      */
     protected Transition parseTransition(String transitionLine) {
-        System.out.println("parsing line " + transitionLine);
+//        System.out.println("parsing line " + transitionLine);
         int index = 1, from, to;
         char ch = transitionLine.charAt(index);
         String temp = "";
@@ -186,7 +189,6 @@ public class Parser {
             // or not...
             int destiny = namesList.indexOf(transition);
             if (destiny == -1) {
-
                 Transition trans = new Transition(0, from, to, 0);
                 trans.setAction(transition);
                 toCorrect.add(trans);
@@ -239,7 +241,6 @@ public class Parser {
             int index2 = 0;
             while (index2 < transitions.length) {
                 if (number == transitions[index2].getNextState()) {
-
                     //The transition will recieve the action..
                     transitions[index2].setNextState(next);
                     transitions[index2].setAction(action);

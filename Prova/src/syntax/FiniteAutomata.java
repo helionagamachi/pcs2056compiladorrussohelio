@@ -1,6 +1,7 @@
 package syntax;
 
 import lex.Token;
+import semantic.Semantic;
 
 import utils.CompilerException;
 //import semantic.Semantic;
@@ -16,7 +17,7 @@ public class FiniteAutomata {
      * and it's number, which will be the position on the array, the boolean says
      * if it is a final state or not.
      */
-//    private Semantic semantics = new Semantic();
+    private Semantic semantics = new Semantic();
     private boolean[] states;
     private Transition[] transitions;
     private int automataNumber;
@@ -70,8 +71,8 @@ public class FiniteAutomata {
     }
 
     public TransitionType transit(Token token) throws CompilerException {
-        System.out.println("Looking for a transition, on Automata " + automataNumber);
-        System.out.println("Current state :" + currentState);
+//        System.out.println("Looking for a transition, on Automata " + automataNumber);
+//        System.out.println("Current state :" + currentState);
         TransitionType possible;
         possible = searchTransition(TransitionType.NORMAL, token);
         if (possible == null) {
@@ -79,10 +80,10 @@ public class FiniteAutomata {
         } else {
             //Got a normal transition.
             //adds the token to the list
-//            semantics.addToken(token);
+            semantics.addToken(token);
             String name = transition.getAction();
             if (name != null) {
-//                semantics.runAction(name);
+                semantics.runAction(name);
             }
         }
         if (possible != null) {
@@ -91,7 +92,7 @@ public class FiniteAutomata {
         //Already checked for every possibility, so it's time to check
         //if it is in a final state, so it should return.
         if (states[currentState]) {
-            System.out.println("The automata should return");
+//            System.out.println("The automata should return");
             // Try the final action of the machine.
 //            semantics.runFinalAction(automataNumber);
             return TransitionType.GO_BACK;

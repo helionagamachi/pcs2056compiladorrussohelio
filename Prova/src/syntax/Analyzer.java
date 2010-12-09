@@ -55,7 +55,7 @@ public class Analyzer {
         token = lexical.getNextToken();
         while(token.getType() != TokenType.EOF){
             boolean result;
-            System.out.println("Syntax analyzer got this token " + token);
+//            System.out.println("Syntax analyzer got this token " + token);
             result = structedAutomata.nextStep(token);
             if(!result){
                 if(structedAutomata.accepted()){
@@ -65,9 +65,10 @@ public class Analyzer {
                 System.out.println("Invalid Program");
                 return false;
             }
-            System.out.println("getting next token");
+//            System.out.println("getting next token");
             token = lexical.getNextToken();
         }
+        System.out.println("Invalid Program");
         return false;
     }
 
