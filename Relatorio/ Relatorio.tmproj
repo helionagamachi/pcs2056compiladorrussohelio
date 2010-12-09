@@ -2,60 +2,165 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>currentDocument</key>
+	<string>90-anexos.tex</string>
 	<key>documents</key>
 	<array>
 		<dict>
 			<key>filename</key>
 			<string>relatorio.tex</string>
+			<key>lastUsed</key>
+			<date>2010-12-08T23:35:11Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>00-titulo.tex</string>
+			<key>lastUsed</key>
+			<date>2010-12-08T23:02:00Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>10-introducao.tex</string>
+			<key>lastUsed</key>
+			<date>2010-12-08T23:02:07Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>20-definicao_da_linguagem.tex</string>
+			<key>lastUsed</key>
+			<date>2010-12-08T23:02:12Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>30-analise_lexica.tex</string>
+			<key>lastUsed</key>
+			<date>2010-12-08T23:27:06Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>40-analise_sintatica.tex</string>
+			<key>lastUsed</key>
+			<date>2010-12-08T23:35:10Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>50-definicao_do_ambiente.tex</string>
+			<key>lastUsed</key>
+			<date>2010-12-08T23:35:09Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>60-estrutura_de_dados.tex</string>
+			<key>lastUsed</key>
+			<date>2010-12-08T23:35:14Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>70-semantica_dinamica.tex</string>
+			<key>lastUsed</key>
+			<date>2010-12-08T23:46:25Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>80-integracao.tex</string>
+			<key>lastUsed</key>
+			<date>2010-12-08T23:46:27Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>90-anexos.tex</string>
+			<key>lastUsed</key>
+			<date>2010-12-08T23:46:27Z</date>
+			<key>selected</key>
+			<true/>
 		</dict>
 	</array>
 	<key>fileHierarchyDrawerWidth</key>
 	<integer>200</integer>
 	<key>metaData</key>
-	<dict/>
+	<dict>
+		<key>60-estrutura_de_dados.tex</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>0</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>70-semantica_dinamica.tex</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>181</integer>
+				<key>line</key>
+				<integer>38</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>8</integer>
+		</dict>
+		<key>80-integracao.tex</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>0</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>90-anexos.tex</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>51</integer>
+				<key>line</key>
+				<integer>1</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>relatorio.tex</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>50</integer>
+				<key>line</key>
+				<integer>18</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+	</dict>
+	<key>openDocuments</key>
+	<array>
+		<string>relatorio.tex</string>
+		<string>60-estrutura_de_dados.tex</string>
+		<string>70-semantica_dinamica.tex</string>
+		<string>80-integracao.tex</string>
+		<string>90-anexos.tex</string>
+	</array>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{45, 0}, {601, 878}}</string>
+	<string>{{269, 17}, {951, 859}}</string>
 </dict>
 </plist>
