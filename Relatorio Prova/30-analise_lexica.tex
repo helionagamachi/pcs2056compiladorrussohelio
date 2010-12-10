@@ -3,21 +3,32 @@ Para a análise léxica, foram identificadas as palavras reservadas na linguagem a
 \begin{table}[htb!]
 	\label{table:label}
 	\centering
-	\begin{tabular}{p{1.1cm} p{1.1cm} p{1.1cm} p{1.1cm} p{1.1cm} p{1.1cm} p{1.1cm} p{1.1cm} p{1.1cm} p{1.1cm} }
-		\#		& - 	& + 		& * 	& / 	& $\wedge$		& \% 	& . 	& .. 	& ... \\
-		< 		& <= 	& >			& >= 	& == 	& $\sim$= 		& and 		& or 	&  \& 	& ; \\
-		: 		& [ 	& ] 		& = 	& \{ 	& \} 					& ( 		& ) 	& end 	& nil \\
-		false 	& true 	& return	& not 	& break & local 				& function	& for 	& in 	& do \\
-		if 		& then 	& elseif 	& else	& while & repeat				& until 	& 		&		&
+	\begin{tabular}{p{2cm} p{2cm} p{2cm} p{2cm} p{2cm} p{2cm}}
+		\#			& - 	& + 		& * 	& / 	& $\wedge$	\\
+					&		&			&		&		&			\\
+		< 			& <= 	& >			& >= 	& == 	& $\sim$=	\\
+					&		&			&		&		&			\\
+		: 			& [ 	& ] 		& = 	& \{ 	& \}		\\
+					&		&			&		&		&			\\
+		false 		& true 	& return	& not 	& break & local		\\
+					&		&			&		&		&			\\
+		if 			& then 	& elseif 	& else	& while & repeat	\\
+					&		&			&		&		&			\\
+		\% 			& . 	& .. 		& ... 	& and 	& or		\\
+					&		&			&		&		&			\\
+		\& 			& ; 	& ( 		& ) 	& end 	& nil 		\\
+					&		&			&		&		&			\\
+		function	& for 	& in		& do 	&until				\\
 	\end{tabular}
 \end{table}
 
-Considerando essas palavras reservadas, mas as possíveis sequências de palavras, foram criados autômatos para reconhecer e retornar os \emph{tokens}.
+Considerando essas palavras reservadas, mas as possíveis sequências de palavras, foram criados autômatos para reconhecer e retornar os \emph{tokens}. Seus tipos são apresentados no código \ref{code:codigos_TokenType}.
 
-A construção do léxico utilizou os códigos apresentados na figura \ref{fig:figuras_lexico}.
+\lstinputlisting[language=Java, tabsize = 4, caption={\emph{Tipos de tokens definidos: palavra reservada, identificador, número, final de arquivo e cadeia de palavras.}}, label = {code:codigos_TokenType}]{codigos/TokenType.java}
+
+
+A construção do léxico utilizou os códigos apresentados na figura \ref{fig:figuras_lexico} e sua classe principal -- que chama as funções dos outros códigos -- encontra-se no código \ref{code:anallex}.
 
 \inputpng{figuras/lexico}{figuras_lexico}{Códigos utilizados para construir o analisador léxico}{1.0}
 
-A classe principal do analisador léxico, que chama as funções dos outros códigos encontra-se no código \ref{code:anallex}.
-
-\lstinputlisting[language=Java, tabsize = 4, caption={Classe ``Analyzer.java'' que controla o processo de análise léxica.}, label = {code:anallex}]{codigos/Analyzerlex.java}
+\lstinputlisting[language=Java, tabsize = 4, caption={\emph{Classe ``Analyzer.java'' do pacote ``lex'', controla o processo de análise léxica.}}, label = {code:anallex}]{codigos/Analyzerlex.java}

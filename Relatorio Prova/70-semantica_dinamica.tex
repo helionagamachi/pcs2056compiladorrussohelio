@@ -1,1 +1,13 @@
-O objetivo deste projeto é modelar e construir um compilador que utilize uma linguagem de programação imperativa.
+Para a construção do analisador semântico, foram usados os códigos apresentados na figura \ref{fig:analissem}.
+
+\inputpng{figuras/semantica}{analissem}{Códigos utilizados para construir o analisador semântico}{1.0}
+
+Cada uma dessas classes apresentam-se nos códigos \ref{code:codigos_Semantic}, \ref{code:codigos_TokensList} e \ref{code:codigos_TokenStack}.
+
+\lstinputlisting[language=Java, tabsize = 4, caption={\emph{Classe ``Semantic.java'' do pacote ``semantic'', controla o processo de análise semântica.}}, label = {code:codigos_Semantic}]{codigos/Semantic.java}
+
+
+\lstinputlisting[language=Java, tabsize = 4, caption={\emph{Classe ``TokenList.java'' do pacote ``semantic''.}}, label = {code:codigos_TokensList}]{codigos/TokensList.java}
+
+
+\lstinputlisting[language=Java, tabsize = 4, caption={\emph{Classe ``TokenStack.java'' do pacote ``semantic''.}}, label = {code:codigos_TokenStack}]{codigos/TokenStack.java}
