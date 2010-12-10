@@ -3,20 +3,22 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>80-integracao.tex</string>
+	<string>relatorio.tex</string>
 	<key>documents</key>
 	<array>
 		<dict>
 			<key>filename</key>
 			<string>relatorio.tex</string>
 			<key>lastUsed</key>
-			<date>2010-12-09T07:32:41Z</date>
+			<date>2010-12-10T09:43:14Z</date>
+			<key>selected</key>
+			<true/>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>00-titulo.tex</string>
 			<key>lastUsed</key>
-			<date>2010-12-08T21:40:23Z</date>
+			<date>2010-12-10T09:19:13Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -28,135 +30,121 @@
 			<key>filename</key>
 			<string>20-linguagem.tex</string>
 			<key>lastUsed</key>
-			<date>2010-12-08T21:40:19Z</date>
+			<date>2010-12-10T09:36:05Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>30-analise_lexica.tex</string>
 			<key>lastUsed</key>
-			<date>2010-12-08T21:40:20Z</date>
+			<date>2010-12-10T09:36:26Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>40-analise_sintatica.tex</string>
 			<key>lastUsed</key>
-			<date>2010-12-08T21:40:22Z</date>
+			<date>2010-12-10T09:36:33Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>50-definicao_do_ambiente.tex</string>
 			<key>lastUsed</key>
-			<date>2010-12-09T07:36:25Z</date>
+			<date>2010-12-10T09:31:54Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>60-estrutura_de_dados.tex</string>
 			<key>lastUsed</key>
-			<date>2010-12-09T07:35:42Z</date>
+			<date>2010-12-10T09:19:16Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>70-semantica_dinamica.tex</string>
 			<key>lastUsed</key>
-			<date>2010-12-08T20:38:36Z</date>
+			<date>2010-12-10T09:43:14Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>80-integracao.tex</string>
 			<key>lastUsed</key>
-			<date>2010-12-09T07:36:25Z</date>
-			<key>selected</key>
-			<true/>
+			<date>2010-12-10T09:19:18Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>90-anexos.tex</string>
 			<key>lastUsed</key>
-			<date>2010-12-08T21:15:19Z</date>
+			<date>2010-12-10T09:19:19Z</date>
 		</dict>
 	</array>
 	<key>fileHierarchyDrawerWidth</key>
 	<integer>200</integer>
 	<key>metaData</key>
 	<dict>
-		<key>00-titulo.tex</key>
+		<key>20-linguagem.tex</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>48</integer>
+				<integer>65</integer>
 				<key>line</key>
-				<integer>4</integer>
+				<integer>5</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
-		<key>50-definicao_do_ambiente.tex</key>
+		<key>30-analise_lexica.tex</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>143</integer>
 				<key>line</key>
-				<integer>0</integer>
+				<integer>33</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
-		<key>60-estrutura_de_dados.tex</key>
+		<key>40-analise_sintatica.tex</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>16</integer>
 				<key>line</key>
-				<integer>0</integer>
+				<integer>16</integer>
 			</dict>
+			<key>columnSelection</key>
+			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>16</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>16</integer>
+				<key>line</key>
+				<integer>16</integer>
+			</dict>
 		</dict>
 		<key>70-semantica_dinamica.tex</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>141</integer>
 				<key>line</key>
-				<integer>0</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>80-integracao.tex</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>0</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>90-anexos.tex</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>0</integer>
+				<integer>4</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -168,29 +156,27 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>12</integer>
+				<integer>26</integer>
 				<key>line</key>
-				<integer>51</integer>
+				<integer>94</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>37</integer>
+			<integer>58</integer>
 		</dict>
 	</dict>
 	<key>openDocuments</key>
 	<array>
-		<string>relatorio.tex</string>
-		<string>00-titulo.tex</string>
-		<string>50-definicao_do_ambiente.tex</string>
-		<string>60-estrutura_de_dados.tex</string>
 		<string>70-semantica_dinamica.tex</string>
-		<string>80-integracao.tex</string>
-		<string>90-anexos.tex</string>
+		<string>relatorio.tex</string>
+		<string>40-analise_sintatica.tex</string>
+		<string>20-linguagem.tex</string>
+		<string>30-analise_lexica.tex</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{311, 34}, {1050, 844}}</string>
+	<string>{{298, 34}, {1142, 844}}</string>
 </dict>
 </plist>

@@ -1,19 +1,17 @@
-Como visto anteriormente, a gramática em notação de Wirth foi reduzida de forma a ficarmos com 3 automatos, um de ``comandos'', um de ``funções'' e o terceiro de ``expressões''.
+Como visto anteriormente, a gramática em notação de Wirth foi reduzida de forma a ficarmos com 3 autômatos: um de ``comandos'', um de ``funções'' e o terceiro de ``expressões''.
 
 Esta gramática foi transformada em autômatos finitos determinísticos mínimos com o uso da ferramenta desenvolvida por Fabio Sendoda Yamate e Hugo Baraúna\footnote{Encontra-se em http://radiant-fire-72.heroku.com/} que aplica o algoritmo de conversão e gera os APEs automaticamente.
 
-A tabela de transição dos autômatos encontra-se a seguir\footnote{Os APEs não são apresentados pois ficaram muito confusos de visualizar.}:
+As tabelas de transição dos autômatos encontram-se a seguir\footnote{Os APEs não são apresentados pois ficaram muito confusos de visualizar.}:
 
-\lstinputlisting[caption={Transições do Wirth de ``comandos''.}, label = {code:comando}] {codigos/comando}
+\lstinputlisting[caption={\emph{Transições do Wirth de ``comandos''.}}, label = {code:comando}] {codigos/comando}
 
-\lstinputlisting[caption={Transições do Wirth de ``funções''.}, label = {code:funcao}] {codigos/funcao}
+\lstinputlisting[caption={\emph{Transições do Wirth de ``funções''.}}, label = {code:funcao}] {codigos/funcao}
 
-\lstinputlisting[caption={Transições do Wirth de ``expressões''.}, label = {code:expressao}] {codigos/exp}
+\lstinputlisting[caption={\emph{Transições do Wirth de ``expressões''.}}, label = {code:expressao}] {codigos/exp}
 
-Para a contrução do analisador sintático, foram usados os códigos apresentados na figura \ref{fig:figuras_sintatico}.
+Para a construção do analisador sintático, foram usados os códigos apresentados na figura \ref{fig:figuras_sintatico} e sua classe principal -- que chama as funções dos outros códigos -- encontra-se no código \ref{code:analsint}.
 
 \inputpng{figuras/sintatico}{figuras_sintatico}{Códigos utilizados para construir o analisador sintático}{1.0}
 
-A classe principal do analisador sintático, que chama as funções dos outros códigos encontra-se no código \ref{code:analsint}.
-
-\lstinputlisting[language=Java, tabsize = 4, caption={Classe ``Analyzer.java'' que controla o processo de análise sintática.}, label = {code:analsint}]{codigos/Analyzersint.java}
+\lstinputlisting[language=Java, tabsize = 4, caption={\emph{Classe ``Analyzer.java'' do pacote ``syntax'', controla o processo de análise sintática.}}, label = {code:analsint}]{codigos/Analyzersint.java}
